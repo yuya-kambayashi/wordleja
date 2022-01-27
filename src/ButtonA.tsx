@@ -1,7 +1,22 @@
-import react from "react";
+import React, { useState } from "react";
 
-const ButtonA: React.FC = () => {
-  return <div>A</div>;
+type Props = {};
+
+const ButtonA: React.FC<Props> = () => {
+  const [show, setShow] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setShow(!show);
+  };
+
+  return (
+    <>
+      <div>
+        <button onClick={handleClick}>{"A"}</button>
+      </div>
+      {show && <div>clicked A</div>}
+    </>
+  );
 };
 
 export default ButtonA;
