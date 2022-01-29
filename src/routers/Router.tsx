@@ -1,8 +1,8 @@
 import React from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 
-import Main from "../pages/Main";
-import Home from "../pages/Home";
+import Main from "../pages/main/Main";
+import Home from "../pages/home/Home";
 
 const Router: React.FC = () => {
   return (
