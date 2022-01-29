@@ -2,14 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonA from "./ButtonA";
 
-const Keyboard: React.FC<Props> = () => {
+type Props = {
+  onSetInput: (input: string) => void;
+};
+
+const Keyboard: React.FC<Props> = ({ onSetInput }) => {
   const navigation = useNavigate();
 
   return (
     <>
       <div>{"Keyboard"}</div>
       <div>
-        <ButtonA />
+        <ButtonA onSetInput={onSetInput} />
       </div>
     </>
   );

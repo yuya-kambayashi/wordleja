@@ -6,11 +6,18 @@ import Keyboard from "./keyboard/Keyboard";
 type Props = {};
 
 const Main: React.FC<Props> = () => {
+  const [input, setInput] = useState<string>("");
+
+  const handleSetInput = (newInput: string) => {
+    setInput(newInput);
+  };
+
   return (
     <>
       <Header />
       <Answer />
-      <Keyboard />
+      {"input:" + input}
+      <Keyboard onSetInput={handleSetInput} />
     </>
   );
 };
