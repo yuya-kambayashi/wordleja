@@ -1,19 +1,21 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import ButtonA from "./ButtonA";
 
 type Props = {
   onSetInput: (input: string) => void;
 };
 
 const Keyboard: React.FC<Props> = ({ onSetInput }) => {
-  const navigation = useNavigate();
-
+  const handleClick = (letter: string) => {
+    onSetInput(letter);
+  };
   return (
     <>
       <div>{"Keyboard"}</div>
       <div>
-        <ButtonA onSetInput={onSetInput} />
+        <button onClick={() => handleClick("A")}>{"A"}</button>
+        <button onClick={() => handleClick("B")}>{"B"}</button>
+        <button onClick={() => handleClick("C")}>{"C"}</button>
+        <button onClick={() => handleClick("D")}>{"D"}</button>
       </div>
     </>
   );
