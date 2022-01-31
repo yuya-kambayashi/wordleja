@@ -1,12 +1,13 @@
 import React from "react";
 
 type Props = {
+  input: string;
   onSetInput: (input: string) => void;
 };
 
-const Keyboard: React.FC<Props> = ({ onSetInput }) => {
+const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
   const handleClick = (letter: string) => {
-    onSetInput(letter);
+    onSetInput(input + letter);
   };
   return (
     <>
