@@ -15,13 +15,27 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
   const [stateG, setStateG] = useState<"unused" | "used" | "match">("unused");
 
   const handleClickEnter = () => {
-    setStateA("used");
-    setStateB("used");
-    setStateC("used");
-    setStateD("used");
-    setStateE("used");
-    setStateF("match");
-    setStateG("used");
+    if (input.match("A")) {
+      setStateA("used");
+    }
+    if (input.match("B")) {
+      setStateB("used");
+    }
+    if (input.match("C")) {
+      setStateC("used");
+    }
+    if (input.match("D")) {
+      setStateD("used");
+    }
+    if (input.match("E")) {
+      setStateE("used");
+    }
+    if (input.match("F")) {
+      setStateF("used");
+    }
+    if (input.match("G")) {
+      setStateG("used");
+    }
   };
   const handleClickClear = () => {
     onSetInput("");
