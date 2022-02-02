@@ -1,9 +1,10 @@
 import React from "react";
+ImageBitmapRenderingContext;
 
 type Props = {
   input: string;
   onSetInput: (input: string) => void;
-  state: "match" | "used" | "unused";
+  state: "unused" | "used" | "match";
   letter: string;
 };
 

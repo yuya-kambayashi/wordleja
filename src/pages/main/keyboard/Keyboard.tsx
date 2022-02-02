@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import LetterButton from "./LetterButton";
 
 type Props = {
   input: string;
   onSetInput: (input: string) => void;
 };
-
 const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
+  const [stateE, setStateE] = useState<"unused" | "used" | "match">("unused");
+  const [stateF, setStateF] = useState<"unused" | "used" | "match">("unused");
+  const [stateG, setStateG] = useState<"unused" | "used" | "match">("unused");
+
   const handleClick = (letter: string) => {
     onSetInput(input + letter);
+    setStateE("used");
+    setStateF("match");
+    setStateG("used");
   };
   return (
     <>
@@ -21,19 +27,19 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
         <LetterButton
           input={input}
           onSetInput={onSetInput}
-          state={"match"}
+          state={stateE}
           letter="E"
         />
         <LetterButton
           input={input}
           onSetInput={onSetInput}
-          state={"used"}
+          state={stateF}
           letter="F"
         />
         <LetterButton
           input={input}
           onSetInput={onSetInput}
-          state={"unused"}
+          state={stateG}
           letter="G"
         />
       </div>
