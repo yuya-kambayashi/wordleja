@@ -6,14 +6,19 @@ type Props = {
   onSetInput: (input: string) => void;
 };
 const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
+  const [stateA, setStateA] = useState<"unused" | "used" | "match">("unused");
+  const [stateB, setStateB] = useState<"unused" | "used" | "match">("unused");
+  const [stateC, setStateC] = useState<"unused" | "used" | "match">("unused");
+  const [stateD, setStateD] = useState<"unused" | "used" | "match">("unused");
   const [stateE, setStateE] = useState<"unused" | "used" | "match">("unused");
   const [stateF, setStateF] = useState<"unused" | "used" | "match">("unused");
   const [stateG, setStateG] = useState<"unused" | "used" | "match">("unused");
 
-  const handleClick = (letter: string) => {
-    onSetInput(input + letter);
-  };
   const handleClickEnter = () => {
+    setStateA("used");
+    setStateB("used");
+    setStateC("used");
+    setStateD("used");
     setStateE("used");
     setStateF("match");
     setStateG("used");
@@ -22,10 +27,30 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
     <>
       <div>{"Keyboard"}</div>
       <div>
-        <button onClick={() => handleClick("A")}>{"A"}</button>
-        <button onClick={() => handleClick("B")}>{"B"}</button>
-        <button onClick={() => handleClick("C")}>{"C"}</button>
-        <button onClick={() => handleClick("D")}>{"D"}</button>
+        <LetterButton
+          input={input}
+          onSetInput={onSetInput}
+          state={stateA}
+          letter="A"
+        />
+        <LetterButton
+          input={input}
+          onSetInput={onSetInput}
+          state={stateB}
+          letter="B"
+        />
+        <LetterButton
+          input={input}
+          onSetInput={onSetInput}
+          state={stateC}
+          letter="C"
+        />
+        <LetterButton
+          input={input}
+          onSetInput={onSetInput}
+          state={stateD}
+          letter="D"
+        />
         <LetterButton
           input={input}
           onSetInput={onSetInput}
