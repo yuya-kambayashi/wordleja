@@ -23,6 +23,9 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
     setStateF("match");
     setStateG("used");
   };
+  const handleClickClear = () => {
+    onSetInput("");
+  };
   return (
     <>
       <div>{"Keyboard"}</div>
@@ -70,6 +73,7 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
           letter="G"
         />
         <button onClick={() => handleClickEnter()}>{"ENTER"}</button>
+        <button onClick={() => handleClickClear()}>{"CLEAR"}</button>
       </div>
     </>
   );
