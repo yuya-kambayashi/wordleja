@@ -1,4 +1,5 @@
 import React from "react";
+import LetterButton from "./LetterButton";
 
 type Props = {
   input: string;
@@ -17,6 +18,15 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
         <button onClick={() => handleClick("B")}>{"B"}</button>
         <button onClick={() => handleClick("C")}>{"C"}</button>
         <button onClick={() => handleClick("D")}>{"D"}</button>
+        <LetterButton input={input} onSetInput={onSetInput} state={"match"}>
+          {"E"}
+        </LetterButton>
+        <LetterButton input={input} onSetInput={onSetInput} state={"used"}>
+          {"F"}
+        </LetterButton>
+        <LetterButton input={input} onSetInput={onSetInput} state={"unused"}>
+          {"G"}
+        </LetterButton>
       </div>
     </>
   );
