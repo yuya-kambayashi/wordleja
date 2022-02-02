@@ -12,6 +12,8 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
 
   const handleClick = (letter: string) => {
     onSetInput(input + letter);
+  };
+  const handleClickEnter = () => {
     setStateE("used");
     setStateF("match");
     setStateG("used");
@@ -42,6 +44,7 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
           state={stateG}
           letter="G"
         />
+        <button onClick={() => handleClickEnter()}>{"ENTER"}</button>
       </div>
     </>
   );
