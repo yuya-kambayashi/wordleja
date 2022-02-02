@@ -72,7 +72,12 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
           state={stateG}
           letter="G"
         />
-        <button onClick={() => handleClickEnter()}>{"ENTER"}</button>
+        <button
+          onClick={() => handleClickEnter()}
+          disabled={input.length !== 5}
+        >
+          {"ENTER"}
+        </button>
         <button onClick={() => handleClickClear()}>{"CLEAR"}</button>
       </div>
     </>

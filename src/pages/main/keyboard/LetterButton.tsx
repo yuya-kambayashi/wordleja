@@ -1,5 +1,4 @@
 import React from "react";
-ImageBitmapRenderingContext;
 
 type Props = {
   input: string;
@@ -24,6 +23,7 @@ const LetterButtib: React.FC<Props> = ({
           <button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#6AAA64" }}
+            disabled={input.length > 4}
           >
             {letter}
           </button>
@@ -32,6 +32,7 @@ const LetterButtib: React.FC<Props> = ({
           <button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#787C7E" }}
+            disabled={input.length > 4}
           >
             {letter}
           </button>
@@ -40,6 +41,7 @@ const LetterButtib: React.FC<Props> = ({
           <button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#D3D6DA" }}
+            disabled={input.length > 4}
           >
             {letter}
           </button>
