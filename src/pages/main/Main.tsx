@@ -15,8 +15,7 @@ const Main: React.FC<Props> = () => {
   return (
     <>
       <Header />
-      <Answer />
-      {"input:" + input}
+      <Answer answer={input} />
       <Keyboard input={input} onSetInput={handleSetInput} />
     </>
   );

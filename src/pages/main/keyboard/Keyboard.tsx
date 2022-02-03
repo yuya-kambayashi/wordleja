@@ -51,7 +51,7 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
   };
   return (
     <>
-      <div>{"Keyboard"}</div>
+      <div>{"Keyboard:"}</div>
       <div>
         <LetterButton
           input={input}
