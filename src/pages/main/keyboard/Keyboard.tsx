@@ -9,10 +9,10 @@ const LetterState = {
 export type LetterStateType = typeof LetterState[keyof typeof LetterState];
 
 type Props = {
-  input: string;
-  onSetInput: (input: string) => void;
+  answer: string;
+  onSetAnswer: (answer: string) => void;
 };
-const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
+const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
   const initalLetterState = Array(26).fill("unused");
 
   const [letterStates, setLetterStates] = useState<LetterStateType[]>(
@@ -25,15 +25,15 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
   };
 
   const handleClickEnter = () => {
-    const answer = "ABCDE";
+    const collercAnswer = "ABCDE";
 
     let checkedLetterState = letterStates.slice();
 
-    for (let i = 0; i < answer.length; i++) {
+    for (let i = 0; i < letterStates.length; i++) {
+      const colletAnswerLetter = collercAnswer.substr(i, 1);
       const answerLetter = answer.substr(i, 1);
-      const inputLetter = input.substr(i, 1);
 
-      if (answerLetter === inputLetter) {
+      if (colletAnswerLetter === answerLetter) {
         checkedLetterState = checkedLetterState.map((state, index) =>
           index === convertToIndex(answerLetter) ? "match" : state
         );
@@ -42,50 +42,49 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
           index === convertToIndex(answerLetter) ? "used" : state
         );
       }
-
-      setLetterStates(checkedLetterState);
     }
+    setLetterStates(checkedLetterState);
   };
   const handleClickClear = () => {
-    onSetInput(input.slice(0, -1));
+    onSetAnswer(answer.slice(0, -1));
   };
   return (
     <>
       <div>{"Keyboard:"}</div>
       <div>
         <LetterButton
-          input={input}
-          onSetInput={onSetInput}
+          answer={answer}
+          onSetAnswer={onSetAnswer}
           state={letterStates[convertToIndex("A")]}
           letter="A"
         />
         <LetterButton
-          input={input}
-          onSetInput={onSetInput}
+          answer={answer}
+          onSetAnswer={onSetAnswer}
           state={letterStates[convertToIndex("B")]}
           letter="B"
         />
         <LetterButton
-          input={input}
-          onSetInput={onSetInput}
+          answer={answer}
+          onSetAnswer={onSetAnswer}
           state={letterStates[convertToIndex("C")]}
           letter="C"
         />
         <LetterButton
-          input={input}
-          onSetInput={onSetInput}
+          answer={answer}
+          onSetAnswer={onSetAnswer}
           state={letterStates[convertToIndex("D")]}
           letter="D"
         />
         <LetterButton
-          input={input}
-          onSetInput={onSetInput}
+          answer={answer}
+          onSetAnswer={onSetAnswer}
           state={letterStates[convertToIndex("E")]}
           letter="E"
         />
         <button
           onClick={() => handleClickEnter()}
-          disabled={input.length !== 5}
+          disabled={answer.length !== 5}
         >
           {"ENTER"}
         </button>

@@ -2,20 +2,20 @@ import React from "react";
 import { LetterStateType } from "./Keyboard";
 
 type Props = {
-  input: string;
-  onSetInput: (input: string) => void;
+  answer: string;
+  onSetAnswer: (answer: string) => void;
   state: LetterStateType;
   letter: string;
 };
 
 const LetterButtib: React.FC<Props> = ({
-  input,
-  onSetInput,
+  answer,
+  onSetAnswer,
   state,
   letter
 }) => {
   const handleClick = (letter: string) => {
-    onSetInput(input + letter);
+    onSetAnswer(answer + letter);
   };
   return (
     <>
@@ -24,7 +24,7 @@ const LetterButtib: React.FC<Props> = ({
           <button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#6AAA64" }}
-            disabled={input.length > 4}
+            disabled={answer.length > 4}
           >
             {letter}
           </button>
@@ -33,7 +33,7 @@ const LetterButtib: React.FC<Props> = ({
           <button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#787C7E" }}
-            disabled={input.length > 4}
+            disabled={answer.length > 4}
           >
             {letter}
           </button>
@@ -42,7 +42,7 @@ const LetterButtib: React.FC<Props> = ({
           <button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#D3D6DA" }}
-            disabled={input.length > 4}
+            disabled={answer.length > 4}
           >
             {letter}
           </button>
