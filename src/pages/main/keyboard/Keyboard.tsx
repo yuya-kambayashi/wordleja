@@ -4,7 +4,8 @@ import LetterButton from "./LetterButton";
 const LetterStateType = {
   unused: "unused",
   used: "used",
-  matach: "match"
+  partialMatch: "partialMatch",
+  exactMatch: "exactMatch"
 } as const;
 export type LetterState = typeof LetterStateType[keyof typeof LetterStateType];
 
@@ -28,41 +29,27 @@ const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
     const collectAnswer = "ABCDD";
     let checkedLetterState = letterStates.slice();
 
-    // 正解判定
-    for (let i = 0; i < collectAnswer.length; i++) {
-      console.log(i + " start " + checkedLetterState);
-
-      const colletAnswerLetter = collectAnswer.substr(i, 1);
-      const answerLetter = answer.substr(i, 1);
-
-      // 完全一致判定
-      if (colletAnswerLetter === answerLetter) {
-        checkedLetterState = checkedLetterState.map((state, index) =>
-          index === convertToIndex(answerLetter) ? "match" : state
-        );
-      }
-
-      // 部分一致判定
-
-      console.log(i + " end " + checkedLetterState);
-    }
-
-    // 不正解文字の状態変更
+    // 正誤判定
     for (let i = 0; i < answer.length; i++) {
       const answeLetter = answer.substr(i, 1);
 
-      console.log(i + " " + answeLetter + " " + convertToIndex(answeLetter));
-
-      if (checkedLetterState[convertToIndex(answeLetter)] !== "unused") {
-        console.log("!unused");
-
+      if (checkedLetterState[convertToIndex(answeLetter)] === "exactMatch") {
         continue;
       }
 
-      checkedLetterState[convertToIndex(answeLetter)] = "used";
+      // 完全一致
+      if (collectAnswer.substr(i, 1) === answeLetter) {
+        checkedLetterState[convertToIndex(answeLetter)] = "exactMatch";
+      }
+      // 部分一致
+      else if (collectAnswer.match(answeLetter)) {
+        checkedLetterState[convertToIndex(answeLetter)] = "partialMatch";
+      }
+      // 不一致（使用済み）
+      else {
+        checkedLetterState[convertToIndex(answeLetter)] = "used";
+      }
     }
-
-    console.log("checkedLetterState last " + checkedLetterState);
 
     setLetterStates(checkedLetterState);
   };

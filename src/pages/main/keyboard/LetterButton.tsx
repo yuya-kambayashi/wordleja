@@ -20,10 +20,19 @@ const LetterButtib: React.FC<Props> = ({
   return (
     <>
       <div>
-        {state === "match" && (
+        {state === "exactMatch" && (
           <button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#6AAA64" }}
+            disabled={answer.length > 4}
+          >
+            {letter}
+          </button>
+        )}
+        {state === "partialMatch" && (
+          <button
+            onClick={() => handleClick(letter)}
+            style={{ backgroundColor: "#C9B458" }}
             disabled={answer.length > 4}
           >
             {letter}
