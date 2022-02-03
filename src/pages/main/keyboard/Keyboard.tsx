@@ -1,72 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LetterButton from "./LetterButton";
 
 const LetterState = {
   unused: "unused",
-  user: "used",
+  used: "used",
   matach: "match"
 } as const;
-export type LetterState = typeof LetterState[keyof typeof LetterState];
+export type LetterStateType = typeof LetterState[keyof typeof LetterState];
 
 type Props = {
   input: string;
   onSetInput: (input: string) => void;
 };
 const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
-  const [stateA, setStateA] = useState<LetterState>("unused");
-  const [stateB, setStateB] = useState<LetterState>("unused");
-  const [stateC, setStateC] = useState<LetterState>("unused");
-  const [stateD, setStateD] = useState<LetterState>("unused");
-  const [stateE, setStateE] = useState<LetterState>("unused");
+  const initalLetterState = Array(26).fill("unused");
+
+  const [letterStates, setLetterStates] = useState<LetterStateType[]>(
+    initalLetterState
+  );
+
+  const convertToIndex = (letter: string) => {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return alphabet.indexOf(letter);
+  };
 
   const handleClickEnter = () => {
     const answer = "ABCDE";
 
-    const answer1 = answer.substr(0, 1);
-    console.log("answer1" + answer1);
-    const input1 = input.substr(0, 1);
-    console.log("input1" + input1);
+    let checkedLetterState = letterStates.slice();
 
-    if (answer1 === input1) {
-      switch (answer1) {
-        case "A":
-          setStateA("match");
-          break;
-        case "B":
-          setStateB("match");
-          break;
-        case "C":
-          setStateC("match");
-          break;
-        case "D":
-          setStateD("match");
-          break;
-        case "E":
-          setStateE("match");
-          break;
-        default:
-          break;
+    for (let i = 0; i < answer.length; i++) {
+      const answerLetter = answer.substr(i, 1);
+      const inputLetter = input.substr(i, 1);
+
+      if (answerLetter === inputLetter) {
+        checkedLetterState = checkedLetterState.map((state, index) =>
+          index === convertToIndex(answerLetter) ? "match" : state
+        );
+      } else {
+        checkedLetterState = checkedLetterState.map((state, index) =>
+          index === convertToIndex(answerLetter) ? "used" : state
+        );
       }
-    } else {
-      switch (answer1) {
-        case "A":
-          setStateA("used");
-          break;
-        case "B":
-          setStateB("used");
-          break;
-        case "C":
-          setStateC("used");
-          break;
-        case "D":
-          setStateD("used");
-          break;
-        case "E":
-          setStateE("used");
-          break;
-        default:
-          break;
-      }
+
+      setLetterStates(checkedLetterState);
     }
   };
   const handleClickClear = () => {
@@ -79,31 +56,31 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
         <LetterButton
           input={input}
           onSetInput={onSetInput}
-          state={stateA}
+          state={letterStates[convertToIndex("A")]}
           letter="A"
         />
         <LetterButton
           input={input}
           onSetInput={onSetInput}
-          state={stateB}
+          state={letterStates[convertToIndex("B")]}
           letter="B"
         />
         <LetterButton
           input={input}
           onSetInput={onSetInput}
-          state={stateC}
+          state={letterStates[convertToIndex("C")]}
           letter="C"
         />
         <LetterButton
           input={input}
           onSetInput={onSetInput}
-          state={stateD}
+          state={letterStates[convertToIndex("D")]}
           letter="D"
         />
         <LetterButton
           input={input}
           onSetInput={onSetInput}
-          state={stateE}
+          state={letterStates[convertToIndex("E")]}
           letter="E"
         />
         <button
@@ -114,6 +91,8 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
         </button>
         <button onClick={() => handleClickClear()}>{"CLEAR"}</button>
       </div>
+      {letterStates.length}
+      {letterStates[0]}
     </>
   );
 };
