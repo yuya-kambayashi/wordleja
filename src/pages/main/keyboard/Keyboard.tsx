@@ -11,30 +11,55 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
   const [stateC, setStateC] = useState<"unused" | "used" | "match">("unused");
   const [stateD, setStateD] = useState<"unused" | "used" | "match">("unused");
   const [stateE, setStateE] = useState<"unused" | "used" | "match">("unused");
-  const [stateF, setStateF] = useState<"unused" | "used" | "match">("unused");
-  const [stateG, setStateG] = useState<"unused" | "used" | "match">("unused");
 
   const handleClickEnter = () => {
-    if (input.match("A")) {
-      setStateA("used");
-    }
-    if (input.match("B")) {
-      setStateB("used");
-    }
-    if (input.match("C")) {
-      setStateC("used");
-    }
-    if (input.match("D")) {
-      setStateD("used");
-    }
-    if (input.match("E")) {
-      setStateE("used");
-    }
-    if (input.match("F")) {
-      setStateF("used");
-    }
-    if (input.match("G")) {
-      setStateG("used");
+    const answer = "ABCDE";
+
+    const answer1 = answer.substr(0, 1);
+    console.log("answer1" + answer1);
+    const input1 = input.substr(0, 1);
+    console.log("input1" + input1);
+
+    if (answer1 === input1) {
+      switch (answer1) {
+        case "A":
+          setStateA("match");
+          break;
+        case "B":
+          setStateB("match");
+          break;
+        case "C":
+          setStateC("match");
+          break;
+        case "D":
+          setStateD("match");
+          break;
+        case "E":
+          setStateE("match");
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (answer1) {
+        case "A":
+          setStateA("used");
+          break;
+        case "B":
+          setStateB("used");
+          break;
+        case "C":
+          setStateC("used");
+          break;
+        case "D":
+          setStateD("used");
+          break;
+        case "E":
+          setStateE("used");
+          break;
+        default:
+          break;
+      }
     }
   };
   const handleClickClear = () => {
@@ -73,18 +98,6 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
           onSetInput={onSetInput}
           state={stateE}
           letter="E"
-        />
-        <LetterButton
-          input={input}
-          onSetInput={onSetInput}
-          state={stateF}
-          letter="F"
-        />
-        <LetterButton
-          input={input}
-          onSetInput={onSetInput}
-          state={stateG}
-          letter="G"
         />
         <button
           onClick={() => handleClickEnter()}
