@@ -47,7 +47,7 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
     }
   };
   const handleClickClear = () => {
-    onSetInput("");
+    onSetInput(input.slice(0, -1));
   };
   return (
     <>
