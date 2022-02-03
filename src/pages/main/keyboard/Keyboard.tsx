@@ -91,8 +91,6 @@ const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
         </button>
         <button onClick={() => handleClickClear()}>{"CLEAR"}</button>
       </div>
-      {letterStates.length}
-      {letterStates[0]}
     </>
   );
 };
