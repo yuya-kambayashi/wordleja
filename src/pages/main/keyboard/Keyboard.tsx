@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import LetterButton from "./LetterButton";
 
+const LetterState = {
+  unused: "unused",
+  user: "used",
+  matach: "match"
+} as const;
+export type LetterState = typeof LetterState[keyof typeof LetterState];
+
 type Props = {
   input: string;
   onSetInput: (input: string) => void;
 };
 const Keyboard: React.FC<Props> = ({ input, onSetInput }) => {
-  const [stateA, setStateA] = useState<"unused" | "used" | "match">("unused");
-  const [stateB, setStateB] = useState<"unused" | "used" | "match">("unused");
-  const [stateC, setStateC] = useState<"unused" | "used" | "match">("unused");
-  const [stateD, setStateD] = useState<"unused" | "used" | "match">("unused");
-  const [stateE, setStateE] = useState<"unused" | "used" | "match">("unused");
+  const [stateA, setStateA] = useState<LetterState>("unused");
+  const [stateB, setStateB] = useState<LetterState>("unused");
+  const [stateC, setStateC] = useState<LetterState>("unused");
+  const [stateD, setStateD] = useState<LetterState>("unused");
+  const [stateE, setStateE] = useState<LetterState>("unused");
 
   const handleClickEnter = () => {
     const answer = "ABCDE";

@@ -1,9 +1,10 @@
 import React from "react";
+import { LetterState } from "./Keyboard";
 
 type Props = {
   input: string;
   onSetInput: (input: string) => void;
-  state: "unused" | "used" | "match";
+  state: LetterState;
   letter: string;
 };
 
