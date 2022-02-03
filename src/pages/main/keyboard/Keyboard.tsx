@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LetterButton from "./LetterButton";
-
-const LetterStateType = {
-  unused: "unused",
-  used: "used",
-  partialMatch: "partialMatch",
-  exactMatch: "exactMatch"
-} as const;
-export type LetterState = typeof LetterStateType[keyof typeof LetterStateType];
+import { LetterState } from "./LetterState";
 
 type Props = {
   answer: string;

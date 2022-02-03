@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LetterState } from "./Keyboard";
+import { LetterState } from "./LetterState";
 
 type Props = {
   answer: string;
