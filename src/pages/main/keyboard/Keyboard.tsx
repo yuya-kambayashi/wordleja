@@ -61,7 +61,24 @@ const Keyboard: React.FC<Props> = ({
     // 回答の正誤判定
     //
     let checkedAnswerAnswerLetterStates = answerLetterStates.slice();
-    checkedAnswerAnswerLetterStates[0] = "unmatch";
+
+    for (let i = 0; i < answer.length; i++) {
+      const answeLetter = answer.substr(i, 1);
+
+      // 完全一致
+      if (collectAnswer.substr(i, 1) === answeLetter) {
+        checkedAnswerAnswerLetterStates[i] = "exactMatch";
+      }
+      // 部分一致
+      else if (collectAnswer.match(answeLetter)) {
+        checkedAnswerAnswerLetterStates[i] = "partialMatch";
+      }
+      // 不一致（使用済み）
+      else {
+        checkedAnswerAnswerLetterStates[i] = "unmatch";
+      }
+    }
+
     onSetAnswerLetterStates(checkedAnswerAnswerLetterStates);
 
     console.log(checkedAnswerAnswerLetterStates);
