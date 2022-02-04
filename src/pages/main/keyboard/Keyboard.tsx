@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LetterButton from "./LetterButton";
-import { LetterState } from "./LetterState";
+import { KeyLetterState } from "./KeyLetterState";
 
 type Props = {
   answer: string;
@@ -14,10 +14,10 @@ const Keyboard: React.FC<Props> = ({
   answerLetterStates,
   onSetAnswerLetterStates
 }) => {
-  const initalLetterState = Array(26).fill("unused");
+  const initalKeyLetterState = Array(26).fill("unused");
 
-  const [letterStates, setLetterStates] = useState<LetterState[]>(
-    initalLetterState
+  const [keyLetterStates, setKeyLetterStates] = useState<KeyLetterState[]>(
+    initalKeyLetterState
   );
 
   const convertToIndex = (letter: string) => {
@@ -31,31 +31,32 @@ const Keyboard: React.FC<Props> = ({
     //
     // キーボードの正誤判定
     //
-    let checkedLetterState = letterStates.slice();
+    let checkedKeyLetterState = keyLetterStates.slice();
+    console.log(checkedKeyLetterState);
 
     // 正誤判定
     for (let i = 0; i < answer.length; i++) {
       const answeLetter = answer.substr(i, 1);
 
-      if (checkedLetterState[convertToIndex(answeLetter)] === "exactMatch") {
+      if (checkedKeyLetterState[convertToIndex(answeLetter)] === "exactMatch") {
         continue;
       }
 
       // 完全一致
       if (collectAnswer.substr(i, 1) === answeLetter) {
-        checkedLetterState[convertToIndex(answeLetter)] = "exactMatch";
+        checkedKeyLetterState[convertToIndex(answeLetter)] = "exactMatch";
       }
       // 部分一致
       else if (collectAnswer.match(answeLetter)) {
-        checkedLetterState[convertToIndex(answeLetter)] = "partialMatch";
+        checkedKeyLetterState[convertToIndex(answeLetter)] = "partialMatch";
       }
       // 不一致（使用済み）
       else {
-        checkedLetterState[convertToIndex(answeLetter)] = "used";
+        checkedKeyLetterState[convertToIndex(answeLetter)] = "used";
       }
     }
 
-    setLetterStates(checkedLetterState);
+    setKeyLetterStates(checkedKeyLetterState);
 
     //
     // 回答の正誤判定
@@ -80,8 +81,6 @@ const Keyboard: React.FC<Props> = ({
     }
 
     onSetAnswerLetterStates(checkedAnswerAnswerLetterStates);
-
-    console.log(checkedAnswerAnswerLetterStates);
   };
   const handleClickClear = () => {
     onSetAnswer(answer.slice(0, -1));
@@ -93,31 +92,31 @@ const Keyboard: React.FC<Props> = ({
         <LetterButton
           answer={answer}
           onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("A")]}
+          state={keyLetterStates[convertToIndex("A")]}
           letter="A"
         />
         <LetterButton
           answer={answer}
           onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("B")]}
+          state={keyLetterStates[convertToIndex("B")]}
           letter="B"
         />
         <LetterButton
           answer={answer}
           onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("C")]}
+          state={keyLetterStates[convertToIndex("C")]}
           letter="C"
         />
         <LetterButton
           answer={answer}
           onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("D")]}
+          state={keyLetterStates[convertToIndex("D")]}
           letter="D"
         />
         <LetterButton
           answer={answer}
           onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("E")]}
+          state={keyLetterStates[convertToIndex("E")]}
           letter="E"
         />
         <div>{answer}</div>
