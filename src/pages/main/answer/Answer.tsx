@@ -3,6 +3,7 @@ import AnswerLetter from "./AnswerLetter";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Stack } from "@mui/material";
 import clsx from "clsx";
+import AnswerLetterState from "./AnswerLetterState";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,26 +14,36 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 type Props = {
   answer: string;
+  answerLetterStates: AnswerLetterState[];
 };
 
-const Answer: React.FC<Props> = ({ answer }) => {
+const Answer: React.FC<Props> = ({ answer, answerLetterStates }) => {
   const classes = useStyles();
 
   return (
     <>
       <div></div>
       <Stack direction="row" spacing={1} className={classes.answer}>
-        <AnswerLetter answerLetter={answer.substring(0, 1)} state={"uncheck"} />
-        <AnswerLetter answerLetter={answer.substring(1, 2)} state={"unmatch"} />
+        <AnswerLetter
+          answerLetter={answer.substring(0, 1)}
+          state={answerLetterStates[0]}
+        />
+        <AnswerLetter
+          answerLetter={answer.substring(1, 2)}
+          state={answerLetterStates[1]}
+        />
         <AnswerLetter
           answerLetter={answer.substring(2, 3)}
-          state={"partialMatch"}
+          state={answerLetterStates[2]}
         />
         <AnswerLetter
           answerLetter={answer.substring(3, 4)}
-          state={"exactMatch"}
+          state={answerLetterStates[3]}
         />
-        <AnswerLetter answerLetter={answer.substring(4, 5)} state={"uncheck"} />
+        <AnswerLetter
+          answerLetter={answer.substring(4, 5)}
+          state={answerLetterStates[4]}
+        />
       </Stack>
     </>
   );
