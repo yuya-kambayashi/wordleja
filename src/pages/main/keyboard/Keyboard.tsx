@@ -5,20 +5,9 @@ import { LetterState } from "./LetterState";
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
-  targetAnswerIndex: number;
-  onSetTargetAnswerIndex: () => void;
 };
-const Keyboard: React.FC<Props> = ({
-  answer,
-  onSetAnswer,
-  targetAnswerIndex,
-  onSetTargetAnswerIndex
-}) => {
+const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
   const initalLetterState = Array(26).fill("unused");
-
-  // useEffect(() => {
-  //   answer = answers[targetAnswerIndex];
-  // }, targetAnswerIndex);
 
   const [letterStates, setLetterStates] = useState<LetterState[]>(
     initalLetterState
@@ -56,12 +45,6 @@ const Keyboard: React.FC<Props> = ({
     }
 
     setLetterStates(checkedLetterState);
-
-    console.log(answer);
-
-    console.log(answer);
-
-    onSetTargetAnswerIndex();
   };
   const handleClickClear = () => {
     onSetAnswer(answer.slice(0, -1));

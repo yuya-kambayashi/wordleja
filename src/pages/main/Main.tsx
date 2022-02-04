@@ -12,23 +12,11 @@ const Main: React.FC<Props> = () => {
     setAnswer(newAnswer);
   };
 
-  const [targetAnswerIndex, setTargetAnswerIndex] = useState<number>(0);
-  const handleSetTargetAnswerIndex = () => {
-    setTargetAnswerIndex(targetAnswerIndex + 1);
-  };
-
   return (
     <>
       <Header />
       <Answers answers={answer} />
-      <Keyboard
-        answer={answer}
-        onSetAnswer={handleSetAnswer}
-        targetAnswerIndex={targetAnswerIndex}
-        onSetTargetAnswerIndex={handleSetTargetAnswerIndex}
-      />
-      <div>{targetAnswerIndex}</div>
-      <div>{answer}</div>
+      <Keyboard answer={answer} onSetAnswer={handleSetAnswer} />
     </>
   );
 };
