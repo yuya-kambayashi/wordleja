@@ -2,14 +2,13 @@ import React from "react";
 
 type Props = {
   answerLetter: string;
+  className: string;
 };
 
-const AnswerLetter: React.FC<Props> = ({ answerLetter }) => {
+const AnswerLetter: React.FC<Props> = ({ answerLetter, className }) => {
   return (
     <>
-      <div>
-        <p style={{ color: "red" }}>{answerLetter}</p>
-      </div>
+      <p className={className}>{answerLetter}</p>
     </>
   );
 };
