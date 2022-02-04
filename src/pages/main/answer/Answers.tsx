@@ -24,6 +24,9 @@ type Props = {
 const Answers: React.FC<Props> = ({ answers, answerLetterStates }) => {
   const classes = useStyles();
 
+  // console.log(answers);
+  // console.log(answerLetterStates);
+
   return (
     <>
       <Stack spacing={-1.5} className={classes.answers}>

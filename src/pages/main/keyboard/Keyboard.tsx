@@ -25,18 +25,26 @@ const Keyboard: React.FC<Props> = ({
     return alphabet.indexOf(letter);
   };
 
+  const [answerRow, SetAnswerRow] = useState<number>(0);
+
   const handleClickEnter = () => {
     const collectAnswer = "ABCDD";
+
+    const targetAnswer = answer.substring(5 * answerRow, 5 + 5 * answerRow);
 
     //
     // キーボードの正誤判定
     //
     let checkedKeyLetterState = keyLetterStates.slice();
-    console.log(checkedKeyLetterState);
+    // console.log("checkedKeyLetterState start");
+    // console.log(checkedKeyLetterState);
+    // console.log(answer);
+    // console.log(targetAnswer);
+    // console.log(answerRow);
 
     // 正誤判定
-    for (let i = 0; i < answer.length; i++) {
-      const answeLetter = answer.substr(i, 1);
+    for (let i = 0; i < targetAnswer.length; i++) {
+      const answeLetter = targetAnswer.substr(i, 1);
 
       if (checkedKeyLetterState[convertToIndex(answeLetter)] === "exactMatch") {
         continue;
@@ -56,6 +64,9 @@ const Keyboard: React.FC<Props> = ({
       }
     }
 
+    //console.log("checkedKeyLetterState end");
+    //console.log(checkedKeyLetterState);
+
     setKeyLetterStates(checkedKeyLetterState);
 
     //
@@ -63,24 +74,26 @@ const Keyboard: React.FC<Props> = ({
     //
     let checkedAnswerAnswerLetterStates = answerLetterStates.slice();
 
-    for (let i = 0; i < answer.length; i++) {
-      const answeLetter = answer.substr(i, 1);
+    for (let i = 0; i < targetAnswer.length; i++) {
+      const answeLetter = targetAnswer.substr(i, 1);
 
       // 完全一致
       if (collectAnswer.substr(i, 1) === answeLetter) {
-        checkedAnswerAnswerLetterStates[i] = "exactMatch";
+        checkedAnswerAnswerLetterStates[i + 5 * answerRow] = "exactMatch";
       }
       // 部分一致
       else if (collectAnswer.match(answeLetter)) {
-        checkedAnswerAnswerLetterStates[i] = "partialMatch";
+        checkedAnswerAnswerLetterStates[i + 5 * answerRow] = "partialMatch";
       }
       // 不一致（使用済み）
       else {
-        checkedAnswerAnswerLetterStates[i] = "unmatch";
+        checkedAnswerAnswerLetterStates[i + 5 * answerRow] = "unmatch";
       }
     }
 
     onSetAnswerLetterStates(checkedAnswerAnswerLetterStates);
+
+    SetAnswerRow(answerRow + 1);
   };
   const handleClickClear = () => {
     onSetAnswer(answer.slice(0, -1));

@@ -20,9 +20,11 @@ type Props = {
 const Answer: React.FC<Props> = ({ answer, answerLetterStates }) => {
   const classes = useStyles();
 
+  // console.log(answer);
+  // console.log(answerLetterStates);
+
   return (
     <>
-      <div></div>
       <Stack direction="row" spacing={1} className={classes.answer}>
         <AnswerLetter
           answerLetter={answer.substring(0, 1)}
