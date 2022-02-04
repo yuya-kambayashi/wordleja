@@ -20,7 +20,7 @@ const Main: React.FC<Props> = () => {
   return (
     <>
       <Header />
-      <Answers answer={answer} />
+      <Answers answers={answer} />
       <Keyboard
         answer={answer}
         onSetAnswer={handleSetAnswer}
