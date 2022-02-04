@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from "react";
 import LetterButton from "./LetterButton";
 import { KeyLetterState } from "./KeyLetterState";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { Stack } from "@mui/material";
+import clsx from "clsx";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    Keyboard: {
+      position: "absolute",
+      top: "90%",
+      left: "50%",
+      transform: "translate(-50%, -50%)"
+      //alignItems: "flex-start"
+    }
+  })
+);
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
@@ -14,6 +28,8 @@ const Keyboard: React.FC<Props> = ({
   answerLetterStates,
   onSetAnswerLetterStates
 }) => {
+  const classes = useStyles();
+
   const initalKeyLetterState = Array(26).fill("unused");
 
   const [keyLetterStates, setKeyLetterStates] = useState<KeyLetterState[]>(
@@ -106,49 +122,180 @@ const Keyboard: React.FC<Props> = ({
   const handleClickClear = () => {
     onSetAnswer(answer.slice(0, -1));
   };
+
   return (
     <>
-      <div>{"Keyboard:"}</div>
-      <div>
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={keyLetterStates[convertToIndex("A")]}
-          letter="A"
-        />
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={keyLetterStates[convertToIndex("B")]}
-          letter="B"
-        />
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={keyLetterStates[convertToIndex("C")]}
-          letter="C"
-        />
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={keyLetterStates[convertToIndex("D")]}
-          letter="D"
-        />
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={keyLetterStates[convertToIndex("E")]}
-          letter="E"
-        />
-        <div>{answer}</div>
-        <button
-          onClick={() => handleClickEnter()}
-          // disabled={answer.length !== 5}
-        >
-          {"ENTER"}
-        </button>
-        <button onClick={() => handleClickClear()}>{"CLEAR"}</button>
-      </div>
+      <Stack direction="column" spacing={3}>
+        <Stack direction="row" spacing={1} className={classes.Keyboard}>
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("Q")]}
+            letter={"Q"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("W")]}
+            letter={"R"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("E")]}
+            letter={"E"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("R")]}
+            letter={"R"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("T")]}
+            letter={"T"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("Y")]}
+            letter={"Y"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("U")]}
+            letter={"U"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("I")]}
+            letter={"I"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("O")]}
+            letter={"O"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("P")]}
+            letter={"P"}
+          />
+        </Stack>
+        <Stack direction="row" spacing={1} className={classes.Keyboard}>
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("A")]}
+            letter={"A"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("S")]}
+            letter={"S"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("D")]}
+            letter={"D"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("F")]}
+            letter={"F"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("G")]}
+            letter={"G"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("H")]}
+            letter={"H"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("J")]}
+            letter={"J"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("K")]}
+            letter={"K"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("L")]}
+            letter={"L"}
+          />
+        </Stack>
+        <Stack direction="row" spacing={1} className={classes.Keyboard}>
+          <button
+            onClick={() => handleClickEnter()}
+            // disabled={answer.length !== 5}
+          >
+            {"ENTER"}
+          </button>
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("Z")]}
+            letter={"Z"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("X")]}
+            letter={"X"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("C")]}
+            letter={"C"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("V")]}
+            letter={"V"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("B")]}
+            letter={"B"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("N")]}
+            letter={"N"}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("M")]}
+            letter={"M"}
+          />
+          <button onClick={() => handleClickClear()}>{"CLEAR"}</button>
+        </Stack>
+      </Stack>
     </>
   );
 };

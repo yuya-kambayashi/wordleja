@@ -1,7 +1,7 @@
-const KeyetterStateType = {
+const KeyLetterStateType = {
   unused: "unused",
   used: "used",
   partialMatch: "partialMatch",
   exactMatch: "exactMatch"
 } as const;
-export type KeyetterState = typeof KeyetterStateType[keyof typeof KeyetterStateType];
+export type KeyLetterState = typeof KeyLetterStateType[keyof typeof KeyLetterStateType];
