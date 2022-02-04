@@ -9,21 +9,30 @@ type Props = {};
 const Main: React.FC<Props> = () => {
   const [answer, setAnswer] = useState<string>("");
 
-  const initalAnswerLetterState = Array(25).fill("partialMatch");
+  const handleSetAnswer = (newAnswer: string) => {
+    setAnswer(newAnswer);
+  };
+
+  const initalAnswerLetterState = Array(25).fill("uncheck");
 
   const [answerLetterStates, setAnswerLetterStates] = useState<
     AnswerLetterState
   >(initalAnswerLetterState);
 
-  const handleSetAnswer = (newAnswer: string) => {
-    setAnswer(newAnswer);
+  const handleSetAnswerLetterStates = (newAnswerLetterStates: string[]) => {
+    setAnswerLetterStates(newAnswerLetterStates);
   };
 
   return (
     <>
       <Header />
       <Answers answers={answer} answerLetterStates={answerLetterStates} />
-      <Keyboard answer={answer} onSetAnswer={handleSetAnswer} />
+      <Keyboard
+        answer={answer}
+        onSetAnswer={handleSetAnswer}
+        answerLetterStates={answerLetterStates}
+        onSetAnswerLetterStates={handleSetAnswerLetterStates}
+      />
     </>
   );
 };

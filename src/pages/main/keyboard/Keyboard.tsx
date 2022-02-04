@@ -5,8 +5,15 @@ import { LetterState } from "./LetterState";
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
+  answerLetterStates: string[];
+  onSetAnswerLetterStates: (newAnswerLetterStates: string[]) => void;
 };
-const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
+const Keyboard: React.FC<Props> = ({
+  answer,
+  onSetAnswer,
+  answerLetterStates,
+  onSetAnswerLetterStates
+}) => {
   const initalLetterState = Array(26).fill("unused");
 
   const [letterStates, setLetterStates] = useState<LetterState[]>(
@@ -20,6 +27,10 @@ const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
 
   const handleClickEnter = () => {
     const collectAnswer = "ABCDD";
+
+    //
+    // キーボードの正誤判定
+    //
     let checkedLetterState = letterStates.slice();
 
     // 正誤判定
@@ -45,6 +56,15 @@ const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
     }
 
     setLetterStates(checkedLetterState);
+
+    //
+    // 回答の正誤判定
+    //
+    let checkedAnswerAnswerLetterStates = answerLetterStates.slice();
+    checkedAnswerAnswerLetterStates[0] = "unmatch";
+    onSetAnswerLetterStates(checkedAnswerAnswerLetterStates);
+
+    console.log(checkedAnswerAnswerLetterStates);
   };
   const handleClickClear = () => {
     onSetAnswer(answer.slice(0, -1));
