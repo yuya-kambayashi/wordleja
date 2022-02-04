@@ -27,11 +27,7 @@ const Keyboard: React.FC<Props> = ({
 
   const [answerRow, SetAnswerRow] = useState<number>(0);
 
-  const handleClickEnter = () => {
-    const collectAnswer = "ABCDD";
-
-    const targetAnswer = answer.substring(5 * answerRow, 5 + 5 * answerRow);
-
+  const checkKeyLetter = (collectAnswer: string, targetAnswer: string) => {
     //
     // キーボードの正誤判定
     //
@@ -68,33 +64,45 @@ const Keyboard: React.FC<Props> = ({
     //console.log(checkedKeyLetterState);
 
     setKeyLetterStates(checkedKeyLetterState);
+  };
 
+  const checkAnswerLetter = (collectAnswer: string, targetAnswer: string) => {
     //
     // 回答の正誤判定
     //
-    let checkedAnswerAnswerLetterStates = answerLetterStates.slice();
+    let checkedAnswerLetterStates = answerLetterStates.slice();
 
     for (let i = 0; i < targetAnswer.length; i++) {
       const answeLetter = targetAnswer.substr(i, 1);
 
       // 完全一致
       if (collectAnswer.substr(i, 1) === answeLetter) {
-        checkedAnswerAnswerLetterStates[i + 5 * answerRow] = "exactMatch";
+        checkedAnswerLetterStates[i + 5 * answerRow] = "exactMatch";
       }
       // 部分一致
       else if (collectAnswer.match(answeLetter)) {
-        checkedAnswerAnswerLetterStates[i + 5 * answerRow] = "partialMatch";
+        checkedAnswerLetterStates[i + 5 * answerRow] = "partialMatch";
       }
       // 不一致（使用済み）
       else {
-        checkedAnswerAnswerLetterStates[i + 5 * answerRow] = "unmatch";
+        checkedAnswerLetterStates[i + 5 * answerRow] = "unmatch";
       }
     }
 
-    onSetAnswerLetterStates(checkedAnswerAnswerLetterStates);
+    onSetAnswerLetterStates(checkedAnswerLetterStates);
+  };
+
+  const handleClickEnter = () => {
+    const collectAnswer = "ABCDD";
+    const targetAnswer = answer.substring(5 * answerRow, 5 + 5 * answerRow);
+
+    checkKeyLetter(collectAnswer, targetAnswer);
+
+    checkAnswerLetter(collectAnswer, targetAnswer);
 
     SetAnswerRow(answerRow + 1);
   };
+
   const handleClickClear = () => {
     onSetAnswer(answer.slice(0, -1));
   };
