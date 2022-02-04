@@ -4,7 +4,7 @@ type Props = {
   answer: string;
 };
 
-const Answer: React.FC<Props> = ({ answer }) => {
+const Answers: React.FC<Props> = ({ answer }) => {
   return (
     <>
       <div>{"ANSWER:"}</div>
@@ -13,4 +13,4 @@ const Answer: React.FC<Props> = ({ answer }) => {
   );
 };
 
-export default Answer;
+export default Answers;

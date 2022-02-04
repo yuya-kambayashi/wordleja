@@ -5,9 +5,20 @@ import { LetterState } from "./LetterState";
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
+  targetAnswerIndex: number;
+  onSetTargetAnswerIndex: () => void;
 };
-const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
+const Keyboard: React.FC<Props> = ({
+  answer,
+  onSetAnswer,
+  targetAnswerIndex,
+  onSetTargetAnswerIndex
+}) => {
   const initalLetterState = Array(26).fill("unused");
+
+  // useEffect(() => {
+  //   answer = answers[targetAnswerIndex];
+  // }, targetAnswerIndex);
 
   const [letterStates, setLetterStates] = useState<LetterState[]>(
     initalLetterState
@@ -45,6 +56,12 @@ const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
     }
 
     setLetterStates(checkedLetterState);
+
+    console.log(answer);
+
+    console.log(answer);
+
+    onSetTargetAnswerIndex();
   };
   const handleClickClear = () => {
     onSetAnswer(answer.slice(0, -1));
@@ -83,9 +100,10 @@ const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
           state={letterStates[convertToIndex("E")]}
           letter="E"
         />
+        <div>{answer}</div>
         <button
           onClick={() => handleClickEnter()}
-          disabled={answer.length !== 5}
+          // disabled={answer.length !== 5}
         >
           {"ENTER"}
         </button>
