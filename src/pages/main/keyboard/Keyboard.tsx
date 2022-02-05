@@ -9,11 +9,16 @@ import { Stack } from "@mui/material";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     Keyboard: {
+      position: "absolute",
+      top: "90%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      alignItems: "flex-start"
+    },
+    KeyboardLine: {
       // position: "absolute",
-      // top: "90%",
-      // left: "50%",
-      // transform: "translate(-50%, -50%)"
-      //alignItems: "flex-start"
+      // buttom: 0
+      //textAlign: "center"
     }
   })
 );
@@ -122,8 +127,8 @@ const Keyboard: React.FC<Props> = ({
 
   return (
     <>
-      <Stack direction="column" spacing={3}>
-        <Stack direction="row" spacing={1} className={classes.Keyboard}>
+      <Stack direction="column" spacing={3} className={classes.Keyboard}>
+        <Stack direction="row" spacing={1} className={classes.KeyboardLine}>
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
@@ -185,7 +190,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"P"}
           />
         </Stack>
-        <Stack direction="row" spacing={1} className={classes.Keyboard}>
+        <Stack direction="row" spacing={1} className={classes.KeyboardLine}>
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
@@ -241,7 +246,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"L"}
           />
         </Stack>
-        <Stack direction="row" spacing={1} className={classes.Keyboard}>
+        <Stack direction="row" spacing={1} className={classes.KeyboardLine}>
           <EnterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
