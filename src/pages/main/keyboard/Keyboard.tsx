@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
+import ClearButton from "./ClearButton";
 import { KeyLetterState } from "./KeyLetterState";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Stack, Button } from "@mui/material";
@@ -293,7 +294,11 @@ const Keyboard: React.FC<Props> = ({
             state={keyLetterStates[convertToIndex("M")]}
             letter={"M"}
           />
-          <Button onClick={() => handleClickClear()}>{"CLEAR"}</Button>
+          <ClearButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            onClickClear={handleClickClear}
+          />
         </Stack>
       </Stack>
     </>
