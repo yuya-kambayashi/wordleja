@@ -15,20 +15,24 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
-  onClickClear: (answer: string) => void;
+  //onClickClear: (answer: string) => void;
 };
 
 const ClearButton: React.FC<Props> = ({
   answer,
-  onSetAnswer,
-  onClickClear
+  onSetAnswer
+  //onClickClear
 }) => {
   const classes = useStyles();
+
+  const handleClickClear = () => {
+    onSetAnswer(answer.slice(0, -1));
+  };
 
   return (
     <>
       <Button
-        onClick={onClickClear}
+        onClick={handleClickClear}
         //className={classes.ClearButton}
         style={{ backgroundColor: "#D3D6DA" }}
       >
