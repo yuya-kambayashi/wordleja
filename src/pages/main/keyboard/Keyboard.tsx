@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import LetterButton from "./LetterButton";
+import EnterButton from "./EnterButton";
 import { KeyLetterState } from "./KeyLetterState";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { Stack } from "@mui/material";
+import { Stack, Button } from "@mui/material";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     Keyboard: {
-      position: "absolute",
-      top: "90%",
-      left: "50%",
-      transform: "translate(-50%, -50%)"
+      // position: "absolute",
+      // top: "90%",
+      // left: "50%",
+      // transform: "translate(-50%, -50%)"
       //alignItems: "flex-start"
     }
   })
@@ -245,12 +246,11 @@ const Keyboard: React.FC<Props> = ({
           />
         </Stack>
         <Stack direction="row" spacing={1} className={classes.Keyboard}>
-          <button
-            onClick={() => handleClickEnter()}
-            // disabled={answer.length !== 5}
-          >
-            {"ENTER"}
-          </button>
+          <EnterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            onClickEnter={handleClickEnter}
+          />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
@@ -293,7 +293,7 @@ const Keyboard: React.FC<Props> = ({
             state={keyLetterStates[convertToIndex("M")]}
             letter={"M"}
           />
-          <button onClick={() => handleClickClear()}>{"CLEAR"}</button>
+          <Button onClick={() => handleClickClear()}>{"CLEAR"}</Button>
         </Stack>
       </Stack>
     </>

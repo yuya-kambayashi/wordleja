@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { LetterState } from "./LetterState";
+import React from "react";
+import { KeyLetterState } from "./KeyLetterState";
+import { Button } from "@mui/material";
 
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
-  state: LetterState;
+  state: KeyLetterState;
   letter: string;
 };
 
-const LetterButtib: React.FC<Props> = ({
+const LetterButtun: React.FC<Props> = ({
   answer,
   onSetAnswer,
   state,
@@ -21,44 +22,44 @@ const LetterButtib: React.FC<Props> = ({
     <>
       <div>
         {state === "exactMatch" && (
-          <button
+          <Button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#6AAA64" }}
             // disabled={answer.length > 4}
           >
             {letter}
-          </button>
+          </Button>
         )}
         {state === "partialMatch" && (
-          <button
+          <Button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#C9B458" }}
             // disabled={answer.length > 4}
           >
             {letter}
-          </button>
+          </Button>
         )}
         {state === "used" && (
-          <button
+          <Button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#787C7E" }}
             // disabled={answer.length > 4}
           >
             {letter}
-          </button>
+          </Button>
         )}
         {state === "unused" && (
-          <button
+          <Button
             onClick={() => handleClick(letter)}
             style={{ backgroundColor: "#D3D6DA" }}
             // disabled={answer.length > 4}
           >
             {letter}
-          </button>
+          </Button>
         )}
       </div>
     </>
   );
 };
 
-export default LetterButtib;
+export default LetterButtun;
