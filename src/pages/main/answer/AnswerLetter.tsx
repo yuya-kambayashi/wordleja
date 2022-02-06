@@ -1,39 +1,35 @@
 import React from "react";
-import AnswerLetterState from "./AnswerLetterState";
+import { AnswerLetterState } from "./AnswerLetterState";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { Stack } from "@mui/material";
+import { Typography } from "@mui/material";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     answerLetter: {
       color: "#FFFFFF",
-      width: "62px",
-      height: "62x",
-      fontSize: "2rem",
-      fontWeight: "bold"
-    },
-    answerLetter1: {
-      color: "#FFFFFF",
-      width: "62px",
-      height: "62x",
-      fontSize: "2rem",
-      fontWeight: "bold",
-      marginTop: "0px"
+      height: "5em",
+      width: "5em"
     },
     answerLetterUncheck: {
-      backgroundColor: "#FFFFFF",
-      border: "1px solid #787C7E",
+      border: "1px solid #D8D8D8",
+      borderWidth: "0.2em",
       color: "black"
     },
     answerLetterUnmatch: {
-      backgroundColor: "#787C7E"
+      backgroundColor: "#787C7E",
+      border: "1px solid #787C7E",
+      borderWidth: "0.2em"
     },
     answerLetterPartialMatch: {
-      backgroundColor: "#C9B458"
+      backgroundColor: "#C9B458",
+      border: "1px solid #C9B458",
+      borderWidth: "0.2em"
     },
     answerLetterExactMatch: {
-      backgroundColor: "#6AAA64"
+      backgroundColor: "#6AAA64",
+      border: "1px solid #6AAA64",
+      borderWidth: "0.2em"
     }
   })
 );
@@ -48,34 +44,35 @@ const AnswerLetter: React.FC<Props> = ({ answerLetter, state }) => {
   return (
     <>
       {state === "uncheck" && (
-        <p className={clsx(classes.answerLetter1, classes.answerLetterUncheck)}>
+        <Typography
+          className={clsx(classes.answerLetter, classes.answerLetterUncheck)}
+        >
           {answerLetter}
-        </p>
+        </Typography>
       )}
       {state === "unmatch" && (
-        <p className={clsx(classes.answerLetter1, classes.answerLetterUnmatch)}>
+        <Typography
+          className={clsx(classes.answerLetter, classes.answerLetterUnmatch)}
+        >
           {answerLetter}
-        </p>
+        </Typography>
       )}
       {state === "partialMatch" && (
-        <p
+        <Typography
           className={clsx(
-            classes.answerLetter1,
+            classes.answerLetter,
             classes.answerLetterPartialMatch
           )}
         >
           {answerLetter}
-        </p>
+        </Typography>
       )}
       {state === "exactMatch" && (
-        <p
-          className={clsx(
-            classes.answerLetter1,
-            classes.answerLetterExactMatch
-          )}
+        <Typography
+          className={clsx(classes.answerLetter, classes.answerLetterExactMatch)}
         >
           {answerLetter}
-        </p>
+        </Typography>
       )}
     </>
   );

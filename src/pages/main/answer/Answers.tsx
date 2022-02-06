@@ -3,7 +3,7 @@ import Answer from "./Answer";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Stack } from "@mui/material";
 import clsx from "clsx";
-import AnswerLetterState from "./AnswerLetterState";
+import { AnswerLetterState } from "./AnswerLetterState";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +29,7 @@ const Answers: React.FC<Props> = ({ answers, answerLetterStates }) => {
 
   return (
     <>
-      <Stack spacing={-1.5} className={classes.answers}>
+      <Stack spacing={1} className={classes.answers}>
         <Answer
           answer={answers.substring(0, 5)}
           answerLetterStates={answerLetterStates.slice(0, 5)}
