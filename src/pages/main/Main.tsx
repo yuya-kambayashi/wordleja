@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "./header/Header";
 import Answers from "./answer/Answers";
 import Keyboard from "./keyboard/Keyboard";
-import AnswerLetterState from "./answer/AnswerLetterState";
+import { AnswerLetterState } from "./answer/AnswerLetterState";
 
 type Props = {};
 
@@ -16,10 +16,12 @@ const Main: React.FC<Props> = () => {
   const initalAnswerLetterState = Array(25).fill("uncheck");
 
   const [answerLetterStates, setAnswerLetterStates] = useState<
-    AnswerLetterState
+    AnswerLetterState[]
   >(initalAnswerLetterState);
 
-  const handleSetAnswerLetterStates = (newAnswerLetterStates: string[]) => {
+  const handleSetAnswerLetterStates = (
+    newAnswerLetterStates: AnswerLetterState[]
+  ) => {
     setAnswerLetterStates(newAnswerLetterStates);
   };
 

@@ -5,6 +5,7 @@ import ClearButton from "./ClearButton";
 import { KeyLetterState } from "./KeyLetterState";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Stack } from "@mui/material";
+import { AnswerLetterState } from "../answer/AnswerLetterState";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,8 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
-  answerLetterStates: string[];
-  onSetAnswerLetterStates: (newAnswerLetterStates: string[]) => void;
+  answerLetterStates: AnswerLetterState[];
+  onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
 };
 const Keyboard: React.FC<Props> = ({
   answer,
