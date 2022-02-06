@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
@@ -6,6 +6,7 @@ import { KeyLetterState } from "./KeyLetterState";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Stack } from "@mui/material";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
+import { CollectAnswerContext } from "../Main";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,8 +116,9 @@ const Keyboard: React.FC<Props> = ({
     onSetAnswerLetterStates(checkedAnswerLetterStates);
   };
 
+  const collectAnswer = useContext(CollectAnswerContext) as string;
+
   const handleClickEnter = () => {
-    const collectAnswer = "ABCDD";
     const targetAnswer = answer.substring(5 * answerRow, 5 + 5 * answerRow);
 
     checkKeyLetter(collectAnswer, targetAnswer);
