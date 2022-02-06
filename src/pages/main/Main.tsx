@@ -3,6 +3,7 @@ import Header from "./header/Header";
 import Answers from "./answer/Answers";
 import Keyboard from "./keyboard/Keyboard";
 import { AnswerLetterState } from "./answer/AnswerLetterState";
+import CollectAnswer from "./CollectAnswer";
 
 export const CollectAnswerContext = createContext("");
 type Props = {};
@@ -26,10 +27,11 @@ const Main: React.FC<Props> = () => {
     setAnswerLetterStates(newAnswerLetterStates);
   };
 
-  const [collectAnswer, setCollectAnswer] = useState<string>("ABOUT");
+  const [collectAnswer, setCollectAnswer] = useState<string>("");
 
   return (
     <>
+      <CollectAnswer onSetCollectAnswer={setCollectAnswer} />
       <CollectAnswerContext.Provider value={collectAnswer}>
         <Header />
         <Answers answers={answer} answerLetterStates={answerLetterStates} />

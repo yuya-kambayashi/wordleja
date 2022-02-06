@@ -1,11 +1,12 @@
 import React from "react";
 
-const CollectAnswer: React.FC<Props> = () => {
-  return (
-    <>
-      <div>{"Wordle"}</div>
-    </>
-  );
+type Props = {
+  onSetCollectAnswer: (collectAnswer: string) => void;
+};
+const CollectAnswer: React.FC<Props> = ({ onSetCollectAnswer }) => {
+  onSetCollectAnswer("YIELD");
+
+  return <></>;
 };
 
 export default CollectAnswer;
