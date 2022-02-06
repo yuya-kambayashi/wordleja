@@ -1,4 +1,5 @@
 const AnswerLetterStateType = {
+  empty: "empty",
   uncheck: "uncheck",
   unmatch: "unmatch",
   partialMatch: "partialMatch",

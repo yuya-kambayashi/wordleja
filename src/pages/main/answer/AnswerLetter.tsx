@@ -13,8 +13,13 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       verticalAlign: "center"
     },
-    uncheck: {
+    empty: {
       border: "1px solid #D8D8D8",
+      borderWidth: "0.2em",
+      color: "black"
+    },
+    uncheck: {
+      border: "1px solid #787C7E",
       borderWidth: "0.2em",
       color: "black"
     },
@@ -45,6 +50,20 @@ const AnswerLetter: React.FC<Props> = ({ answerLetter, state }) => {
 
   return (
     <>
+      {state === "empty" && (
+        <Box className={clsx(classes.answerLetterBox, classes.empty)}>
+          <Typography
+            style={{
+              fontSize: "40px",
+              fontWeight: "bold",
+              justifyContent: "center",
+              marginTop: "10px"
+            }}
+          >
+            {answerLetter}
+          </Typography>
+        </Box>
+      )}
       {state === "uncheck" && (
         <Box className={clsx(classes.answerLetterBox, classes.uncheck)}>
           <Typography

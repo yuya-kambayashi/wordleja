@@ -18,7 +18,7 @@ const Main: React.FC<Props> = () => {
   // 回答に対するキーの状態
   const [answerLetterStates, setAnswerLetterStates] = useState<
     AnswerLetterState[]
-  >(Array(25).fill("uncheck"));
+  >(Array(25).fill("empty"));
 
   return (
     <>

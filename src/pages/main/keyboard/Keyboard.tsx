@@ -56,11 +56,6 @@ const Keyboard: React.FC<Props> = ({
     // キーボードの正誤判定
     //
     let checkedKeyLetterState = keyLetterStates.slice();
-    // console.log("checkedKeyLetterState start");
-    // console.log(checkedKeyLetterState);
-    // console.log(answer);
-    // console.log(targetAnswer);
-    // console.log(answerRow);
 
     // 正誤判定
     for (let i = 0; i < targetAnswer.length; i++) {
@@ -83,9 +78,6 @@ const Keyboard: React.FC<Props> = ({
         checkedKeyLetterState[convertToIndex(answeLetter)] = "used";
       }
     }
-
-    //console.log("checkedKeyLetterState end");
-    //console.log(checkedKeyLetterState);
 
     setKeyLetterStates(checkedKeyLetterState);
   };
@@ -117,10 +109,9 @@ const Keyboard: React.FC<Props> = ({
   };
 
   const collectAnswer = useContext(CollectAnswerContext) as string;
+  const targetAnswer = answer.substring(5 * answerRow, 5 + 5 * answerRow);
 
   const handleClickEnter = () => {
-    const targetAnswer = answer.substring(5 * answerRow, 5 + 5 * answerRow);
-
     checkKeyLetter(collectAnswer, targetAnswer);
 
     checkAnswerLetter(collectAnswer, targetAnswer);
@@ -137,60 +128,80 @@ const Keyboard: React.FC<Props> = ({
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("Q")]}
             letter={"Q"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("W")]}
             letter={"R"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("E")]}
             letter={"E"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("R")]}
             letter={"R"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("T")]}
             letter={"T"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("Y")]}
             letter={"Y"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("U")]}
             letter={"U"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("I")]}
             letter={"I"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("O")]}
             letter={"O"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("P")]}
             letter={"P"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
         </Stack>
         <Stack direction="row" spacing={1} className={classes.KeyboardLine2}>
@@ -199,54 +210,72 @@ const Keyboard: React.FC<Props> = ({
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("A")]}
             letter={"A"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("S")]}
             letter={"S"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("D")]}
             letter={"D"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("F")]}
             letter={"F"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("G")]}
             letter={"G"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("H")]}
             letter={"H"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("J")]}
             letter={"J"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("K")]}
             letter={"K"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("L")]}
             letter={"L"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
         </Stack>
         <Stack direction="row" spacing={1} className={classes.KeyboardLine3}>

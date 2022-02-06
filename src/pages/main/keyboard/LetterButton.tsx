@@ -2,6 +2,7 @@ import React from "react";
 import { KeyLetterState } from "./KeyLetterState";
 import { Button, Typography } from "@mui/material";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { AnswerLetterState } from "../answer/AnswerLetterState";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,19 +27,40 @@ type Props = {
   onSetAnswer: (answer: string) => void;
   state: KeyLetterState;
   letter: string;
+  answerLetterStates: AnswerLetterState[];
+  onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
 };
 
 const LetterButtun: React.FC<Props> = ({
   answer,
   onSetAnswer,
   state,
-  letter
+  letter,
+  answerLetterStates,
+  onSetAnswerLetterStates
 }) => {
   const classes = useStyles();
 
+  const convertToIndex = (letter: string) => {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return alphabet.indexOf(letter);
+  };
+
+  // 押下されたキーを「uncheck」状態に変更します
+  const setAnswerLetterUncheck = () => {
+    let checkedAnswerLetterStates = answerLetterStates.slice();
+
+    checkedAnswerLetterStates[answer.length] = "uncheck";
+
+    onSetAnswerLetterStates(checkedAnswerLetterStates);
+  };
+
   const handleClick = (letter: string) => {
     onSetAnswer(answer + letter);
+
+    setAnswerLetterUncheck();
   };
+
   return (
     <>
       {state === "exactMatch" && (
