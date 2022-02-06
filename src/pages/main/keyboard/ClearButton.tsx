@@ -15,18 +15,31 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
-  //onClickClear: (answer: string) => void;
+  answerLetterStates: AnswerLetterState[];
+  onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
 };
 
 const ClearButton: React.FC<Props> = ({
   answer,
-  onSetAnswer
-  //onClickClear
+  onSetAnswer,
+  answerLetterStates,
+  onSetAnswerLetterStates
 }) => {
   const classes = useStyles();
 
+  // 押下されたキーを「empty」状態に変更します
+  const setAnswerLetterEmpty = () => {
+    let checkedAnswerLetterStates = answerLetterStates.slice();
+
+    checkedAnswerLetterStates[answer.length - 1] = "empty";
+
+    onSetAnswerLetterStates(checkedAnswerLetterStates);
+  };
+
   const handleClickClear = () => {
     onSetAnswer(answer.slice(0, -1));
+
+    setAnswerLetterEmpty();
   };
 
   return (

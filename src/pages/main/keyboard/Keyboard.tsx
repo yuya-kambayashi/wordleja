@@ -289,44 +289,63 @@ const Keyboard: React.FC<Props> = ({
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("Z")]}
             letter={"Z"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("X")]}
             letter={"X"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("C")]}
             letter={"C"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("V")]}
             letter={"V"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("B")]}
             letter={"B"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("N")]}
             letter={"N"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
             state={keyLetterStates[convertToIndex("M")]}
             letter={"M"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
-          <ClearButton answer={answer} onSetAnswer={onSetAnswer} />
+          <ClearButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
         </Stack>
       </Stack>
     </>
