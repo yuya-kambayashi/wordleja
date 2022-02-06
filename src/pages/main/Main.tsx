@@ -9,25 +9,16 @@ export const CollectAnswerContext = createContext("");
 type Props = {};
 
 const Main: React.FC<Props> = () => {
+  // 正答
+  const [collectAnswer, setCollectAnswer] = useState<string>("");
+
+  // 回答
   const [answer, setAnswer] = useState<string>("");
 
-  const handleSetAnswer = (newAnswer: string) => {
-    setAnswer(newAnswer);
-  };
-
-  const initalAnswerLetterState = Array(25).fill("uncheck");
-
+  // 回答に対するキーの状態
   const [answerLetterStates, setAnswerLetterStates] = useState<
     AnswerLetterState[]
-  >(initalAnswerLetterState);
-
-  const handleSetAnswerLetterStates = (
-    newAnswerLetterStates: AnswerLetterState[]
-  ) => {
-    setAnswerLetterStates(newAnswerLetterStates);
-  };
-
-  const [collectAnswer, setCollectAnswer] = useState<string>("");
+  >(Array(25).fill("uncheck"));
 
   return (
     <>
@@ -37,9 +28,9 @@ const Main: React.FC<Props> = () => {
         <Answers answers={answer} answerLetterStates={answerLetterStates} />
         <Keyboard
           answer={answer}
-          onSetAnswer={handleSetAnswer}
+          onSetAnswer={setAnswer}
           answerLetterStates={answerLetterStates}
-          onSetAnswerLetterStates={handleSetAnswerLetterStates}
+          onSetAnswerLetterStates={setAnswerLetterStates}
         />
       </CollectAnswerContext.Provider>
     </>
