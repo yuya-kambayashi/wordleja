@@ -41,11 +41,6 @@ const LetterButtun: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const convertToIndex = (letter: string) => {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return alphabet.indexOf(letter);
-  };
-
   // 押下されたキーを「uncheck」状態に変更します
   const setAnswerLetterUncheck = () => {
     let checkedAnswerLetterStates = answerLetterStates.slice();
