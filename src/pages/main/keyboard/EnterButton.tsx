@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme: Theme) =>
     EnterButton: {
       backgroundColor: "#D3D6DA",
       color: "red"
+    },
+    Letter: {
+      color: "#000000",
+      fontWeight: "bold"
     }
   })
 );
@@ -33,7 +37,7 @@ const EnterButtun: React.FC<Props> = ({
 
         // disabled={answer.length > 4}
       >
-        {"ENTER"}
+        <Typography className={classes.Letter}>{"ENTER"}</Typography>
       </Button>
     </>
   );

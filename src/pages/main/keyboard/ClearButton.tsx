@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { BackspaceOutlined } from "@mui/icons-material";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -34,7 +34,7 @@ const ClearButton: React.FC<Props> = ({
       <Button
         onClick={handleClickClear}
         //className={classes.ClearButton}
-        style={{ backgroundColor: "#D3D6DA" }}
+        style={{ backgroundColor: "#D3D6DA", color: "#000000" }}
       >
         <BackspaceOutlined />
       </Button>

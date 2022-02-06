@@ -1,6 +1,6 @@
 import React from "react";
 import { KeyLetterState } from "./KeyLetterState";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme: Theme) =>
     Button: {
       width: "10px",
       height: "58px",
-      fontWeight: "bold",
       borderRadius: "4px",
       cursor: "pointer",
       userSelect: "none",
@@ -17,6 +16,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       alignItems: "center",
       padding: "10px"
+    },
+    Letter: {
+      color: "#000000",
+      fontWeight: "bold"
     }
   })
 );
@@ -46,7 +49,7 @@ const LetterButtun: React.FC<Props> = ({
           style={{ backgroundColor: "#6AAA64" }}
           // disabled={answer.length > 4}
         >
-          {letter}
+          <Typography className={classes.Letter}>{letter}</Typography>
         </Button>
       )}
       {state === "partialMatch" && (
@@ -55,7 +58,7 @@ const LetterButtun: React.FC<Props> = ({
           style={{ backgroundColor: "#C9B458" }}
           // disabled={answer.length > 4}
         >
-          {letter}
+          <Typography className={classes.Letter}>{letter}</Typography>
         </Button>
       )}
       {state === "used" && (
@@ -64,7 +67,7 @@ const LetterButtun: React.FC<Props> = ({
           style={{ backgroundColor: "#787C7E" }}
           // disabled={answer.length > 4}
         >
-          {letter}
+          <Typography className={classes.Letter}>{letter}</Typography>
         </Button>
       )}
       {state === "unused" && (
@@ -74,7 +77,7 @@ const LetterButtun: React.FC<Props> = ({
           className={classes.Button}
           // disabled={answer.length > 4}
         >
-          {letter}
+          <Typography className={classes.Letter}>{letter}</Typography>
         </Button>
       )}
     </>
