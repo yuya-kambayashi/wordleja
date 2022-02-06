@@ -6,16 +6,14 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     Button: {
-      width: "10px",
-      height: "58px",
+      height: "75px",
       borderRadius: "4px",
       cursor: "pointer",
       userSelect: "none",
       flex: "1",
       display: "flex",
       justifyContent: "center",
-      alignItems: "center",
-      padding: "10px"
+      alignItems: "center"
     },
     Letter: {
       color: "#000000",

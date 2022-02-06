@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     EnterButton: {
       backgroundColor: "#D3D6DA",
-      color: "red"
+      width: "105px"
     },
     Letter: {
       color: "#000000",
@@ -32,7 +32,7 @@ const EnterButtun: React.FC<Props> = ({
     <>
       <Button
         onClick={onClickEnter}
-        //className={classes.EnterButton}
+        className={classes.EnterButton}
         style={{ backgroundColor: "#D3D6DA" }}
 
         // disabled={answer.length > 4}

@@ -15,20 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
       transform: "translate(-50%, -50%)",
       alignItems: "flex-start"
     },
-    KeyboardLine1: {
-      // position: "absolute",
-      // buttom: 0
-      //textAlign: "center"
-    },
+    KeyboardLine1: {},
     KeyboardLine2: {
-      marginLeft: "100px",
-      paddingLeft: "100px"
+      paddingLeft: "40px"
     },
-    KeyboardLine3: {
-      // position: "absolute",
-      // buttom: 0
-      //textAlign: "center"
-    }
+    KeyboardLine3: {}
   })
 );
 type Props = {
@@ -136,7 +127,7 @@ const Keyboard: React.FC<Props> = ({
 
   return (
     <>
-      <Stack direction="column" spacing={3} className={classes.Keyboard}>
+      <Stack direction="column" spacing={1} className={classes.Keyboard}>
         <Stack direction="row" spacing={1} className={classes.KeyboardLine1}>
           <LetterButton
             answer={answer}

@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     ClearButton: {
       backgroundColor: "#D3D6DA",
-      color: "red"
+      width: "105px"
     }
   })
 );
@@ -33,7 +33,7 @@ const ClearButton: React.FC<Props> = ({
     <>
       <Button
         onClick={handleClickClear}
-        //className={classes.ClearButton}
+        className={classes.ClearButton}
         style={{ backgroundColor: "#D3D6DA", color: "#000000" }}
       >
         <BackspaceOutlined />
