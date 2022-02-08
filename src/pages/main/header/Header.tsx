@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { Stack, Typography, Divider } from "@mui/material";
+import {
+  Stack,
+  Typography,
+  Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button
+} from "@mui/material";
 import { HelpOutlineOutlined, BarChart, Settings } from "@mui/icons-material";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -14,6 +24,16 @@ type Props = {};
 const Header: React.FC<Props> = () => {
   const classes = useStyles();
 
+  const [openInfo, setOpenInfo] = useState<boolean>(false);
+
+  const handleOpenInfo = () => {
+    setOpenInfo(true);
+  };
+
+  const handleCloseInfo = () => {
+    setOpenInfo(false);
+  };
+
   return (
     <>
       <Stack
@@ -21,7 +41,10 @@ const Header: React.FC<Props> = () => {
         spacing={20}
         style={{ justifyContent: "center", alignItems: "center" }}
       >
-        <HelpOutlineOutlined style={{ fontSize: "2em", color: "#787C7E" }} />
+        <HelpOutlineOutlined
+          style={{ fontSize: "2em", color: "#787C7E" }}
+          onClick={handleOpenInfo}
+        />
         <Typography
           className={classes.Title}
           style={{ fontSize: "3em", fontWeight: "bold" }}
@@ -40,6 +63,28 @@ const Header: React.FC<Props> = () => {
         className={classes.Divider}
         style={{ marginLeft: "30%", marginRight: "30%" }}
       />
+      <Dialog
+        open={openInfo}
+        onClose={handleCloseInfo}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        {/* <DialogTitle id="alert-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseInfo}>Disagree</Button>
+          <Button onClick={handleCloseInfo} autoFocus>
+            Agree
+          </Button>
+        </DialogActions> */}
+      </Dialog>
     </>
   );
 };
