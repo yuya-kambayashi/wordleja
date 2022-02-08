@@ -12,6 +12,7 @@ import {
   Button
 } from "@mui/material";
 import { HelpOutlineOutlined, BarChart, Settings } from "@mui/icons-material";
+import HowToPlayDialog from "./HowToPlayDialog";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,28 +64,7 @@ const Header: React.FC<Props> = () => {
         className={classes.Divider}
         style={{ marginLeft: "30%", marginRight: "30%" }}
       />
-      <Dialog
-        open={openInfo}
-        onClose={handleCloseInfo}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        {/* <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseInfo}>Disagree</Button>
-          <Button onClick={handleCloseInfo} autoFocus>
-            Agree
-          </Button>
-        </DialogActions> */}
-      </Dialog>
+      <HowToPlayDialog open={openInfo} onClose={handleCloseInfo} />
     </>
   );
 };
