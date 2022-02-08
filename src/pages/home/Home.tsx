@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const ButtonA: React.FC<Props> = () => {
+const Home: React.FC = () => {
   const navigation = useNavigate();
 
   const handleClickStart = () => {
@@ -17,4 +17,4 @@ const ButtonA: React.FC<Props> = () => {
   );
 };
 
-export default ButtonA;
+export default Home;
