@@ -1,35 +1,26 @@
 import React from "react";
 import Answer from "./Answer";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Stack } from "@mui/material";
-import clsx from "clsx";
 import { AnswerLetterState } from "./AnswerLetterState";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    answers: {
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      alignItems: "flex-start"
-    }
-  })
-);
+const CustomStack = styled(Stack)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  alignItems: "flex-start"
+});
+
 type Props = {
   answers: string;
   answerLetterStates: AnswerLetterState[];
 };
 
 const Answers: React.FC<Props> = ({ answers, answerLetterStates }) => {
-  const classes = useStyles();
-
-  // console.log(answers);
-  // console.log(answerLetterStates);
-
   return (
     <>
-      <Stack spacing={1} className={classes.answers}>
+      <CustomStack spacing={1}>
         <Answer
           answer={answers.substring(0, 5)}
           answerLetterStates={answerLetterStates.slice(0, 5)}
@@ -50,7 +41,7 @@ const Answers: React.FC<Props> = ({ answers, answerLetterStates }) => {
           answer={answers.substring(20, 25)}
           answerLetterStates={answerLetterStates.slice(20, 25)}
         />
-      </Stack>
+      </CustomStack>
     </>
   );
 };
