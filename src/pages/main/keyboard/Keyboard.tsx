@@ -1,23 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import LetterButton from "./LetterButton";
+import EnterButton from "./EnterButton";
+import ClearButton from "./ClearButton";
+import { KeyLetterState } from "./KeyLetterState";
+import { Stack } from "@mui/material";
+import { AnswerLetterState } from "../answer/AnswerLetterState";
+import { CollectAnswerContext } from "../Main";
+import { styled } from "@mui/material/styles";
 
-const LetterStateType = {
-  unused: "unused",
-  used: "used",
-  partialMatch: "partialMatch",
-  exactMatch: "exactMatch"
-} as const;
-export type LetterState = typeof LetterStateType[keyof typeof LetterStateType];
+const KeyboardLinesStack = styled(Stack)({
+  position: "absolute",
+  top: "90%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  alignItems: "flex-start"
+});
+
+const KeyboardLines1Stack = styled(Stack)({});
+const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
+const KeyboardLines3Stack = styled(Stack)({});
 
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
+  answerLetterStates: AnswerLetterState[];
+  onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
 };
-const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
-  const initalLetterState = Array(26).fill("unused");
 
-  const [letterStates, setLetterStates] = useState<LetterState[]>(
-    initalLetterState
+const Keyboard: React.FC<Props> = ({
+  answer,
+  onSetAnswer,
+  answerLetterStates,
+  onSetAnswerLetterStates
+}) => {
+  // 各キーの状態の配列
+  const initalKeyLetterState = Array(26).fill("unused");
+
+  const [keyLetterStates, setKeyLetterStates] = useState<KeyLetterState[]>(
+    initalKeyLetterState
   );
 
   const convertToIndex = (letter: string) => {
@@ -25,79 +45,305 @@ const Keyboard: React.FC<Props> = ({ answer, onSetAnswer }) => {
     return alphabet.indexOf(letter);
   };
 
-  const handleClickEnter = () => {
-    const collectAnswer = "ABCDD";
-    let checkedLetterState = letterStates.slice();
+  const [answerRow, SetAnswerRow] = useState<number>(0);
+
+  const checkKeyLetter = (collectAnswer: string, targetAnswer: string) => {
+    //
+    // キーボードの正誤判定
+    //
+    let checkedKeyLetterState = keyLetterStates.slice();
 
     // 正誤判定
-    for (let i = 0; i < answer.length; i++) {
-      const answeLetter = answer.substr(i, 1);
+    for (let i = 0; i < targetAnswer.length; i++) {
+      const answeLetter = targetAnswer.substr(i, 1);
 
-      if (checkedLetterState[convertToIndex(answeLetter)] === "exactMatch") {
+      if (checkedKeyLetterState[convertToIndex(answeLetter)] === "exactMatch") {
         continue;
       }
 
       // 完全一致
       if (collectAnswer.substr(i, 1) === answeLetter) {
-        checkedLetterState[convertToIndex(answeLetter)] = "exactMatch";
+        checkedKeyLetterState[convertToIndex(answeLetter)] = "exactMatch";
       }
       // 部分一致
       else if (collectAnswer.match(answeLetter)) {
-        checkedLetterState[convertToIndex(answeLetter)] = "partialMatch";
+        checkedKeyLetterState[convertToIndex(answeLetter)] = "partialMatch";
       }
       // 不一致（使用済み）
       else {
-        checkedLetterState[convertToIndex(answeLetter)] = "used";
+        checkedKeyLetterState[convertToIndex(answeLetter)] = "used";
       }
     }
 
-    setLetterStates(checkedLetterState);
+    setKeyLetterStates(checkedKeyLetterState);
   };
-  const handleClickClear = () => {
-    onSetAnswer(answer.slice(0, -1));
+
+  const checkAnswerLetter = (collectAnswer: string, targetAnswer: string) => {
+    //
+    // 回答の正誤判定
+    //
+    let checkedAnswerLetterStates = answerLetterStates.slice();
+
+    for (let i = 0; i < targetAnswer.length; i++) {
+      const answeLetter = targetAnswer.substr(i, 1);
+
+      // 完全一致
+      if (collectAnswer.substr(i, 1) === answeLetter) {
+        checkedAnswerLetterStates[i + 5 * answerRow] = "exactMatch";
+      }
+      // 部分一致
+      else if (collectAnswer.match(answeLetter)) {
+        checkedAnswerLetterStates[i + 5 * answerRow] = "partialMatch";
+      }
+      // 不一致（使用済み）
+      else {
+        checkedAnswerLetterStates[i + 5 * answerRow] = "unmatch";
+      }
+    }
+
+    onSetAnswerLetterStates(checkedAnswerLetterStates);
   };
+
+  const collectAnswer = useContext(CollectAnswerContext) as string;
+  const targetAnswer = answer.substring(5 * answerRow, 5 + 5 * answerRow);
+
+  const handleClickEnter = () => {
+    checkKeyLetter(collectAnswer, targetAnswer);
+
+    checkAnswerLetter(collectAnswer, targetAnswer);
+
+    SetAnswerRow(answerRow + 1);
+  };
+
   return (
     <>
-      <div>{"Keyboard:"}</div>
-      <div>
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("A")]}
-          letter="A"
-        />
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("B")]}
-          letter="B"
-        />
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("C")]}
-          letter="C"
-        />
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("D")]}
-          letter="D"
-        />
-        <LetterButton
-          answer={answer}
-          onSetAnswer={onSetAnswer}
-          state={letterStates[convertToIndex("E")]}
-          letter="E"
-        />
-        <button
-          onClick={() => handleClickEnter()}
-          disabled={answer.length !== 5}
-        >
-          {"ENTER"}
-        </button>
-        <button onClick={() => handleClickClear()}>{"CLEAR"}</button>
-      </div>
+      <KeyboardLinesStack direction="column" spacing={1}>
+        <KeyboardLines1Stack direction="row" spacing={1}>
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("Q")]}
+            letter={"Q"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("W")]}
+            letter={"R"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("E")]}
+            letter={"E"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("R")]}
+            letter={"R"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("T")]}
+            letter={"T"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("Y")]}
+            letter={"Y"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("U")]}
+            letter={"U"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("I")]}
+            letter={"I"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("O")]}
+            letter={"O"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("P")]}
+            letter={"P"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+        </KeyboardLines1Stack>
+        <KeyboardLines2Stack direction="row" spacing={1}>
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("A")]}
+            letter={"A"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("S")]}
+            letter={"S"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("D")]}
+            letter={"D"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("F")]}
+            letter={"F"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("G")]}
+            letter={"G"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("H")]}
+            letter={"H"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("J")]}
+            letter={"J"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("K")]}
+            letter={"K"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("L")]}
+            letter={"L"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+        </KeyboardLines2Stack>
+        <KeyboardLines3Stack direction="row" spacing={1}>
+          <EnterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            onClickEnter={handleClickEnter}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("Z")]}
+            letter={"Z"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("X")]}
+            letter={"X"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("C")]}
+            letter={"C"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("V")]}
+            letter={"V"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("B")]}
+            letter={"B"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("N")]}
+            letter={"N"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <LetterButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            state={keyLetterStates[convertToIndex("M")]}
+            letter={"M"}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+          <ClearButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+          />
+        </KeyboardLines3Stack>
+      </KeyboardLinesStack>
     </>
   );
 };
