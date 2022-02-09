@@ -1,27 +1,25 @@
 import React from "react";
 import { KeyLetterState } from "./KeyLetterState";
 import { Button, Typography } from "@mui/material";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    Button: {
-      height: "75px",
-      borderRadius: "4px",
-      cursor: "pointer",
-      userSelect: "none",
-      flex: "1",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
-    },
-    Letter: {
-      color: "#000000",
-      fontWeight: "bold"
-    }
-  })
-);
+const CustomButton = styled(Button)({
+  height: "75px",
+  borderRadius: "4px",
+  cursor: "pointer",
+  userSelect: "none",
+  flex: "1",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+});
+
+const CustomTypography = styled(Typography)({
+  color: "#000000",
+  fontWeight: "bold"
+});
+
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
@@ -39,8 +37,6 @@ const LetterButtun: React.FC<Props> = ({
   answerLetterStates,
   onSetAnswerLetterStates
 }) => {
-  const classes = useStyles();
-
   // 押下されたキーを「uncheck」状態に変更します
   const setAnswerLetterUncheck = () => {
     let checkedAnswerLetterStates = answerLetterStates.slice();
@@ -59,41 +55,40 @@ const LetterButtun: React.FC<Props> = ({
   return (
     <>
       {state === "exactMatch" && (
-        <Button
+        <CustomButton
           onClick={() => handleClick(letter)}
           style={{ backgroundColor: "#6AAA64" }}
           // disabled={answer.length > 4}
         >
-          <Typography className={classes.Letter}>{letter}</Typography>
-        </Button>
+          <CustomTypography>{letter}</CustomTypography>
+        </CustomButton>
       )}
       {state === "partialMatch" && (
-        <Button
+        <CustomButton
           onClick={() => handleClick(letter)}
           style={{ backgroundColor: "#C9B458" }}
           // disabled={answer.length > 4}
         >
-          <Typography className={classes.Letter}>{letter}</Typography>
-        </Button>
+          <CustomTypography>{letter}</CustomTypography>
+        </CustomButton>
       )}
       {state === "used" && (
-        <Button
+        <CustomButton
           onClick={() => handleClick(letter)}
           style={{ backgroundColor: "#787C7E" }}
           // disabled={answer.length > 4}
         >
-          <Typography className={classes.Letter}>{letter}</Typography>
-        </Button>
+          <CustomTypography>{letter}</CustomTypography>
+        </CustomButton>
       )}
       {state === "unused" && (
-        <Button
+        <CustomButton
           onClick={() => handleClick(letter)}
-          style={{ backgroundColor: "#D3D6DA", width: "10px" }}
-          className={classes.Button}
+          style={{ backgroundColor: "#D3D6DA" }}
           // disabled={answer.length > 4}
         >
-          <Typography className={classes.Letter}>{letter}</Typography>
-        </Button>
+          <CustomTypography>{letter}</CustomTypography>
+        </CustomButton>
       )}
     </>
   );
