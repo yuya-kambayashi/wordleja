@@ -1,20 +1,18 @@
 import React from "react";
 import { Button, Typography } from "@mui/material";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    EnterButton: {
-      backgroundColor: "#D3D6DA",
-      width: "105px"
-    },
-    Letter: {
-      color: "#000000",
-      fontWeight: "bold"
-    }
-  })
-);
+const CustomButton = styled(Button)({
+  backgroundColor: "#D3D6DA",
+  fontWeight: "bold",
+  color: "#000000",
+  width: "105px"
+});
+
+const CustomTypography = styled(Typography)({
+  fontWeight: "bold"
+});
+
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
@@ -26,19 +24,14 @@ const EnterButtun: React.FC<Props> = ({
   onSetAnswer,
   onClickEnter
 }) => {
-  const classes = useStyles();
-
   return (
     <>
-      <Button
+      <CustomButton
         onClick={onClickEnter}
-        className={classes.EnterButton}
-        style={{ backgroundColor: "#D3D6DA" }}
-
         // disabled={answer.length > 4}
       >
-        <Typography className={classes.Letter}>{"ENTER"}</Typography>
-      </Button>
+        <CustomTypography>{"ENTER"}</CustomTypography>
+      </CustomButton>
     </>
   );
 };
