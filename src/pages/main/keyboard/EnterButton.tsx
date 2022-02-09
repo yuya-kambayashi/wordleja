@@ -16,7 +16,7 @@ const CustomTypography = styled(Typography)({
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
-  onClickEnter: (answer: string) => void;
+  onClickEnter: () => void;
 };
 
 const EnterButtun: React.FC<Props> = ({
