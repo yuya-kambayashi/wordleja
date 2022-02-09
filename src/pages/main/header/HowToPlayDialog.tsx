@@ -27,22 +27,18 @@ const HowToPlayDialog: React.FC<Props> = ({ open, onClose }) => {
         aria-describedby="alert-dialog-description"
       >
         {
-          "SMAPLE"
-          /* <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseInfo}>Disagree</Button>
-          <Button onClick={handleCloseInfo} autoFocus>
-            Agree
-          </Button>
-        </DialogActions> */
+          <DialogTitle id="how-to-play">{"HOW TO PLAY"}</DialogTitle>
+          // <DialogContent>
+          //   <DialogContentText id="how-to-play-dialog-description">
+          //     {"Guess the WORDLE in 6 tries."}
+          //   </DialogContentText>
+          // </DialogContent>
+          // <DialogActions>
+          //   <Button onClick={handleCloseInfo}>Disagree</Button>
+          //   <Button onClick={handleCloseInfo} autoFocus>
+          //     Agree
+          //   </Button>
+          // </DialogActions>
         }
       </Dialog>
     </>

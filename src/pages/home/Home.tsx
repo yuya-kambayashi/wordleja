@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+type Props = {};
 const Home: React.FC<Props> = () => {
   const navigation = useNavigate();
 
