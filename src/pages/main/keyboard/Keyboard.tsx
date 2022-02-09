@@ -3,41 +3,37 @@ import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
 import { KeyLetterState } from "./KeyLetterState";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Stack } from "@mui/material";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { CollectAnswerContext } from "../Main";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    Keyboard: {
-      position: "absolute",
-      top: "90%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      alignItems: "flex-start"
-    },
-    KeyboardLine1: {},
-    KeyboardLine2: {
-      paddingLeft: "40px"
-    },
-    KeyboardLine3: {}
-  })
-);
+const KeyboardLinesStack = styled(Stack)({
+  position: "absolute",
+  top: "90%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  alignItems: "flex-start"
+});
+
+const KeyboardLines1Stack = styled(Stack)({});
+const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
+const KeyboardLines3Stack = styled(Stack)({});
+
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
   answerLetterStates: AnswerLetterState[];
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
 };
+
 const Keyboard: React.FC<Props> = ({
   answer,
   onSetAnswer,
   answerLetterStates,
   onSetAnswerLetterStates
 }) => {
-  const classes = useStyles();
-
+  // 各キーの状態の配列
   const initalKeyLetterState = Array(26).fill("unused");
 
   const [keyLetterStates, setKeyLetterStates] = useState<KeyLetterState[]>(
@@ -121,8 +117,8 @@ const Keyboard: React.FC<Props> = ({
 
   return (
     <>
-      <Stack direction="column" spacing={1} className={classes.Keyboard}>
-        <Stack direction="row" spacing={1} className={classes.KeyboardLine1}>
+      <KeyboardLinesStack direction="column" spacing={1}>
+        <KeyboardLines1Stack direction="row" spacing={1}>
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
@@ -203,8 +199,8 @@ const Keyboard: React.FC<Props> = ({
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
-        </Stack>
-        <Stack direction="row" spacing={1} className={classes.KeyboardLine2}>
+        </KeyboardLines1Stack>
+        <KeyboardLines2Stack direction="row" spacing={1}>
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
@@ -277,8 +273,8 @@ const Keyboard: React.FC<Props> = ({
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
-        </Stack>
-        <Stack direction="row" spacing={1} className={classes.KeyboardLine3}>
+        </KeyboardLines2Stack>
+        <KeyboardLines3Stack direction="row" spacing={1}>
           <EnterButton
             answer={answer}
             onSetAnswer={onSetAnswer}
@@ -346,8 +342,8 @@ const Keyboard: React.FC<Props> = ({
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
           />
-        </Stack>
-      </Stack>
+        </KeyboardLines3Stack>
+      </KeyboardLinesStack>
     </>
   );
 };
