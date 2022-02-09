@@ -1,124 +1,106 @@
 import React from "react";
 import { AnswerLetterState } from "./AnswerLetterState";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Box, Typography } from "@mui/material";
-import clsx from "clsx";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    answerLetterBox: {
-      color: "#FFFFFF",
-      height: "5em",
-      width: "5em",
-      justifyContent: "center",
-      verticalAlign: "center"
-    },
-    empty: {
-      border: "1px solid #D8D8D8",
-      borderWidth: "0.2em",
-      color: "black"
-    },
-    uncheck: {
-      border: "1px solid #787C7E",
-      borderWidth: "0.2em",
-      color: "black"
-    },
-    unmatch: {
-      backgroundColor: "#787C7E",
-      border: "1px solid #787C7E",
-      borderWidth: "0.2em"
-    },
-    partialMatch: {
-      backgroundColor: "#C9B458",
-      border: "1px solid #C9B458",
-      borderWidth: "0.2em"
-    },
-    exactMatch: {
-      backgroundColor: "#6AAA64",
-      border: "1px solid #6AAA64",
-      borderWidth: "0.2em"
-    }
-  })
-);
+const EmptyBox = styled(Box)({
+  color: "#FFFFFF",
+  height: "5em",
+  width: "5em",
+  justifyContent: "center",
+  verticalAlign: "center",
+
+  border: "1px solid #D8D8D8",
+  borderWidth: "0.2em"
+});
+
+const UncheckBox = styled(Box)({
+  //color: "#FFFFFF",
+  height: "5em",
+  width: "5em",
+  justifyContent: "center",
+  verticalAlign: "center",
+
+  border: "1px solid #787C7E",
+  borderWidth: "0.2em",
+  color: "#000000"
+});
+
+const UnmatchBox = styled(Box)({
+  color: "#FFFFFF",
+  height: "5em",
+  width: "5em",
+  justifyContent: "center",
+  verticalAlign: "center",
+
+  backgroundColor: "#787C7E",
+  border: "1px solid #787C7E",
+  borderWidth: "0.2em"
+});
+
+const PartialMatchBox = styled(Box)({
+  color: "#FFFFFF",
+  height: "5em",
+  width: "5em",
+  justifyContent: "center",
+  verticalAlign: "center",
+
+  backgroundColor: "#C9B458",
+  border: "1px solid #C9B458",
+  borderWidth: "0.2em"
+});
+
+const ExactMatchMatchBox = styled(Box)({
+  color: "#FFFFFF",
+  height: "5em",
+  width: "5em",
+  justifyContent: "center",
+  verticalAlign: "center",
+
+  backgroundColor: "#6AAA64",
+  border: "1px solid #6AAA64",
+  borderWidth: "0.2em"
+});
+
+const CustomTypography = styled(Typography)({
+  fontSize: "40px",
+  fontWeight: "bold",
+  justifyContent: "center",
+  marginTop: "10px"
+});
+
 type Props = {
   answerLetter: string;
   state: AnswerLetterState;
 };
 
 const AnswerLetter: React.FC<Props> = ({ answerLetter, state }) => {
-  const classes = useStyles();
-
   return (
     <>
       {state === "empty" && (
-        <Box className={clsx(classes.answerLetterBox, classes.empty)}>
-          <Typography
-            style={{
-              fontSize: "40px",
-              fontWeight: "bold",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            {answerLetter}
-          </Typography>
-        </Box>
+        <EmptyBox>
+          <CustomTypography>{answerLetter}</CustomTypography>
+        </EmptyBox>
       )}
       {state === "uncheck" && (
-        <Box className={clsx(classes.answerLetterBox, classes.uncheck)}>
-          <Typography
-            style={{
-              fontSize: "40px",
-              fontWeight: "bold",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            {answerLetter}
-          </Typography>
-        </Box>
+        <UncheckBox>
+          <CustomTypography>{answerLetter}</CustomTypography>
+        </UncheckBox>
       )}
       {state === "unmatch" && (
-        <Box className={clsx(classes.answerLetterBox, classes.unmatch)}>
-          <Typography
-            style={{
-              fontSize: "40px",
-              fontWeight: "bold",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            {answerLetter}
-          </Typography>
-        </Box>
+        <UnmatchBox>
+          <CustomTypography>{answerLetter}</CustomTypography>
+        </UnmatchBox>
       )}
       {state === "partialMatch" && (
-        <Box className={clsx(classes.answerLetterBox, classes.partialMatch)}>
-          <Typography
-            style={{
-              fontSize: "40px",
-              fontWeight: "bold",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            {answerLetter}
-          </Typography>
-        </Box>
+        <PartialMatchBox>
+          <CustomTypography>{answerLetter}</CustomTypography>
+        </PartialMatchBox>
       )}
       {state === "exactMatch" && (
-        <Box className={clsx(classes.answerLetterBox, classes.exactMatch)}>
-          <Typography
-            style={{
-              fontSize: "40px",
-              fontWeight: "bold",
-              justifyContent: "center",
-              marginTop: "10px"
-            }}
-          >
-            {answerLetter}
-          </Typography>
-        </Box>
+        <ExactMatchMatchBox>
+          <CustomTypography>{answerLetter}</CustomTypography>
+        </ExactMatchMatchBox>
       )}
     </>
   );
