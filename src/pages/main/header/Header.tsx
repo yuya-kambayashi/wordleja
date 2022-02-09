@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import {
   Stack,
   Typography,
@@ -14,17 +13,8 @@ import {
 import { HelpOutlineOutlined, BarChart, Settings } from "@mui/icons-material";
 import HowToPlayDialog from "./HowToPlayDialog";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    Title: {},
-    Divider: { marginLeft: "30%", marginRight: "30%", color: "#787C7E" },
-    Icon: { fontSize: "3em", color: "#787C7E" }
-  })
-);
 type Props = {};
 const Header: React.FC<Props> = () => {
-  const classes = useStyles();
-
   const [openInfo, setOpenInfo] = useState<boolean>(false);
 
   const handleOpenInfo = () => {
@@ -46,23 +36,16 @@ const Header: React.FC<Props> = () => {
           style={{ fontSize: "2em", color: "#787C7E" }}
           onClick={handleOpenInfo}
         />
-        <Typography
-          className={classes.Title}
-          style={{ fontSize: "3em", fontWeight: "bold" }}
-        >
+        <Typography style={{ fontSize: "3em", fontWeight: "bold" }}>
           {"WORDLE"}
         </Typography>
         <Stack direction="row">
-          <BarChart
-            className={classes.Icon}
-            style={{ fontSize: "2em", color: "#787C7E" }}
-          />
+          <BarChart style={{ fontSize: "2em", color: "#787C7E" }} />
           <Settings style={{ fontSize: "2em", color: "#787C7E" }} />
         </Stack>
       </Stack>
       <Divider
-        className={classes.Divider}
-        style={{ marginLeft: "30%", marginRight: "30%" }}
+        style={{ marginLeft: "30%", marginRight: "30%", color: "#787C7E" }}
       />
       <HowToPlayDialog open={openInfo} onClose={handleCloseInfo} />
     </>

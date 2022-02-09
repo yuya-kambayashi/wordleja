@@ -1,18 +1,15 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { BackspaceOutlined } from "@mui/icons-material";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    ClearButton: {
-      backgroundColor: "#D3D6DA",
-      width: "105px"
-    }
-  })
-);
+const CustomButton = styled(Button)({
+  backgroundColor: "#D3D6DA",
+  color: "#000000",
+  width: "105px"
+});
+
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
@@ -26,8 +23,6 @@ const ClearButton: React.FC<Props> = ({
   answerLetterStates,
   onSetAnswerLetterStates
 }) => {
-  const classes = useStyles();
-
   // 押下されたキーを「empty」状態に変更します
   const setAnswerLetterEmpty = () => {
     let checkedAnswerLetterStates = answerLetterStates.slice();
@@ -45,13 +40,9 @@ const ClearButton: React.FC<Props> = ({
 
   return (
     <>
-      <Button
-        onClick={handleClickClear}
-        className={classes.ClearButton}
-        style={{ backgroundColor: "#D3D6DA", color: "#000000" }}
-      >
+      <CustomButton>
         <BackspaceOutlined />
-      </Button>
+      </CustomButton>
     </>
   );
 };
