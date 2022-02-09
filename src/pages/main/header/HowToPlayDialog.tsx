@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 import {
   Typography,
@@ -11,14 +10,11 @@ import {
   Button
 } from "@mui/material";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({}));
 type Props = {
   open: boolean;
   onClose: () => void;
 };
 const HowToPlayDialog: React.FC<Props> = ({ open, onClose }) => {
-  const classes = useStyles();
-
   return (
     <>
       <Dialog
