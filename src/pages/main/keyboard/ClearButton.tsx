@@ -40,7 +40,7 @@ const ClearButton: React.FC<Props> = ({
 
   return (
     <>
-      <CustomButton>
+      <CustomButton onClick={handleClickClear}>
         <BackspaceOutlined />
       </CustomButton>
     </>
