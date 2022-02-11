@@ -85,7 +85,7 @@ const LetterButtun: React.FC<Props> = ({
         <CustomButton
           onClick={() => handleClick(letter)}
           style={{ backgroundColor: "#D3D6DA" }}
-          // disabled={answer.length > 4}
+          disabled={answer.length > 4}
         >
           <CustomTypography>{letter}</CustomTypography>
         </CustomButton>
