@@ -27,6 +27,7 @@ type Props = {
   letter: string;
   answerLetterStates: AnswerLetterState[];
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
+  disabled: boolean;
 };
 
 const LetterButtun: React.FC<Props> = ({
@@ -35,7 +36,8 @@ const LetterButtun: React.FC<Props> = ({
   state,
   letter,
   answerLetterStates,
-  onSetAnswerLetterStates
+  onSetAnswerLetterStates,
+  disabled,
 }) => {
   // 押下されたキーを「uncheck」状態に変更します
   const setAnswerLetterUncheck = () => {
@@ -58,7 +60,7 @@ const LetterButtun: React.FC<Props> = ({
         <CustomButton
           onClick={() => handleClick(letter)}
           style={{ backgroundColor: "#6AAA64" }}
-          // disabled={answer.length > 4}
+          disabled={disabled}
         >
           <CustomTypography>{letter}</CustomTypography>
         </CustomButton>
@@ -67,7 +69,7 @@ const LetterButtun: React.FC<Props> = ({
         <CustomButton
           onClick={() => handleClick(letter)}
           style={{ backgroundColor: "#C9B458" }}
-          // disabled={answer.length > 4}
+          disabled={disabled}
         >
           <CustomTypography>{letter}</CustomTypography>
         </CustomButton>
@@ -76,7 +78,7 @@ const LetterButtun: React.FC<Props> = ({
         <CustomButton
           onClick={() => handleClick(letter)}
           style={{ backgroundColor: "#787C7E" }}
-          // disabled={answer.length > 4}
+          disabled={disabled}
         >
           <CustomTypography>{letter}</CustomTypography>
         </CustomButton>
@@ -85,7 +87,7 @@ const LetterButtun: React.FC<Props> = ({
         <CustomButton
           onClick={() => handleClick(letter)}
           style={{ backgroundColor: "#D3D6DA" }}
-          disabled={answer.length > 4}
+          disabled={disabled}
         >
           <CustomTypography>{letter}</CustomTypography>
         </CustomButton>

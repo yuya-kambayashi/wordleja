@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
@@ -113,7 +113,20 @@ const Keyboard: React.FC<Props> = ({
     checkAnswerLetter(collectAnswer, targetAnswer);
 
     SetAnswerRow(answerRow + 1);
+
+    setLetterButtonDisabled(false);
   };
+
+  // 文字キーの押下制御
+  const [letterButtonDisabled, setLetterButtonDisabled] = useState<boolean>(false);
+
+  useEffect(()=>{
+    // 回答の行に対して文字数が超えていたら押下不可とします
+    // →　エンター押下で解除
+    if (answer.length >= 5 + 5 * answerRow){
+      setLetterButtonDisabled(true);
+    }
+  }, [answer, answerRow])
 
   return (
     <>
@@ -126,6 +139,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"Q"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -134,6 +148,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"R"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -142,6 +157,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"E"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -150,6 +166,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"R"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -158,6 +175,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"T"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -166,6 +184,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"Y"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -174,6 +193,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"U"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -182,6 +202,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"I"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -190,6 +211,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"O"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -198,6 +220,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"P"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
         </KeyboardLines1Stack>
         <KeyboardLines2Stack direction="row" spacing={1}>
@@ -208,6 +231,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"A"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -216,6 +240,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"S"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -224,6 +249,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"D"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -232,6 +258,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"F"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -240,6 +267,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"G"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -248,6 +276,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"H"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -256,6 +285,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"J"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -264,6 +294,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"K"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -272,6 +303,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"L"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
         </KeyboardLines2Stack>
         <KeyboardLines3Stack direction="row" spacing={1}>
@@ -287,6 +319,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"Z"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -295,6 +328,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"X"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -303,6 +337,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"C"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -311,6 +346,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"V"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -319,6 +355,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"B"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -327,6 +364,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"N"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <LetterButton
             answer={answer}
@@ -335,6 +373,7 @@ const Keyboard: React.FC<Props> = ({
             letter={"M"}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
           />
           <ClearButton
             answer={answer}
