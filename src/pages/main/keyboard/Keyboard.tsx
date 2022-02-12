@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
 import { KeyLetterState } from "./KeyLetterState";
 import { Stack } from "@mui/material";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
-import { CollectAnswerContext } from "../Main";
 import { styled } from "@mui/material/styles";
+import { convertToIndex } from "./KeyboardUtil";
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
@@ -40,82 +40,7 @@ const Keyboard: React.FC<Props> = ({
     initalKeyLetterState
   );
 
-  const convertToIndex = (letter: string) => {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return alphabet.indexOf(letter);
-  };
-
   const [answerRow, SetAnswerRow] = useState<number>(0);
-
-  const checkKeyLetter = (collectAnswer: string, targetAnswer: string) => {
-    //
-    // キーボードの正誤判定
-    //
-    let checkedKeyLetterState = keyLetterStates.slice();
-
-    // 正誤判定
-    for (let i = 0; i < targetAnswer.length; i++) {
-      const answeLetter = targetAnswer.substr(i, 1);
-
-      if (checkedKeyLetterState[convertToIndex(answeLetter)] === "exactMatch") {
-        continue;
-      }
-
-      // 完全一致
-      if (collectAnswer.substr(i, 1) === answeLetter) {
-        checkedKeyLetterState[convertToIndex(answeLetter)] = "exactMatch";
-      }
-      // 部分一致
-      else if (collectAnswer.match(answeLetter)) {
-        checkedKeyLetterState[convertToIndex(answeLetter)] = "partialMatch";
-      }
-      // 不一致（使用済み）
-      else {
-        checkedKeyLetterState[convertToIndex(answeLetter)] = "used";
-      }
-    }
-
-    setKeyLetterStates(checkedKeyLetterState);
-  };
-
-  const checkAnswerLetter = (collectAnswer: string, targetAnswer: string) => {
-    //
-    // 回答の正誤判定
-    //
-    let checkedAnswerLetterStates = answerLetterStates.slice();
-
-    for (let i = 0; i < targetAnswer.length; i++) {
-      const answeLetter = targetAnswer.substr(i, 1);
-
-      // 完全一致
-      if (collectAnswer.substr(i, 1) === answeLetter) {
-        checkedAnswerLetterStates[i + 5 * answerRow] = "exactMatch";
-      }
-      // 部分一致
-      else if (collectAnswer.match(answeLetter)) {
-        checkedAnswerLetterStates[i + 5 * answerRow] = "partialMatch";
-      }
-      // 不一致（使用済み）
-      else {
-        checkedAnswerLetterStates[i + 5 * answerRow] = "unmatch";
-      }
-    }
-
-    onSetAnswerLetterStates(checkedAnswerLetterStates);
-  };
-
-  const collectAnswer = useContext(CollectAnswerContext) as string;
-  const targetAnswer = answer.substring(5 * answerRow, 5 + 5 * answerRow);
-
-  const handleClickEnter = () => {
-    checkKeyLetter(collectAnswer, targetAnswer);
-
-    checkAnswerLetter(collectAnswer, targetAnswer);
-
-    SetAnswerRow(answerRow + 1);
-
-    setLetterButtonDisabled(false);
-  };
 
   // 文字キーの押下制御
   const [letterButtonDisabled, setLetterButtonDisabled] = useState<boolean>(false);
@@ -308,9 +233,14 @@ const Keyboard: React.FC<Props> = ({
         </KeyboardLines2Stack>
         <KeyboardLines3Stack direction="row" spacing={1}>
           <EnterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            onClickEnter={handleClickEnter}
+            targetAnswer = {answer.substring(5 * answerRow, 5 + 5 * answerRow)}
+            answerRow = {answerRow}
+            SetAnswerRow = {SetAnswerRow}
+            setLetterButtonDisabled = {setLetterButtonDisabled}
+            keyLetterStates = { keyLetterStates }
+            setKeyLetterStates = {setKeyLetterStates}
+            answerLetterStates = {answerLetterStates}
+            onSetAnswerLetterStates = {onSetAnswerLetterStates}
           />
           <LetterButton
             answer={answer}
