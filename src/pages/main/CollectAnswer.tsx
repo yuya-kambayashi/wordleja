@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 
+import {answerCandidates} from "./AnswerCandidates";
+
 type Props = {
   onSetCollectAnswer: (collectAnswer: string) => void;
 };
 const CollectAnswer: React.FC<Props> = ({ onSetCollectAnswer }) => {
-
-  const candidates = ["ABOUT", "YIELD", "STORY"];
 
   const getRandomIndex = (min : number, max : number) => {
     min = Math.ceil(min);
@@ -14,9 +14,7 @@ const CollectAnswer: React.FC<Props> = ({ onSetCollectAnswer }) => {
   }
 
   useEffect(() => {
-
-
-    onSetCollectAnswer(candidates[getRandomIndex(0, candidates.length)]);
+    onSetCollectAnswer(answerCandidates[getRandomIndex(0, answerCandidates.length)]);
   }, [])
 
   return <></>;
