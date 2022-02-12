@@ -3,7 +3,7 @@ import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
 import { KeyLetterState } from "./KeyLetterState";
-import { Stack } from "@mui/material";
+import { Alert, Snackbar, Stack } from "@mui/material";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { convertToIndex } from "./KeyboardUtil";
@@ -14,6 +14,10 @@ const KeyboardLinesStack = styled(Stack)({
   left: "50%",
   transform: "translate(-50%, -50%)",
   alignItems: "flex-start"
+});
+
+const FewLettersSnackbar = styled(Snackbar)({
+  marginTop: "300px",
 });
 
 const KeyboardLines1Stack = styled(Stack)({});
@@ -53,8 +57,25 @@ const Keyboard: React.FC<Props> = ({
     }
   }, [answer, answerRow])
 
+  // 文字数チェックエラーのハンドラ
+  const [openFewLettersError, setOpenFewLettersError] = React.useState(false);
+  
+  const handleCloseFewLettersError = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenFewLettersError(false);
+  };
+
   return (
     <>
+      <FewLettersSnackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={openFewLettersError}
+        autoHideDuration={1000}
+        message="Not enough letters"
+        onClose={handleCloseFewLettersError}
+      />
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
           <LetterButton
@@ -241,6 +262,7 @@ const Keyboard: React.FC<Props> = ({
             setKeyLetterStates = {setKeyLetterStates}
             answerLetterStates = {answerLetterStates}
             onSetAnswerLetterStates = {onSetAnswerLetterStates}
+            setOpenFewLettersError= {setOpenFewLettersError}
           />
           <LetterButton
             answer={answer}

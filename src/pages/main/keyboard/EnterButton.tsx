@@ -26,6 +26,7 @@ type Props = {
   setKeyLetterStates: (states: KeyLetterState[]) => void;
   answerLetterStates: AnswerLetterState[];
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
+  setOpenFewLettersError: (open: boolean) => void;
 };
 
 const EnterButtun: React.FC<Props> = ({
@@ -36,13 +37,24 @@ const EnterButtun: React.FC<Props> = ({
   keyLetterStates,
   setKeyLetterStates,
   answerLetterStates,
-  onSetAnswerLetterStates
+  onSetAnswerLetterStates,
+  setOpenFewLettersError
 }) => {
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
 
   // エンターキー押下ハンドラ
   const handleClickEnter = () => {
+
+    // 回答の入力文字数チェック
+    if (targetAnswer.length < 5){
+      setOpenFewLettersError(true);
+      return;
+    }
+
+    // 回答の辞書チェック
+    console.log("bbb");
+
 
     // キーボードに対する正誤判定
     checkKeyLetter(collectAnswer, targetAnswer);
@@ -63,14 +75,14 @@ const EnterButtun: React.FC<Props> = ({
 
     // 正誤判定
     for (let i = 0; i < targetAnswer.length; i++) {
-      const answeLetter = targetAnswer.substr(i, 1);
+      const answeLetter = targetAnswer.substring(i, i+1);
 
       if (checkedKeyLetterState[convertToIndex(answeLetter)] === "exactMatch") {
         continue;
       }
 
       // 完全一致
-      if (collectAnswer.substr(i, 1) === answeLetter) {
+      if (collectAnswer.substring(i, i+1) === answeLetter) {
         checkedKeyLetterState[convertToIndex(answeLetter)] = "exactMatch";
       }
       // 部分一致
@@ -93,10 +105,10 @@ const EnterButtun: React.FC<Props> = ({
     let checkedAnswerLetterStates = answerLetterStates.slice();
 
     for (let i = 0; i < targetAnswer.length; i++) {
-      const answeLetter = targetAnswer.substr(i, 1);
+      const answeLetter = targetAnswer.substring(i, i+1);
 
       // 完全一致
-      if (collectAnswer.substr(i, 1) === answeLetter) {
+      if (collectAnswer.substring(i, i+1) === answeLetter) {
         checkedAnswerLetterStates[i + 5 * answerRow] = "exactMatch";
       }
       // 部分一致
