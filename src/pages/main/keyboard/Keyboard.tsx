@@ -67,6 +67,16 @@ const Keyboard: React.FC<Props> = ({
     setOpenFewLettersError(false);
   };
 
+  // 回答の辞書チェックエラーのハンドラ
+  const [openInvalidAnswerError, setOpenInvalidAnswerError] = React.useState(false);
+
+  const handleCloseInvalidAnswerError = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenInvalidAnswerError(false);
+  };
+
   return (
     <>
       <FewLettersSnackbar
@@ -74,6 +84,13 @@ const Keyboard: React.FC<Props> = ({
         open={openFewLettersError}
         autoHideDuration={1000}
         message="Not enough letters"
+        onClose={handleCloseFewLettersError}
+      />
+      <FewLettersSnackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={openFewLettersError}
+        autoHideDuration={1000}
+        message="Not in word list"
         onClose={handleCloseFewLettersError}
       />
       <KeyboardLinesStack direction="column" spacing={1}>

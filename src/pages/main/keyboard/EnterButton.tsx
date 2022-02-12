@@ -5,6 +5,7 @@ import { CollectAnswerContext } from "../Main";
 import { KeyLetterState } from "./KeyLetterState";
 import { convertToIndex } from "./KeyboardUtil";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
+import {answerCandidates} from "../../main/AnswerCandidates";
 
 const CustomButton = styled(Button)({
   backgroundColor: "#D3D6DA",
@@ -53,8 +54,10 @@ const EnterButtun: React.FC<Props> = ({
     }
 
     // 回答の辞書チェック
-    console.log("bbb");
-
+    if ( !answerCandidates.some((candidate) => candidate === targetAnswer) ){
+      setOpenFewLettersError(true);
+      return;
+    }
 
     // キーボードに対する正誤判定
     checkKeyLetter(collectAnswer, targetAnswer);
