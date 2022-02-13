@@ -3,7 +3,7 @@ import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
 import { KeyLetterState } from "./KeyLetterState";
-import { Alert, Snackbar, Stack } from "@mui/material";
+import { Snackbar, Stack } from "@mui/material";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { convertToIndex } from "./KeyboardUtil";
@@ -88,10 +88,10 @@ const Keyboard: React.FC<Props> = ({
       />
       <FewLettersSnackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openFewLettersError}
+        open={openInvalidAnswerError}
         autoHideDuration={1000}
         message="Not in word list"
-        onClose={handleCloseFewLettersError}
+        onClose={handleCloseInvalidAnswerError}
       />
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
