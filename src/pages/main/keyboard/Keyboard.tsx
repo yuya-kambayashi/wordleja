@@ -349,6 +349,7 @@ const Keyboard: React.FC<Props> = ({
             onSetAnswer={onSetAnswer}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
+            answerRow = {answerRow}
           />
         </KeyboardLines3Stack>
       </KeyboardLinesStack>

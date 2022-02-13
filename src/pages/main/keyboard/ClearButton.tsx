@@ -15,13 +15,15 @@ type Props = {
   onSetAnswer: (answer: string) => void;
   answerLetterStates: AnswerLetterState[];
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
+  answerRow: number;
 };
 
 const ClearButton: React.FC<Props> = ({
   answer,
   onSetAnswer,
   answerLetterStates,
-  onSetAnswerLetterStates
+  onSetAnswerLetterStates,
+  answerRow
 }) => {
   // 押下されたキーを「empty」状態に変更します
   const setAnswerLetterEmpty = () => {
@@ -30,9 +32,23 @@ const ClearButton: React.FC<Props> = ({
     checkedAnswerLetterStates[answer.length - 1] = "empty";
 
     onSetAnswerLetterStates(checkedAnswerLetterStates);
+    console.log("before");
+    console.log(checkedAnswerLetterStates);
+
   };
 
   const handleClickClear = () => {
+
+    console.log(answer);
+    console.log(answerRow);
+    console.log("before");
+    console.log(answerLetterStates);
+
+    // エンター押下済みの行は削除しない
+    if (answer.length <= answerRow * 5){
+      return;
+    }
+
     onSetAnswer(answer.slice(0, -1));
 
     setAnswerLetterEmpty();
