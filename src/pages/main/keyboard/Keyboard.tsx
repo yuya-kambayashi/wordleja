@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
@@ -7,6 +7,7 @@ import { Snackbar, Stack } from "@mui/material";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { convertToIndex } from "./KeyboardUtil";
+import { CollectAnswerContext } from "../Main";
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
@@ -16,7 +17,7 @@ const KeyboardLinesStack = styled(Stack)({
   alignItems: "flex-start"
 });
 
-const FewLettersSnackbar = styled(Snackbar)({
+const LettersErrorSnackbar = styled(Snackbar)({
   marginTop: "300px",
 });
 
@@ -79,21 +80,39 @@ const Keyboard: React.FC<Props> = ({
     setOpenInvalidAnswerError(false);
   };
 
+  // 正答表示のハンドラ
+  const [openCollectAnswer, setOpenCollectAnswer] = React.useState(false);
+
+  const handleOpenCollectAnswer = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenCollectAnswer(false);
+  };
+
+  const collectAnswer = useContext(CollectAnswerContext) as string;
+
   return (
     <>
-      <FewLettersSnackbar
+      <LettersErrorSnackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openFewLettersError}
         autoHideDuration={1000}
         message="Not enough letters"
         onClose={handleCloseFewLettersError}
       />
-      <FewLettersSnackbar
+      <LettersErrorSnackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openInvalidAnswerError}
         autoHideDuration={1000}
         message="Not in word list"
-        onClose={handleCloseInvalidAnswerError}
+        onClose={handleOpenCollectAnswer}
+      />
+      <LettersErrorSnackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={openCollectAnswer}
+        message={collectAnswer}
+        onClose={handleOpenCollectAnswer}
       />
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
@@ -282,6 +301,7 @@ const Keyboard: React.FC<Props> = ({
             answerLetterStates = {answerLetterStates}
             onSetAnswerLetterStates = {onSetAnswerLetterStates}
             setOpenFewLettersError= {setOpenFewLettersError}
+            setOpenInvalidAnswerError= {setOpenInvalidAnswerError}
           />
           <LetterButton
             answer={answer}

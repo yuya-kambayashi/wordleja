@@ -28,6 +28,7 @@ type Props = {
   answerLetterStates: AnswerLetterState[];
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
   setOpenFewLettersError: (open: boolean) => void;
+  setOpenInvalidAnswerError: (open: boolean) => void;
 };
 
 const EnterButtun: React.FC<Props> = ({
@@ -39,10 +40,10 @@ const EnterButtun: React.FC<Props> = ({
   setKeyLetterStates,
   answerLetterStates,
   onSetAnswerLetterStates,
-  setOpenFewLettersError
+  setOpenFewLettersError,
+  setOpenInvalidAnswerError,
 }) => {
   const collectAnswer = useContext(CollectAnswerContext) as string;
-
 
   // エンターキー押下ハンドラ
   const handleClickEnter = () => {
@@ -55,7 +56,7 @@ const EnterButtun: React.FC<Props> = ({
 
     // 回答の辞書チェック
     if ( !answerCandidates.some((candidate) => candidate === targetAnswer) ){
-      setOpenFewLettersError(true);
+      setOpenInvalidAnswerError(true);
       return;
     }
 
