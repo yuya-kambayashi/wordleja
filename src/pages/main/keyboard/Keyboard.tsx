@@ -52,7 +52,9 @@ const Keyboard: React.FC<Props> = ({
   useEffect(()=>{
     // 回答の行に対して文字数が超えていたら押下不可とします
     // →　エンター押下で解除
+    console.log(answer);
     if (answer.length >= 5 + 5 * answerRow){
+      console.log(letterButtonDisabled);
       setLetterButtonDisabled(true);
     }
   }, [answer, answerRow])
@@ -350,6 +352,7 @@ const Keyboard: React.FC<Props> = ({
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
             answerRow = {answerRow}
+            setLetterButtonDisabled = {setLetterButtonDisabled}
           />
         </KeyboardLines3Stack>
       </KeyboardLinesStack>
