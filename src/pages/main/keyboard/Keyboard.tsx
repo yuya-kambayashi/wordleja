@@ -151,12 +151,8 @@ const Keyboard: React.FC<Props> = ({
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
           <LetterButton2
-            answer={letterState.answer}
-            onSetAnswer={onSetAnswer}
             state={"unused"}
             letter={"Q"}
-            answerLetterStates={letterState.answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
             disabled={letterButtonDisabled}
             dispatchLetter={dispatchLetter}
           />

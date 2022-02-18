@@ -1,7 +1,6 @@
 import React from "react";
 import { KeyLetterState } from "./KeyLetterState";
 import { Button, Typography } from "@mui/material";
-import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { KeyAction, KeyActionType } from "./KeyboardReducer";
 
@@ -22,44 +21,25 @@ const CustomTypography = styled(Typography)({
 });
 
 type Props = {
-  answer: string;
-  onSetAnswer: (answer: string) => void;
   state: KeyLetterState;
   letter: string;
-  answerLetterStates: AnswerLetterState[];
-  onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
   disabled: boolean;
   dispatchLetter: (action: KeyAction) => void;
 };
 
 const LetterButton2: React.FC<Props> = ({
-  answer,
-  onSetAnswer,
   state,
   letter,
-  answerLetterStates,
-  onSetAnswerLetterStates,
   disabled,
   dispatchLetter
 }) => {
-  // // 押下されたキーを「uncheck」状態に変更します
-  // const setAnswerLetterUncheck = () => {
-  //   let checkedAnswerLetterStates = answerLetterStates.slice();
-
-  //   checkedAnswerLetterStates[answer.length] = "uncheck";
-
-  //   onSetAnswerLetterStates(checkedAnswerLetterStates);
-  // };
-
-  const handleClick = (letter: string) => {
-    dispatchLetter({ type: KeyActionType.INPUT, target: letter });
-  };
-
   return (
     <>
       {state === "exactMatch" && (
         <CustomButton
-          onClick={() => handleClick(letter)}
+          onClick={() =>
+            dispatchLetter({ type: KeyActionType.INPUT, target: letter })
+          }
           style={{ backgroundColor: "#6AAA64" }}
           disabled={disabled}
         >
@@ -68,7 +48,9 @@ const LetterButton2: React.FC<Props> = ({
       )}
       {state === "partialMatch" && (
         <CustomButton
-          onClick={() => handleClick(letter)}
+          onClick={() =>
+            dispatchLetter({ type: KeyActionType.INPUT, target: letter })
+          }
           style={{ backgroundColor: "#C9B458" }}
           disabled={disabled}
         >
@@ -77,7 +59,9 @@ const LetterButton2: React.FC<Props> = ({
       )}
       {state === "used" && (
         <CustomButton
-          onClick={() => handleClick(letter)}
+          onClick={() =>
+            dispatchLetter({ type: KeyActionType.INPUT, target: letter })
+          }
           style={{ backgroundColor: "#787C7E" }}
           disabled={disabled}
         >
@@ -87,7 +71,7 @@ const LetterButton2: React.FC<Props> = ({
       {state === "unused" && (
         <CustomButton
           onClick={() =>
-            dispatchLetter({ type: KeyActionType.INPUT, target: "Q" })
+            dispatchLetter({ type: KeyActionType.INPUT, target: letter })
           }
           style={{ backgroundColor: "#D3D6DA" }}
           disabled={disabled}
