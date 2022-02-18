@@ -8,13 +8,14 @@ import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { convertToIndex } from "./KeyboardUtil";
 import { CollectAnswerContext } from "../Main";
+import { reducerFuncLetters } from "./KeyboardReducer";
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
   top: "90%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  alignItems: "flex-start"
+  alignItems: "flex-start",
 });
 
 const LettersErrorSnackbar = styled(Snackbar)({
@@ -25,17 +26,7 @@ const KeyboardLines1Stack = styled(Stack)({});
 const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
 const KeyboardLines3Stack = styled(Stack)({});
 
-const initailLetterState : string[] = [];
-
-export const reducerFuncLetters = (letterState : string[], action: string) => {
-  switch(action){
-    case 'concat':
-      return letterState.concat("A");
-
-    default: 
-      return initailLetterState;
-  }
-}
+const initailLetterState: string[] = [];
 
 type Props = {
   answer: string;
@@ -48,45 +39,52 @@ const Keyboard: React.FC<Props> = ({
   answer,
   onSetAnswer,
   answerLetterStates,
-  onSetAnswerLetterStates
+  onSetAnswerLetterStates,
 }) => {
   // 各キーの状態の配列
   const initalKeyLetterState = Array(26).fill("unused");
 
-  const [keyLetterStates, setKeyLetterStates] = useState<KeyLetterState[]>(
-    initalKeyLetterState
-  );
+  const [keyLetterStates, setKeyLetterStates] =
+    useState<KeyLetterState[]>(initalKeyLetterState);
 
   const [answerRow, SetAnswerRow] = useState<number>(0);
 
   // 文字キーの押下制御
-  const [letterButtonDisabled, setLetterButtonDisabled] = useState<boolean>(false);
+  const [letterButtonDisabled, setLetterButtonDisabled] =
+    useState<boolean>(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     // 回答の行に対して文字数が超えていたら押下不可とします
     // →　エンター押下で解除
     console.log(answer);
-    if (answer.length >= 5 + 5 * answerRow){
+    if (answer.length >= 5 + 5 * answerRow) {
       console.log(letterButtonDisabled);
       setLetterButtonDisabled(true);
     }
-  }, [answer, answerRow])
+  }, [answer, answerRow]);
 
   // 文字数チェックエラーのハンドラ
   const [openFewLettersError, setOpenFewLettersError] = React.useState(false);
-  
-  const handleCloseFewLettersError = (event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
+
+  const handleCloseFewLettersError = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
     setOpenFewLettersError(false);
   };
 
   // 回答の辞書チェックエラーのハンドラ
-  const [openInvalidAnswerError, setOpenInvalidAnswerError] = React.useState(false);
+  const [openInvalidAnswerError, setOpenInvalidAnswerError] =
+    React.useState(false);
 
-  const handleCloseInvalidAnswerError = (event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
+  const handleCloseInvalidAnswerError = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
     setOpenInvalidAnswerError(false);
@@ -95,8 +93,11 @@ const Keyboard: React.FC<Props> = ({
   // 正答表示のハンドラ
   const [openCollectAnswer, setOpenCollectAnswer] = React.useState(false);
 
-  const handleOpenCollectAnswer = (event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
+  const handleOpenCollectAnswer = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
     setOpenCollectAnswer(false);
@@ -104,33 +105,36 @@ const Keyboard: React.FC<Props> = ({
 
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
-  const [letters, dispachLetter] = useReducer(reducerFuncLetters, initailLetterState);
+  const [letters, dispachLetter] = useReducer(
+    reducerFuncLetters,
+    initailLetterState
+  );
 
   return (
     <>
       <LettersErrorSnackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={openFewLettersError}
         autoHideDuration={1000}
         message="Not enough letters"
         onClose={handleCloseFewLettersError}
       />
       <LettersErrorSnackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={openInvalidAnswerError}
         autoHideDuration={1000}
         message="Not in word list"
         onClose={handleOpenCollectAnswer}
       />
       <LettersErrorSnackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={openCollectAnswer}
         message={collectAnswer}
         onClose={handleOpenCollectAnswer}
       />
       <div>
         <p>{letters}</p>
-        <button onClick={() => dispachLetter('concat')}>concat</button>
+        <button onClick={() => dispachLetter("concat")}>concat</button>
       </div>
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
@@ -310,16 +314,16 @@ const Keyboard: React.FC<Props> = ({
         </KeyboardLines2Stack>
         <KeyboardLines3Stack direction="row" spacing={1}>
           <EnterButton
-            targetAnswer = {answer.substring(5 * answerRow, 5 + 5 * answerRow)}
-            answerRow = {answerRow}
-            SetAnswerRow = {SetAnswerRow}
-            setLetterButtonDisabled = {setLetterButtonDisabled}
-            keyLetterStates = { keyLetterStates }
-            setKeyLetterStates = {setKeyLetterStates}
-            answerLetterStates = {answerLetterStates}
-            onSetAnswerLetterStates = {onSetAnswerLetterStates}
-            setOpenFewLettersError= {setOpenFewLettersError}
-            setOpenInvalidAnswerError= {setOpenInvalidAnswerError}
+            targetAnswer={answer.substring(5 * answerRow, 5 + 5 * answerRow)}
+            answerRow={answerRow}
+            SetAnswerRow={SetAnswerRow}
+            setLetterButtonDisabled={setLetterButtonDisabled}
+            keyLetterStates={keyLetterStates}
+            setKeyLetterStates={setKeyLetterStates}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+            setOpenFewLettersError={setOpenFewLettersError}
+            setOpenInvalidAnswerError={setOpenInvalidAnswerError}
           />
           <LetterButton
             answer={answer}
@@ -389,8 +393,8 @@ const Keyboard: React.FC<Props> = ({
             onSetAnswer={onSetAnswer}
             answerLetterStates={answerLetterStates}
             onSetAnswerLetterStates={onSetAnswerLetterStates}
-            answerRow = {answerRow}
-            setLetterButtonDisabled = {setLetterButtonDisabled}
+            answerRow={answerRow}
+            setLetterButtonDisabled={setLetterButtonDisabled}
           />
         </KeyboardLines3Stack>
       </KeyboardLinesStack>
