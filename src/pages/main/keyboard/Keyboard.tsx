@@ -8,34 +8,30 @@ import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { convertToIndex } from "./KeyboardUtil";
 import { CollectAnswerContext } from "../Main";
-import { KeyActionType, reducerKeys } from "./KeyboardReducer";
+import { KeyActionType, KeyAction } from "./KeyboardReducer";
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
   top: "90%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  alignItems: "flex-start",
+  alignItems: "flex-start"
 });
 
 const LettersErrorSnackbar = styled(Snackbar)({
-  marginTop: "300px",
+  marginTop: "300px"
 });
 
 const KeyboardLines1Stack = styled(Stack)({});
 const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
 const KeyboardLines3Stack = styled(Stack)({});
 
-const initailLetterState = {
-  answer: "",
-  answerLetterStates: Array(3).fill("empty"),
-};
-
 type Props = {
   answer: string;
   onSetAnswer: (answer: string) => void;
   answerLetterStates: AnswerLetterState[];
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
+  dispatchLetter: (action: KeyAction) => void;
 };
 
 const Keyboard: React.FC<Props> = ({
@@ -43,18 +39,21 @@ const Keyboard: React.FC<Props> = ({
   onSetAnswer,
   answerLetterStates,
   onSetAnswerLetterStates,
+  dispatchLetter
 }) => {
   // 各キーの状態の配列
   const initalKeyLetterState = Array(26).fill("unused");
 
-  const [keyLetterStates, setKeyLetterStates] =
-    useState<KeyLetterState[]>(initalKeyLetterState);
+  const [keyLetterStates, setKeyLetterStates] = useState<KeyLetterState[]>(
+    initalKeyLetterState
+  );
 
   const [answerRow, SetAnswerRow] = useState<number>(0);
 
   // 文字キーの押下制御
-  const [letterButtonDisabled, setLetterButtonDisabled] =
-    useState<boolean>(false);
+  const [letterButtonDisabled, setLetterButtonDisabled] = useState<boolean>(
+    false
+  );
 
   useEffect(() => {
     // 回答の行に対して文字数が超えていたら押下不可とします
@@ -80,8 +79,9 @@ const Keyboard: React.FC<Props> = ({
   };
 
   // 回答の辞書チェックエラーのハンドラ
-  const [openInvalidAnswerError, setOpenInvalidAnswerError] =
-    React.useState(false);
+  const [openInvalidAnswerError, setOpenInvalidAnswerError] = React.useState(
+    false
+  );
 
   const handleCloseInvalidAnswerError = (
     event: React.SyntheticEvent | Event,
@@ -108,8 +108,6 @@ const Keyboard: React.FC<Props> = ({
 
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
-  const [letters, dispachLetter] = useReducer(reducerKeys, initailLetterState);
-
   return (
     <>
       <LettersErrorSnackbar
@@ -133,16 +131,14 @@ const Keyboard: React.FC<Props> = ({
         onClose={handleOpenCollectAnswer}
       />
       <div>
-        <p>{letters.answer}</p>
-        <p>{letters.answerLetterStates}</p>
         <button
           onClick={() =>
-            dispachLetter({ type: KeyActionType.INPUT, target: "A" })
+            dispatchLetter({ type: KeyActionType.INPUT, target: "B" })
           }
         >
-          INPUT
+          INPUT_B
         </button>
-        <button onClick={() => dispachLetter({ type: KeyActionType.DELETE })}>
+        <button onClick={() => dispatchLetter({ type: KeyActionType.DELETE })}>
           DELETE
         </button>
       </div>
