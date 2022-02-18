@@ -1,10 +1,10 @@
-export enum KeyAction {
+export enum KeyActionType {
   INPUT = "input",
   DELETE = "delete",
   ENTER = "enter",
 }
 
-export const reducerKeys = (letterState: any, action: string) => {
+export const reducerKeys = (letterState: any, action: KeyActionType) => {
   switch (action) {
     case "input":
       return { ...letterState, letters: letterState.letters + "A" };

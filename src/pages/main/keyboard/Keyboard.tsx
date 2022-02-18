@@ -8,7 +8,7 @@ import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { convertToIndex } from "./KeyboardUtil";
 import { CollectAnswerContext } from "../Main";
-import { KeyAction, reducerKeys } from "./KeyboardReducer";
+import { KeyActionType, reducerKeys } from "./KeyboardReducer";
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
@@ -133,8 +133,12 @@ const Keyboard: React.FC<Props> = ({
       />
       <div>
         <p>{letters.letters}</p>
-        <button onClick={() => dispachLetter(KeyAction.INPUT)}>INPUT</button>
-        <button onClick={() => dispachLetter(KeyAction.DELETE)}>DELETE</button>
+        <button onClick={() => dispachLetter(KeyActionType.INPUT)}>
+          INPUT
+        </button>
+        <button onClick={() => dispachLetter(KeyActionType.DELETE)}>
+          DELETE
+        </button>
       </div>
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
