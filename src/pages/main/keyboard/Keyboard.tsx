@@ -133,10 +133,14 @@ const Keyboard: React.FC<Props> = ({
       />
       <div>
         <p>{letters.letters}</p>
-        <button onClick={() => dispachLetter(KeyActionType.INPUT)}>
+        <button
+          onClick={() =>
+            dispachLetter({ type: KeyActionType.INPUT, target: "A" })
+          }
+        >
           INPUT
         </button>
-        <button onClick={() => dispachLetter(KeyActionType.DELETE)}>
+        <button onClick={() => dispachLetter({ type: KeyActionType.DELETE })}>
           DELETE
         </button>
       </div>
