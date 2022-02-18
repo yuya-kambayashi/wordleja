@@ -7,9 +7,9 @@ export enum KeyActionType {
 export const reducerKeys = (letterState: any, action: KeyAction) => {
   switch (action.type) {
     case KeyActionType.INPUT:
-      return { ...letterState, letters: letterState.letters + action.target };
+      return letterState + action.target;
     case KeyActionType.DELETE:
-      return { ...letterState, letters: letterState.letters.slice(0, -1) };
+      return letterState.slice(0, -1);
     default:
       return letterState;
   }

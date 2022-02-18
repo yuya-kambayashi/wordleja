@@ -26,9 +26,7 @@ const KeyboardLines1Stack = styled(Stack)({});
 const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
 const KeyboardLines3Stack = styled(Stack)({});
 
-const initailLetterState = {
-  letters: "",
-};
+const initailLetterState = "";
 
 type Props = {
   answer: string;
@@ -132,7 +130,7 @@ const Keyboard: React.FC<Props> = ({
         onClose={handleOpenCollectAnswer}
       />
       <div>
-        <p>{letters.letters}</p>
+        <p>{letters}</p>
         <button
           onClick={() =>
             dispachLetter({ type: KeyActionType.INPUT, target: "A" })
