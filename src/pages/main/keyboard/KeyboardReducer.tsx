@@ -8,7 +8,8 @@ export const reducerKeys = (letterState: any, action: string) => {
   switch (action) {
     case "input":
       return { ...letterState, letters: letterState.letters.concat("A") };
-
+    case "delete":
+      return { ...letterState, letters: letterState.letters.slice(0, -1) };
     default:
       return letterState;
   }

@@ -133,7 +133,8 @@ const Keyboard: React.FC<Props> = ({
       />
       <div>
         <p>{letters.letters}</p>
-        <button onClick={() => dispachLetter(KeyAction.INPUT)}>concat</button>
+        <button onClick={() => dispachLetter(KeyAction.INPUT)}>INPUT</button>
+        <button onClick={() => dispachLetter(KeyAction.DELETE)}>DELETE</button>
       </div>
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
