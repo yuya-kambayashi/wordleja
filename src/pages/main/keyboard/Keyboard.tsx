@@ -27,7 +27,7 @@ const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
 const KeyboardLines3Stack = styled(Stack)({});
 
 const initailLetterState = {
-  letters: [],
+  letters: "",
 };
 
 type Props = {
