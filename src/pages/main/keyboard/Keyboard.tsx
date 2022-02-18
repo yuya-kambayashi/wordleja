@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useReducer } from "react";
 import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
@@ -24,6 +24,18 @@ const LettersErrorSnackbar = styled(Snackbar)({
 const KeyboardLines1Stack = styled(Stack)({});
 const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
 const KeyboardLines3Stack = styled(Stack)({});
+
+const initailLetterState : string[] = [];
+
+export const reducerFuncLetters = (letterState : string[], action: string) => {
+  switch(action){
+    case 'concat':
+      return letterState.concat("A");
+
+    default: 
+      return initailLetterState;
+  }
+}
 
 type Props = {
   answer: string;
@@ -92,6 +104,8 @@ const Keyboard: React.FC<Props> = ({
 
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
+  const [letters, dispachLetter] = useReducer(reducerFuncLetters, initailLetterState);
+
   return (
     <>
       <LettersErrorSnackbar
@@ -114,6 +128,10 @@ const Keyboard: React.FC<Props> = ({
         message={collectAnswer}
         onClose={handleOpenCollectAnswer}
       />
+      <div>
+        <p>{letters}</p>
+        <button onClick={() => dispachLetter('concat')}>concat</button>
+      </div>
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
           <LetterButton
