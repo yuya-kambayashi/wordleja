@@ -8,7 +8,7 @@ import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { convertToIndex } from "./KeyboardUtil";
 import { CollectAnswerContext } from "../Main";
-import { reducerFuncLetters } from "./KeyboardReducer";
+import { KeyAction, reducerKeys } from "./KeyboardReducer";
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
@@ -26,7 +26,9 @@ const KeyboardLines1Stack = styled(Stack)({});
 const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
 const KeyboardLines3Stack = styled(Stack)({});
 
-const initailLetterState: string[] = [];
+const initailLetterState = {
+  letters: [],
+};
 
 type Props = {
   answer: string;
@@ -105,10 +107,7 @@ const Keyboard: React.FC<Props> = ({
 
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
-  const [letters, dispachLetter] = useReducer(
-    reducerFuncLetters,
-    initailLetterState
-  );
+  const [letters, dispachLetter] = useReducer(reducerKeys, initailLetterState);
 
   return (
     <>
@@ -133,8 +132,8 @@ const Keyboard: React.FC<Props> = ({
         onClose={handleOpenCollectAnswer}
       />
       <div>
-        <p>{letters}</p>
-        <button onClick={() => dispachLetter("concat")}>concat</button>
+        <p>{letters.letters}</p>
+        <button onClick={() => dispachLetter(KeyAction.INPUT)}>concat</button>
       </div>
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>

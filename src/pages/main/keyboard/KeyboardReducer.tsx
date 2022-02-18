@@ -1,9 +1,15 @@
-export const reducerFuncLetters = (letterState: string[], action: string) => {
+export enum KeyAction {
+  INPUT = "input",
+  DELETE = "delete",
+  ENTER = "enter",
+}
+
+export const reducerKeys = (letterState: any, action: string) => {
   switch (action) {
-    case "concat":
-      return letterState.concat("A");
+    case "input":
+      return { ...letterState, letters: letterState.letters.concat("A") };
 
     default:
-      return [];
+      return letterState;
   }
 };
