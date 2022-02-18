@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, useReducer } from "react";
 import LetterButton from "./LetterButton";
+import LetterButton2 from "./LetterButton2";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
 import { KeyLetterState } from "./KeyLetterState";
@@ -9,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import { convertToIndex } from "./KeyboardUtil";
 import { CollectAnswerContext } from "../Main";
 import { KeyActionType, KeyAction } from "./KeyboardReducer";
+import { letterStateType } from "../../main/Main";
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
@@ -32,6 +34,7 @@ type Props = {
   answerLetterStates: AnswerLetterState[];
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
   dispatchLetter: (action: KeyAction) => void;
+  letterState: letterStateType;
 };
 
 const Keyboard: React.FC<Props> = ({
@@ -39,7 +42,8 @@ const Keyboard: React.FC<Props> = ({
   onSetAnswer,
   answerLetterStates,
   onSetAnswerLetterStates,
-  dispatchLetter
+  dispatchLetter,
+  letterState
 }) => {
   // 各キーの状態の配列
   const initalKeyLetterState = Array(26).fill("unused");
@@ -131,6 +135,8 @@ const Keyboard: React.FC<Props> = ({
         onClose={handleOpenCollectAnswer}
       />
       <div>
+        <p>{letterState.answer}</p>
+        <p>{letterState.answerLetterStates}</p>
         <button
           onClick={() =>
             dispatchLetter({ type: KeyActionType.INPUT, target: "B" })
@@ -144,6 +150,16 @@ const Keyboard: React.FC<Props> = ({
       </div>
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
+          <LetterButton2
+            answer={letterState.answer}
+            onSetAnswer={onSetAnswer}
+            state={"unused"}
+            letter={"Q"}
+            answerLetterStates={letterState.answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+            disabled={letterButtonDisabled}
+            dispatchLetter={dispatchLetter}
+          />
           <LetterButton
             answer={answer}
             onSetAnswer={onSetAnswer}

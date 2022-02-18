@@ -13,9 +13,14 @@ import {
 export const CollectAnswerContext = createContext("");
 type Props = {};
 
-const initailLetterState = {
+const initailLetterState: letterStateType = {
   answer: "",
   answerLetterStates: Array(3).fill("empty")
+};
+
+export type letterStateType = {
+  answer: string;
+  answerLetterStates: AnswerLetterState[];
 };
 
 const Main: React.FC<Props> = () => {
@@ -38,14 +43,13 @@ const Main: React.FC<Props> = () => {
       <CollectAnswerContext.Provider value={collectAnswer}>
         <Header />
         <Answers answers={answer} answerLetterStates={answerLetterStates} />
-        <p>{letters.answer}</p>
-        <p>{letters.answerLetterStates}</p>
         <Keyboard
           answer={answer}
           onSetAnswer={setAnswer}
           answerLetterStates={answerLetterStates}
           onSetAnswerLetterStates={setAnswerLetterStates}
           dispatchLetter={dispatchLetter}
+          letterState={letters}
         />
       </CollectAnswerContext.Provider>
     </>
