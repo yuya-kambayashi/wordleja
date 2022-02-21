@@ -7,12 +7,10 @@ export enum KeyActionType {
 }
 
 export const reducerKeys = (letterState: any, action: KeyAction) => {
-  const targetIndex = convertToIndex(action.target as string);
-
   switch (action.type) {
     case KeyActionType.INPUT:
       let newStates = letterState.answerLetterStates.slice();
-      newStates.splice(0, 1, "unchecked");
+      newStates.push("unchecked");
       console.log(newStates);
       return {
         ...letterState,
@@ -20,7 +18,14 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
         answerLetterStates: newStates,
       };
     case KeyActionType.DELETE:
-      return { ...letterState, answer: letterState.answer.slice(0, -1) };
+      let newStates2 = letterState.answerLetterStates.slice();
+      newStates2.splice([letterState.answer.length - 1], 0, "empty");
+      console.log(newStates2);
+      return {
+        ...letterState,
+        answer: letterState.answer.slice(0, -1),
+        answerLetterStates: newStates2,
+      };
     default:
       return letterState;
   }

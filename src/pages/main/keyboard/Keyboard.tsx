@@ -3,6 +3,7 @@ import LetterButton from "./LetterButton";
 import LetterButton2 from "./LetterButton2";
 import EnterButton from "./EnterButton";
 import ClearButton from "./ClearButton";
+import DeleteButton from "./DeleteButton";
 import { KeyLetterState } from "./KeyLetterState";
 import { Snackbar, Stack } from "@mui/material";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
@@ -17,11 +18,11 @@ const KeyboardLinesStack = styled(Stack)({
   top: "90%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  alignItems: "flex-start"
+  alignItems: "flex-start",
 });
 
 const LettersErrorSnackbar = styled(Snackbar)({
-  marginTop: "300px"
+  marginTop: "300px",
 });
 
 const KeyboardLines1Stack = styled(Stack)({});
@@ -43,21 +44,19 @@ const Keyboard: React.FC<Props> = ({
   answerLetterStates,
   onSetAnswerLetterStates,
   dispatchLetter,
-  letterState
+  letterState,
 }) => {
   // 各キーの状態の配列
   const initalKeyLetterState = Array(26).fill("unused");
 
-  const [keyLetterStates, setKeyLetterStates] = useState<KeyLetterState[]>(
-    initalKeyLetterState
-  );
+  const [keyLetterStates, setKeyLetterStates] =
+    useState<KeyLetterState[]>(initalKeyLetterState);
 
   const [answerRow, SetAnswerRow] = useState<number>(0);
 
   // 文字キーの押下制御
-  const [letterButtonDisabled, setLetterButtonDisabled] = useState<boolean>(
-    false
-  );
+  const [letterButtonDisabled, setLetterButtonDisabled] =
+    useState<boolean>(false);
 
   useEffect(() => {
     // 回答の行に対して文字数が超えていたら押下不可とします
@@ -83,9 +82,8 @@ const Keyboard: React.FC<Props> = ({
   };
 
   // 回答の辞書チェックエラーのハンドラ
-  const [openInvalidAnswerError, setOpenInvalidAnswerError] = React.useState(
-    false
-  );
+  const [openInvalidAnswerError, setOpenInvalidAnswerError] =
+    React.useState(false);
 
   const handleCloseInvalidAnswerError = (
     event: React.SyntheticEvent | Event,
@@ -150,6 +148,15 @@ const Keyboard: React.FC<Props> = ({
       </div>
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
+          <DeleteButton
+            answer={answer}
+            onSetAnswer={onSetAnswer}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+            answerRow={answerRow}
+            setLetterButtonDisabled={setLetterButtonDisabled}
+            dispatchLetter={dispatchLetter}
+          />
           <LetterButton2
             state={"unused"}
             letter={"Q"}
