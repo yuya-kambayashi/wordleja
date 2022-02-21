@@ -1,5 +1,3 @@
-import { convertToIndex } from "./KeyboardUtil";
-
 export enum KeyActionType {
   INPUT = "input",
   DELETE = "delete",
