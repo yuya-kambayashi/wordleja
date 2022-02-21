@@ -19,8 +19,7 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
       };
     case KeyActionType.DELETE:
       let newStates2 = letterState.answerLetterStates.slice();
-      newStates2.splice([letterState.answer.length - 1], 0, "empty");
-      console.log(newStates2);
+      newStates2.splice([letterState.answer.length - 1], 1, "empty");
       return {
         ...letterState,
         answer: letterState.answer.slice(0, -1),
