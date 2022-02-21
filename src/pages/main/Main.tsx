@@ -7,7 +7,7 @@ import CollectAnswer from "./CollectAnswer";
 import {
   KeyActionType,
   reducerKeys,
-  KeyAction
+  KeyAction,
 } from "./keyboard/KeyboardReducer";
 
 export const CollectAnswerContext = createContext("");
@@ -15,7 +15,7 @@ type Props = {};
 
 const initailLetterState: letterStateType = {
   answer: "",
-  answerLetterStates: Array(3).fill("empty")
+  answerLetterStates: Array(25).fill("#"),
 };
 
 export type letterStateType = {

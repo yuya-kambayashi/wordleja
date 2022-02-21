@@ -10,7 +10,7 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
   switch (action.type) {
     case KeyActionType.INPUT:
       let newStates = letterState.answerLetterStates.slice();
-      newStates.push("unchecked");
+      newStates.splice([letterState.answer.length], 1, "uncheck");
       console.log(newStates);
       return {
         ...letterState,
