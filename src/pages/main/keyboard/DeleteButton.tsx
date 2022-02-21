@@ -12,33 +12,17 @@ const CustomButton = styled(Button)({
 });
 
 type Props = {
-  answer: string;
-  onSetAnswer: (answer: string) => void;
-  answerLetterStates: AnswerLetterState[];
-  onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
-  answerRow: number;
   setLetterButtonDisabled: (disabled: boolean) => void;
+  disabled: boolean;
   dispatchLetter: (action: KeyAction) => void;
 };
 
 const DeleteButton: React.FC<Props> = ({
-  answer,
-  onSetAnswer,
-  answerLetterStates,
-  onSetAnswerLetterStates,
-  answerRow,
   setLetterButtonDisabled,
+  disabled,
   dispatchLetter,
 }) => {
   const handleClick = () => {
-    // エンター押下済みの行は削除しない
-    console.log(answer);
-    console.log(answerRow);
-
-    // if (answer.length <= answerRow * 5) {
-    //   return;
-    // }
-
     dispatchLetter({ type: KeyActionType.DELETE });
 
     // キーボードを押下可能な状態に戻します
@@ -47,7 +31,7 @@ const DeleteButton: React.FC<Props> = ({
 
   return (
     <>
-      <CustomButton onClick={handleClick}>
+      <CustomButton onClick={handleClick} disabled={disabled}>
         <BackspaceOutlined />
       </CustomButton>
     </>

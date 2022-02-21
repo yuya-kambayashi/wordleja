@@ -108,6 +108,18 @@ const Keyboard: React.FC<Props> = ({
     setOpenCollectAnswer(false);
   };
 
+  // 削除キーの押下制御
+  const [deleteButtonDisabled, setDeleteButtonDisabled] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    if (letterState.answer.length <= answerRow * 5) {
+      setDeleteButtonDisabled(true);
+      return;
+    }
+    setDeleteButtonDisabled(false);
+  }, [letterState.answer, answerRow]);
+
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
   return (
@@ -149,12 +161,8 @@ const Keyboard: React.FC<Props> = ({
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
           <DeleteButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            answerRow={answerRow}
             setLetterButtonDisabled={setLetterButtonDisabled}
+            disabled={deleteButtonDisabled}
             dispatchLetter={dispatchLetter}
           />
           <LetterButton2
