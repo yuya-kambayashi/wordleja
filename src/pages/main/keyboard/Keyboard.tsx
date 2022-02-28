@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, useReducer } from "react";
 import LetterButton from "./LetterButton";
 import LetterButton2 from "./LetterButton2";
 import EnterButton from "./EnterButton";
-import ClearButton from "./ClearButton";
 import DeleteButton from "./DeleteButton";
 import { KeyLetterState } from "./KeyLetterState";
 import { Snackbar, Stack } from "@mui/material";
@@ -160,11 +159,6 @@ const Keyboard: React.FC<Props> = ({
       </div>
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
-          <DeleteButton
-            setLetterButtonDisabled={setLetterButtonDisabled}
-            disabled={deleteButtonDisabled}
-            dispatchLetter={dispatchLetter}
-          />
           <LetterButton2
             state={"unused"}
             letter={"Q"}
@@ -421,13 +415,10 @@ const Keyboard: React.FC<Props> = ({
             onSetAnswerLetterStates={onSetAnswerLetterStates}
             disabled={letterButtonDisabled}
           />
-          <ClearButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            answerRow={answerRow}
+          <DeleteButton
             setLetterButtonDisabled={setLetterButtonDisabled}
+            disabled={deleteButtonDisabled}
+            dispatchLetter={dispatchLetter}
           />
         </KeyboardLines3Stack>
       </KeyboardLinesStack>
