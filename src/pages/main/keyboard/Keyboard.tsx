@@ -364,6 +364,7 @@ const Keyboard: React.FC<Props> = ({
             onSetAnswerLetterStates={onSetAnswerLetterStates}
             setOpenFewLettersError={setOpenFewLettersError}
             setOpenInvalidAnswerError={setOpenInvalidAnswerError}
+            dispatchLetter={dispatchLetter}
           />
           <LetterButton
             answer={answer}

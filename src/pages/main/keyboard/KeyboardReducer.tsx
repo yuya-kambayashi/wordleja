@@ -23,6 +23,11 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
         answer: letterState.answer.slice(0, -1),
         answerLetterStates: newStates2,
       };
+    case KeyActionType.ENTER:
+      return {
+        ...letterState,
+      };
+
     default:
       return letterState;
   }

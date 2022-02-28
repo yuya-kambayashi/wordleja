@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { BackspaceOutlined } from "@mui/icons-material";
-import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { KeyAction, KeyActionType } from "./KeyboardReducer";
 

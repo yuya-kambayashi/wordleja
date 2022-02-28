@@ -6,6 +6,7 @@ import { KeyLetterState } from "./KeyLetterState";
 import { convertToIndex } from "./KeyboardUtil";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { answerCandidates } from "../../main/AnswerCandidates";
+import { KeyAction, KeyActionType } from "./KeyboardReducer";
 
 const CustomButton = styled(Button)({
   backgroundColor: "#D3D6DA",
@@ -29,6 +30,7 @@ type Props = {
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
   setOpenFewLettersError: (open: boolean) => void;
   setOpenInvalidAnswerError: (open: boolean) => void;
+  dispatchLetter: (action: KeyAction) => void;
 };
 
 const EnterButtun2: React.FC<Props> = ({
@@ -42,32 +44,31 @@ const EnterButtun2: React.FC<Props> = ({
   onSetAnswerLetterStates,
   setOpenFewLettersError,
   setOpenInvalidAnswerError,
+  dispatchLetter,
 }) => {
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
   // エンターキー押下ハンドラ
   const handleClickEnter = () => {
-    // 回答の入力文字数チェック
-    if (targetAnswer.length < 5) {
-      setOpenFewLettersError(true);
-      return;
-    }
+    dispatchLetter({ type: KeyActionType.ENTER });
 
-    // 回答の辞書チェック
-    if (!answerCandidates.some((candidate) => candidate === targetAnswer)) {
-      setOpenInvalidAnswerError(true);
-      return;
-    }
-
-    // キーボードに対する正誤判定
-    checkKeyLetter(collectAnswer, targetAnswer);
-
-    // 回答に対する正誤判定
-    checkAnswerLetter(collectAnswer, targetAnswer);
-
-    // １行を確定させます
-    SetAnswerRow(answerRow + 1);
-    setLetterButtonDisabled(false);
+    // // 回答の入力文字数チェック
+    // if (targetAnswer.length < 5) {
+    //   setOpenFewLettersError(true);
+    //   return;
+    // }
+    // // 回答の辞書チェック
+    // if (!answerCandidates.some((candidate) => candidate === targetAnswer)) {
+    //   setOpenInvalidAnswerError(true);
+    //   return;
+    // }
+    // // キーボードに対する正誤判定
+    // checkKeyLetter(collectAnswer, targetAnswer);
+    // // 回答に対する正誤判定
+    // checkAnswerLetter(collectAnswer, targetAnswer);
+    // // １行を確定させます
+    // SetAnswerRow(answerRow + 1);
+    // setLetterButtonDisabled(false);
   };
 
   const checkKeyLetter = (collectAnswer: string, targetAnswer: string) => {
