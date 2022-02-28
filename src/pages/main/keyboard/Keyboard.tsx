@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import LetterButton2 from "./LetterButton2";
+import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import EnterButton2 from "./EnterButton2";
 import DeleteButton from "./DeleteButton";
@@ -127,7 +127,7 @@ const Keyboard: React.FC<Props> = ({
     const items: JSX.Element[] = [];
     letters.forEach((letter) => {
       items.push(
-        <LetterButton2
+        <LetterButton
           state={"unused"}
           letter={letter}
           disabled={letterButtonDisabled}
