@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useReducer } from "react";
 import LetterButton from "./LetterButton";
 import LetterButton2 from "./LetterButton2";
 import EnterButton from "./EnterButton";
+import EnterButton2 from "./EnterButton2";
 import DeleteButton from "./DeleteButton";
 import { KeyLetterState } from "./KeyLetterState";
 import { Snackbar, Stack } from "@mui/material";
@@ -341,6 +342,18 @@ const Keyboard: React.FC<Props> = ({
         </KeyboardLines2Stack>
         <KeyboardLines3Stack direction="row" spacing={1}>
           <EnterButton
+            targetAnswer={answer.substring(5 * answerRow, 5 + 5 * answerRow)}
+            answerRow={answerRow}
+            SetAnswerRow={SetAnswerRow}
+            setLetterButtonDisabled={setLetterButtonDisabled}
+            keyLetterStates={keyLetterStates}
+            setKeyLetterStates={setKeyLetterStates}
+            answerLetterStates={answerLetterStates}
+            onSetAnswerLetterStates={onSetAnswerLetterStates}
+            setOpenFewLettersError={setOpenFewLettersError}
+            setOpenInvalidAnswerError={setOpenInvalidAnswerError}
+          />
+          <EnterButton2
             targetAnswer={answer.substring(5 * answerRow, 5 + 5 * answerRow)}
             answerRow={answerRow}
             SetAnswerRow={SetAnswerRow}
