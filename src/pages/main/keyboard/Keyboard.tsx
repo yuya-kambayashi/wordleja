@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext, useReducer } from "react";
-import LetterButton from "./LetterButton";
+import React, { useState, useEffect, useContext } from "react";
 import LetterButton2 from "./LetterButton2";
 import EnterButton from "./EnterButton";
 import EnterButton2 from "./EnterButton2";
@@ -8,7 +7,6 @@ import { KeyLetterState } from "./KeyLetterState";
 import { Snackbar, Stack } from "@mui/material";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
-import { convertToIndex } from "./KeyboardUtil";
 import { CollectAnswerContext } from "../Main";
 import { KeyActionType, KeyAction } from "./KeyboardReducer";
 import { letterStateType } from "../../main/Main";
@@ -122,6 +120,26 @@ const Keyboard: React.FC<Props> = ({
 
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
+  const letters1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
+  const letters2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
+  const letters3 = ["Z", "X", "C", "V", "B", "N", "M"];
+  const keys = (letters: string[]) => {
+    const items: JSX.Element[] = [];
+    letters.forEach((letter) => {
+      items.push(
+        <LetterButton2
+          state={"unused"}
+          letter={letter}
+          disabled={letterButtonDisabled}
+          dispatchLetter={dispatchLetter}
+        />
+      );
+    });
+    console.log(items);
+
+    return items;
+  };
+
   return (
     <>
       <LettersErrorSnackbar
@@ -158,187 +176,13 @@ const Keyboard: React.FC<Props> = ({
           DELETE
         </button>
       </div>
+
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
-          <LetterButton2
-            state={"unused"}
-            letter={"Q"}
-            disabled={letterButtonDisabled}
-            dispatchLetter={dispatchLetter}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("Q")]}
-            letter={"Q"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("W")]}
-            letter={"R"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("E")]}
-            letter={"E"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("R")]}
-            letter={"R"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("T")]}
-            letter={"T"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("Y")]}
-            letter={"Y"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("U")]}
-            letter={"U"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("I")]}
-            letter={"I"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("O")]}
-            letter={"O"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("P")]}
-            letter={"P"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
+          {keys(letters1)}
         </KeyboardLines1Stack>
         <KeyboardLines2Stack direction="row" spacing={1}>
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("A")]}
-            letter={"A"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("S")]}
-            letter={"S"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("D")]}
-            letter={"D"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("F")]}
-            letter={"F"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("G")]}
-            letter={"G"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("H")]}
-            letter={"H"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("J")]}
-            letter={"J"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("K")]}
-            letter={"K"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("L")]}
-            letter={"L"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
+          {keys(letters2)}
         </KeyboardLines2Stack>
         <KeyboardLines3Stack direction="row" spacing={1}>
           <EnterButton
@@ -366,69 +210,7 @@ const Keyboard: React.FC<Props> = ({
             setOpenInvalidAnswerError={setOpenInvalidAnswerError}
             dispatchLetter={dispatchLetter}
           />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("Z")]}
-            letter={"Z"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("X")]}
-            letter={"X"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("C")]}
-            letter={"C"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("V")]}
-            letter={"V"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("B")]}
-            letter={"B"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("N")]}
-            letter={"N"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
-          <LetterButton
-            answer={answer}
-            onSetAnswer={onSetAnswer}
-            state={keyLetterStates[convertToIndex("M")]}
-            letter={"M"}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            disabled={letterButtonDisabled}
-          />
+          {keys(letters3)}
           <DeleteButton
             setLetterButtonDisabled={setLetterButtonDisabled}
             disabled={deleteButtonDisabled}
