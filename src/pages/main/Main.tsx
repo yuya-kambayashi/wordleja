@@ -15,7 +15,7 @@ type Props = {};
 
 const initailLetterState: letterStateType = {
   answer: "",
-  answerLetterStates: Array(25).fill("#"),
+  answerLetterStates: Array(25).fill("empty"),
 };
 
 export type letterStateType = {
@@ -42,11 +42,13 @@ const Main: React.FC<Props> = () => {
       <CollectAnswer onSetCollectAnswer={setCollectAnswer} />
       <CollectAnswerContext.Provider value={collectAnswer}>
         <Header />
-        <Answers answers={answer} answerLetterStates={answerLetterStates} />
+        <Answers
+          answers={letters.answer}
+          answerLetterStates={letters.answerLetterStates}
+        />
         <Keyboard
-          answer={answer}
-          onSetAnswer={setAnswer}
-          answerLetterStates={answerLetterStates}
+          answer={letters.answer}
+          answerLetterStates={letters.answerLetterStates}
           onSetAnswerLetterStates={setAnswerLetterStates}
           dispatchLetter={dispatchLetter}
           letterState={letters}

@@ -29,7 +29,6 @@ const KeyboardLines3Stack = styled(Stack)({});
 
 type Props = {
   answer: string;
-  onSetAnswer: (answer: string) => void;
   answerLetterStates: AnswerLetterState[];
   onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
   dispatchLetter: (action: KeyAction) => void;
@@ -38,7 +37,6 @@ type Props = {
 
 const Keyboard: React.FC<Props> = ({
   answer,
-  onSetAnswer,
   answerLetterStates,
   onSetAnswerLetterStates,
   dispatchLetter,
