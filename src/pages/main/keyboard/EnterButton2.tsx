@@ -27,7 +27,6 @@ type Props = {
   keyLetterStates: KeyLetterState[];
   setKeyLetterStates: (states: KeyLetterState[]) => void;
   answerLetterStates: AnswerLetterState[];
-  onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
   setOpenFewLettersError: (open: boolean) => void;
   setOpenInvalidAnswerError: (open: boolean) => void;
   dispatchLetter: (action: KeyAction) => void;
@@ -41,7 +40,6 @@ const EnterButtun2: React.FC<Props> = ({
   keyLetterStates,
   setKeyLetterStates,
   answerLetterStates,
-  onSetAnswerLetterStates,
   setOpenFewLettersError,
   setOpenInvalidAnswerError,
   dispatchLetter,
@@ -122,8 +120,6 @@ const EnterButtun2: React.FC<Props> = ({
         checkedAnswerLetterStates[i + 5 * answerRow] = "unmatch";
       }
     }
-
-    onSetAnswerLetterStates(checkedAnswerLetterStates);
 
     dispatchLetter({
       type: KeyActionType.ENTER,

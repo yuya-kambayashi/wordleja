@@ -201,7 +201,6 @@ const Keyboard: React.FC<Props> = ({
             keyLetterStates={keyLetterStates}
             setKeyLetterStates={setKeyLetterStates}
             answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
             setOpenFewLettersError={setOpenFewLettersError}
             setOpenInvalidAnswerError={setOpenInvalidAnswerError}
             dispatchLetter={dispatchLetter}
