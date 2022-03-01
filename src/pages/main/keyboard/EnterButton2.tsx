@@ -50,29 +50,23 @@ const EnterButtun2: React.FC<Props> = ({
 
   // エンターキー押下ハンドラ
   const handleClickEnter = () => {
-    console.log("dispatchLetter({ type: KeyActionType.ENTER });");
-
-    const newStates3 = Array(25).fill("exactMatch");
-
-    dispatchLetter({ type: KeyActionType.ENTER, targett2: newStates3 });
-
-    // // 回答の入力文字数チェック
-    // if (targetAnswer.length < 5) {
-    //   setOpenFewLettersError(true);
-    //   return;
-    // }
-    // // 回答の辞書チェック
-    // if (!answerCandidates.some((candidate) => candidate === targetAnswer)) {
-    //   setOpenInvalidAnswerError(true);
-    //   return;
-    // }
-    // // キーボードに対する正誤判定
-    // checkKeyLetter(collectAnswer, targetAnswer);
-    // // 回答に対する正誤判定
-    // checkAnswerLetter(collectAnswer, targetAnswer);
-    // // １行を確定させます
-    // SetAnswerRow(answerRow + 1);
-    // setLetterButtonDisabled(false);
+    // 回答の入力文字数チェック
+    if (targetAnswer.length < 5) {
+      setOpenFewLettersError(true);
+      return;
+    }
+    // 回答の辞書チェック
+    if (!answerCandidates.some((candidate) => candidate === targetAnswer)) {
+      setOpenInvalidAnswerError(true);
+      return;
+    }
+    // キーボードに対する正誤判定
+    checkKeyLetter(collectAnswer, targetAnswer);
+    // 回答に対する正誤判定
+    checkAnswerLetter(collectAnswer, targetAnswer);
+    // １行を確定させます
+    SetAnswerRow(answerRow + 1);
+    setLetterButtonDisabled(false);
   };
 
   const checkKeyLetter = (collectAnswer: string, targetAnswer: string) => {
@@ -130,6 +124,11 @@ const EnterButtun2: React.FC<Props> = ({
     }
 
     onSetAnswerLetterStates(checkedAnswerLetterStates);
+
+    dispatchLetter({
+      type: KeyActionType.ENTER,
+      target2: checkedAnswerLetterStates,
+    });
   };
 
   return (

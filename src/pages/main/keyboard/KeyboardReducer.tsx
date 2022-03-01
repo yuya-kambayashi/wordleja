@@ -29,7 +29,7 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
     case KeyActionType.ENTER:
       return {
         ...letterState,
-        answerLetterStates: action.targett2,
+        answerLetterStates: action.target2,
       };
 
     default:
@@ -40,5 +40,5 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
 export type KeyAction = {
   type: KeyActionType;
   target?: string;
-  targett2?: AnswerLetterState[];
+  target2?: AnswerLetterState[];
 };
