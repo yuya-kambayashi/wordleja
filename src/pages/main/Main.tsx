@@ -4,11 +4,8 @@ import Answers from "./answer/Answers";
 import Keyboard from "./keyboard/Keyboard";
 import { AnswerLetterState } from "./answer/AnswerLetterState";
 import CollectAnswer from "./CollectAnswer";
-import {
-  KeyActionType,
-  reducerKeys,
-  KeyAction,
-} from "./keyboard/KeyboardReducer";
+import { reducerKeys } from "./keyboard/KeyboardReducer";
+import { KeyLetterState } from "../main/keyboard/KeyLetterState";
 
 export const CollectAnswerContext = createContext("");
 type Props = {};
@@ -16,26 +13,21 @@ type Props = {};
 const initailLetterState: letterStateType = {
   answer: "",
   answerLetterStates: Array(25).fill("empty"),
+  keyLetterStates: Array(26).fill("unused"),
 };
 
 export type letterStateType = {
   answer: string;
   answerLetterStates: AnswerLetterState[];
+  keyLetterStates: KeyLetterState[];
 };
 
 const Main: React.FC<Props> = () => {
   // 正答
   const [collectAnswer, setCollectAnswer] = useState<string>("");
 
-  // 回答
-  const [answer, setAnswer] = useState<string>("");
-
+  // 回答、キーボードの状態
   const [letters, dispatchLetter] = useReducer(reducerKeys, initailLetterState);
-
-  // 回答に対するキーの状態
-  const [answerLetterStates, setAnswerLetterStates] = useState<
-    AnswerLetterState[]
-  >(Array(25).fill("empty"));
 
   return (
     <>
@@ -49,7 +41,6 @@ const Main: React.FC<Props> = () => {
         <Keyboard
           answer={letters.answer}
           answerLetterStates={letters.answerLetterStates}
-          onSetAnswerLetterStates={setAnswerLetterStates}
           dispatchLetter={dispatchLetter}
           letterState={letters}
         />

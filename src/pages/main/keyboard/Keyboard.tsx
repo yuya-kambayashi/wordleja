@@ -31,7 +31,6 @@ const KeyboardLines3Stack = styled(Stack)({});
 type Props = {
   answer: string;
   answerLetterStates: AnswerLetterState[];
-  onSetAnswerLetterStates: (newAnswerLetterStates: AnswerLetterState[]) => void;
   dispatchLetter: (action: KeyAction) => void;
   letterState: letterStateType;
 };
@@ -39,7 +38,6 @@ type Props = {
 const Keyboard: React.FC<Props> = ({
   answer,
   answerLetterStates,
-  onSetAnswerLetterStates,
   dispatchLetter,
   letterState,
 }) => {
@@ -182,18 +180,6 @@ const Keyboard: React.FC<Props> = ({
           {keys(letters2)}
         </KeyboardLines2Stack>
         <KeyboardLines3Stack direction="row" spacing={1}>
-          <EnterButton
-            targetAnswer={answer.substring(5 * answerRow, 5 + 5 * answerRow)}
-            answerRow={answerRow}
-            SetAnswerRow={SetAnswerRow}
-            setLetterButtonDisabled={setLetterButtonDisabled}
-            keyLetterStates={keyLetterStates}
-            setKeyLetterStates={setKeyLetterStates}
-            answerLetterStates={answerLetterStates}
-            onSetAnswerLetterStates={onSetAnswerLetterStates}
-            setOpenFewLettersError={setOpenFewLettersError}
-            setOpenInvalidAnswerError={setOpenInvalidAnswerError}
-          />
           <EnterButton2
             answerRow={answerRow}
             SetAnswerRow={SetAnswerRow}
