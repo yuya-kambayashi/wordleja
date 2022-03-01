@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import LetterButton from "./LetterButton";
-import EnterButton2 from "./EnterButton2";
+import EnterButton from "./EnterButton";
 import DeleteButton from "./DeleteButton";
-import { KeyLetterState } from "./KeyLetterState";
 import { Snackbar, Stack } from "@mui/material";
-import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { styled } from "@mui/material/styles";
 import { CollectAnswerContext } from "../Main";
 import { KeyActionType, KeyAction } from "./KeyboardReducer";
@@ -144,21 +142,6 @@ const Keyboard: React.FC<Props> = ({ answer, dispatchLetter, letterState }) => {
         message={collectAnswer}
         onClose={handleOpenCollectAnswer}
       />
-      <div>
-        <p>{letterState.answer}</p>
-        <p>{letterState.answerLetterStates}</p>
-        <button
-          onClick={() =>
-            dispatchLetter({ type: KeyActionType.INPUT, target: "B" })
-          }
-        >
-          INPUT_B
-        </button>
-        <button onClick={() => dispatchLetter({ type: KeyActionType.DELETE })}>
-          DELETE
-        </button>
-      </div>
-
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
           {keys(letters1)}
@@ -167,7 +150,7 @@ const Keyboard: React.FC<Props> = ({ answer, dispatchLetter, letterState }) => {
           {keys(letters2)}
         </KeyboardLines2Stack>
         <KeyboardLines3Stack direction="row" spacing={1}>
-          <EnterButton2
+          <EnterButton
             answerRow={answerRow}
             SetAnswerRow={SetAnswerRow}
             setLetterButtonDisabled={setLetterButtonDisabled}
