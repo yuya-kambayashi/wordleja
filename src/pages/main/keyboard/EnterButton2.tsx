@@ -3,6 +3,7 @@ import { Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { CollectAnswerContext } from "../Main";
 import { KeyLetterState } from "./KeyLetterState";
+import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { convertToIndex } from "./KeyboardUtil";
 import { answerCandidates } from "../../main/AnswerCandidates";
 import { KeyAction, KeyActionType } from "./KeyboardReducer";
@@ -23,8 +24,6 @@ type Props = {
   answerRow: number;
   SetAnswerRow: (index: number) => void;
   setLetterButtonDisabled: (disabled: boolean) => void;
-  keyLetterStates: KeyLetterState[];
-  setKeyLetterStates: (states: KeyLetterState[]) => void;
   setOpenFewLettersError: (open: boolean) => void;
   setOpenInvalidAnswerError: (open: boolean) => void;
   dispatchLetter: (action: KeyAction) => void;
@@ -35,8 +34,6 @@ const EnterButtun2: React.FC<Props> = ({
   answerRow,
   SetAnswerRow,
   setLetterButtonDisabled,
-  keyLetterStates,
-  setKeyLetterStates,
   setOpenFewLettersError,
   setOpenInvalidAnswerError,
   dispatchLetter,
@@ -62,19 +59,32 @@ const EnterButtun2: React.FC<Props> = ({
       return;
     }
     // キーボードに対する正誤判定
-    checkKeyLetter(collectAnswer, targetAnswer);
+    const checkedKeyLetterState = checkKeyLetter(collectAnswer, targetAnswer);
     // 回答に対する正誤判定
-    checkAnswerLetter(collectAnswer, targetAnswer);
+    const checkedAnswerLetterState = checkAnswerLetter(
+      collectAnswer,
+      targetAnswer
+    );
+
+    dispatchLetter({
+      type: KeyActionType.ENTER,
+      target2: checkedAnswerLetterState,
+      target3: checkedKeyLetterState,
+    });
+
     // １行を確定させます
     SetAnswerRow(answerRow + 1);
     setLetterButtonDisabled(false);
   };
 
-  const checkKeyLetter = (collectAnswer: string, targetAnswer: string) => {
+  const checkKeyLetter = (
+    collectAnswer: string,
+    targetAnswer: string
+  ): KeyLetterState[] => {
     //
     // キーボードの正誤判定
     //
-    let checkedKeyLetterState = keyLetterStates.slice();
+    let checkedKeyLetterState = letterState.keyLetterStates.slice();
 
     // 正誤判定
     for (let i = 0; i < targetAnswer.length; i++) {
@@ -98,10 +108,13 @@ const EnterButtun2: React.FC<Props> = ({
       }
     }
 
-    setKeyLetterStates(checkedKeyLetterState);
+    return checkedKeyLetterState;
   };
 
-  const checkAnswerLetter = (collectAnswer: string, targetAnswer: string) => {
+  const checkAnswerLetter = (
+    collectAnswer: string,
+    targetAnswer: string
+  ): AnswerLetterState[] => {
     //
     // 回答の正誤判定
     //
@@ -124,10 +137,7 @@ const EnterButtun2: React.FC<Props> = ({
       }
     }
 
-    dispatchLetter({
-      type: KeyActionType.ENTER,
-      target2: checkedAnswerLetterStates,
-    });
+    return checkedAnswerLetterStates;
   };
 
   return (

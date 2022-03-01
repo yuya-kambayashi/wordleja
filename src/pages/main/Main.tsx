@@ -17,8 +17,11 @@ const initailLetterState: letterStateType = {
 };
 
 export type letterStateType = {
+  // 回答
   answer: string;
+  // 回答の各文字の状態
   answerLetterStates: AnswerLetterState[];
+  // キーボードの各文字の状態
   keyLetterStates: KeyLetterState[];
 };
 
@@ -40,7 +43,6 @@ const Main: React.FC<Props> = () => {
         />
         <Keyboard
           answer={letters.answer}
-          answerLetterStates={letters.answerLetterStates}
           dispatchLetter={dispatchLetter}
           letterState={letters}
         />

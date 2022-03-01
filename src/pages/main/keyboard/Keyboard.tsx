@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import LetterButton from "./LetterButton";
-import EnterButton from "./EnterButton";
 import EnterButton2 from "./EnterButton2";
 import DeleteButton from "./DeleteButton";
 import { KeyLetterState } from "./KeyLetterState";
@@ -30,23 +29,11 @@ const KeyboardLines3Stack = styled(Stack)({});
 
 type Props = {
   answer: string;
-  answerLetterStates: AnswerLetterState[];
   dispatchLetter: (action: KeyAction) => void;
   letterState: letterStateType;
 };
 
-const Keyboard: React.FC<Props> = ({
-  answer,
-  answerLetterStates,
-  dispatchLetter,
-  letterState,
-}) => {
-  // 各キーの状態の配列
-  const initalKeyLetterState = Array(26).fill("unused");
-
-  const [keyLetterStates, setKeyLetterStates] =
-    useState<KeyLetterState[]>(initalKeyLetterState);
-
+const Keyboard: React.FC<Props> = ({ answer, dispatchLetter, letterState }) => {
   const [answerRow, SetAnswerRow] = useState<number>(0);
 
   // 文字キーの押下制御
@@ -125,7 +112,7 @@ const Keyboard: React.FC<Props> = ({
     letters.forEach((letter) => {
       items.push(
         <LetterButton
-          state={keyLetterStates[convertToIndex(letter)]}
+          state={letterState.keyLetterStates[convertToIndex(letter)]}
           letter={letter}
           disabled={letterButtonDisabled}
           dispatchLetter={dispatchLetter}
@@ -184,8 +171,6 @@ const Keyboard: React.FC<Props> = ({
             answerRow={answerRow}
             SetAnswerRow={SetAnswerRow}
             setLetterButtonDisabled={setLetterButtonDisabled}
-            keyLetterStates={keyLetterStates}
-            setKeyLetterStates={setKeyLetterStates}
             setOpenFewLettersError={setOpenFewLettersError}
             setOpenInvalidAnswerError={setOpenInvalidAnswerError}
             dispatchLetter={dispatchLetter}

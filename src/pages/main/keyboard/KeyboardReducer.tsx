@@ -1,5 +1,6 @@
 import { letterStateType } from "../Main";
 import { AnswerLetterState } from "../answer/AnswerLetterState";
+import { KeyLetterState } from "../keyboard/KeyLetterState";
 
 export enum KeyActionType {
   INPUT = "input",
@@ -30,6 +31,7 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
       return {
         ...letterState,
         answerLetterStates: action.target2,
+        keyLetterStates: action.target3,
       };
 
     default:
@@ -41,4 +43,5 @@ export type KeyAction = {
   type: KeyActionType;
   target?: string;
   target2?: AnswerLetterState[];
+  target3?: KeyLetterState[];
 };
