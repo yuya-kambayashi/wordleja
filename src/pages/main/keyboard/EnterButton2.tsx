@@ -4,9 +4,9 @@ import { styled } from "@mui/material/styles";
 import { CollectAnswerContext } from "../Main";
 import { KeyLetterState } from "./KeyLetterState";
 import { convertToIndex } from "./KeyboardUtil";
-import { AnswerLetterState } from "../answer/AnswerLetterState";
 import { answerCandidates } from "../../main/AnswerCandidates";
 import { KeyAction, KeyActionType } from "./KeyboardReducer";
+import { letterStateType } from "../../main/Main";
 
 const CustomButton = styled(Button)({
   backgroundColor: "#D3D6DA",
@@ -26,10 +26,10 @@ type Props = {
   setLetterButtonDisabled: (disabled: boolean) => void;
   keyLetterStates: KeyLetterState[];
   setKeyLetterStates: (states: KeyLetterState[]) => void;
-  answerLetterStates: AnswerLetterState[];
   setOpenFewLettersError: (open: boolean) => void;
   setOpenInvalidAnswerError: (open: boolean) => void;
   dispatchLetter: (action: KeyAction) => void;
+  letterState: letterStateType;
 };
 
 const EnterButtun2: React.FC<Props> = ({
@@ -39,10 +39,10 @@ const EnterButtun2: React.FC<Props> = ({
   setLetterButtonDisabled,
   keyLetterStates,
   setKeyLetterStates,
-  answerLetterStates,
   setOpenFewLettersError,
   setOpenInvalidAnswerError,
   dispatchLetter,
+  letterState,
 }) => {
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
@@ -102,7 +102,7 @@ const EnterButtun2: React.FC<Props> = ({
     //
     // 回答の正誤判定
     //
-    let checkedAnswerLetterStates = answerLetterStates.slice();
+    let checkedAnswerLetterStates = letterState.answerLetterStates.slice();
 
     for (let i = 0; i < targetAnswer.length; i++) {
       const answeLetter = targetAnswer.substring(i, i + 1);

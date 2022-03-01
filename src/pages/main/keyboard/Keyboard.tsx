@@ -200,10 +200,10 @@ const Keyboard: React.FC<Props> = ({
             setLetterButtonDisabled={setLetterButtonDisabled}
             keyLetterStates={keyLetterStates}
             setKeyLetterStates={setKeyLetterStates}
-            answerLetterStates={answerLetterStates}
             setOpenFewLettersError={setOpenFewLettersError}
             setOpenInvalidAnswerError={setOpenInvalidAnswerError}
             dispatchLetter={dispatchLetter}
+            letterState={letterState}
           />
           {keys(letters3)}
           <DeleteButton
