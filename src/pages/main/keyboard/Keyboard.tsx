@@ -10,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import { CollectAnswerContext } from "../Main";
 import { KeyActionType, KeyAction } from "./KeyboardReducer";
 import { letterStateType } from "../../main/Main";
+import { convertToIndex } from "./KeyboardUtil";
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
@@ -126,7 +127,7 @@ const Keyboard: React.FC<Props> = ({
     letters.forEach((letter) => {
       items.push(
         <LetterButton
-          state={"unused"}
+          state={keyLetterStates[convertToIndex(letter)]}
           letter={letter}
           disabled={letterButtonDisabled}
           dispatchLetter={dispatchLetter}
