@@ -1,4 +1,5 @@
 import { letterStateType } from "../Main";
+import { AnswerLetterState } from "../answer/AnswerLetterState";
 
 export enum KeyActionType {
   INPUT = "input",
@@ -6,10 +7,7 @@ export enum KeyActionType {
   ENTER = "enter",
 }
 
-export const reducerKeys = (
-  letterState: letterStateType,
-  action: KeyAction
-) => {
+export const reducerKeys = (letterState: any, action: KeyAction) => {
   switch (action.type) {
     case KeyActionType.INPUT:
       let newStates = letterState.answerLetterStates.slice();
@@ -29,10 +27,9 @@ export const reducerKeys = (
         answerLetterStates: newStates2,
       };
     case KeyActionType.ENTER:
-      const newStates3 = Array(25).fill("exactMatch");
       return {
         ...letterState,
-        answerLetterStates: newStates3,
+        answerLetterStates: action.targett2,
       };
 
     default:
@@ -43,4 +40,5 @@ export const reducerKeys = (
 export type KeyAction = {
   type: KeyActionType;
   target?: string;
+  targett2?: AnswerLetterState[];
 };
