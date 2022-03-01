@@ -16,7 +16,7 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
       console.log(newStates);
       return {
         ...letterState,
-        answer: letterState.answer + action.target,
+        answer: letterState.answer + action.inputLetter,
         answerLetterStates: newStates,
       };
     case KeyActionType.DELETE:
@@ -30,8 +30,8 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
     case KeyActionType.ENTER:
       return {
         ...letterState,
-        answerLetterStates: action.target2,
-        keyLetterStates: action.target3,
+        answerLetterStates: action.answerLetterState,
+        keyLetterStates: action.keyLetterState,
       };
 
     default:
@@ -41,7 +41,7 @@ export const reducerKeys = (letterState: any, action: KeyAction) => {
 
 export type KeyAction = {
   type: KeyActionType;
-  target?: string;
-  target2?: AnswerLetterState[];
-  target3?: KeyLetterState[];
+  inputLetter?: string;
+  answerLetterState?: AnswerLetterState[];
+  keyLetterState?: KeyLetterState[];
 };

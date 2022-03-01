@@ -38,7 +38,7 @@ const LetterButton: React.FC<Props> = ({
       {state === "exactMatch" && (
         <CustomButton
           onClick={() =>
-            dispatchLetter({ type: KeyActionType.INPUT, target: letter })
+            dispatchLetter({ type: KeyActionType.INPUT, inputLetter: letter })
           }
           style={{ backgroundColor: "#6AAA64" }}
           disabled={disabled}
@@ -49,7 +49,7 @@ const LetterButton: React.FC<Props> = ({
       {state === "partialMatch" && (
         <CustomButton
           onClick={() =>
-            dispatchLetter({ type: KeyActionType.INPUT, target: letter })
+            dispatchLetter({ type: KeyActionType.INPUT, inputLetter: letter })
           }
           style={{ backgroundColor: "#C9B458" }}
           disabled={disabled}
@@ -60,7 +60,7 @@ const LetterButton: React.FC<Props> = ({
       {state === "used" && (
         <CustomButton
           onClick={() =>
-            dispatchLetter({ type: KeyActionType.INPUT, target: letter })
+            dispatchLetter({ type: KeyActionType.INPUT, inputLetter: letter })
           }
           style={{ backgroundColor: "#787C7E" }}
           disabled={disabled}
@@ -71,7 +71,7 @@ const LetterButton: React.FC<Props> = ({
       {state === "unused" && (
         <CustomButton
           onClick={() =>
-            dispatchLetter({ type: KeyActionType.INPUT, target: letter })
+            dispatchLetter({ type: KeyActionType.INPUT, inputLetter: letter })
           }
           style={{ backgroundColor: "#D3D6DA" }}
           disabled={disabled}
