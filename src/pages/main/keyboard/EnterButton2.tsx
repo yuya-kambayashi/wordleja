@@ -20,7 +20,6 @@ const CustomTypography = styled(Typography)({
 });
 
 type Props = {
-  targetAnswer: string;
   answerRow: number;
   SetAnswerRow: (index: number) => void;
   setLetterButtonDisabled: (disabled: boolean) => void;
@@ -33,7 +32,6 @@ type Props = {
 };
 
 const EnterButtun2: React.FC<Props> = ({
-  targetAnswer,
   answerRow,
   SetAnswerRow,
   setLetterButtonDisabled,
@@ -45,6 +43,11 @@ const EnterButtun2: React.FC<Props> = ({
   letterState,
 }) => {
   const collectAnswer = useContext(CollectAnswerContext) as string;
+
+  const targetAnswer = letterState.answer.substring(
+    5 * answerRow,
+    5 + 5 * answerRow
+  );
 
   // エンターキー押下ハンドラ
   const handleClickEnter = () => {

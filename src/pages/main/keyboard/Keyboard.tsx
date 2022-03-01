@@ -194,7 +194,6 @@ const Keyboard: React.FC<Props> = ({
             setOpenInvalidAnswerError={setOpenInvalidAnswerError}
           />
           <EnterButton2
-            targetAnswer={answer.substring(5 * answerRow, 5 + 5 * answerRow)}
             answerRow={answerRow}
             SetAnswerRow={SetAnswerRow}
             setLetterButtonDisabled={setLetterButtonDisabled}
