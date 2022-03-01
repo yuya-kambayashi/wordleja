@@ -50,6 +50,7 @@ const EnterButtun2: React.FC<Props> = ({
 
   // エンターキー押下ハンドラ
   const handleClickEnter = () => {
+    console.log("dispatchLetter({ type: KeyActionType.ENTER });");
     dispatchLetter({ type: KeyActionType.ENTER });
 
     // // 回答の入力文字数チェック

@@ -133,8 +133,6 @@ const Keyboard: React.FC<Props> = ({
         />
       );
     });
-    console.log(items);
-
     return items;
   };
 
