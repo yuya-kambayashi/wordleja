@@ -37,10 +37,7 @@ const Main: React.FC<Props> = () => {
       <CollectAnswer onSetCollectAnswer={setCollectAnswer} />
       <CollectAnswerContext.Provider value={collectAnswer}>
         <Header />
-        <Answers
-          answers={letters.answer}
-          answerLetterStates={letters.answerLetterStates}
-        />
+        <Answers LetterState={letters} />
         <Keyboard dispatchLetter={dispatchLetter} letterState={letters} />
       </CollectAnswerContext.Provider>
     </>
