@@ -26,12 +26,11 @@ const KeyboardLines2Stack = styled(Stack)({ paddingLeft: "40px" });
 const KeyboardLines3Stack = styled(Stack)({});
 
 type Props = {
-  answer: string;
   dispatchLetter: (action: KeyAction) => void;
   letterState: letterStateType;
 };
 
-const Keyboard: React.FC<Props> = ({ answer, dispatchLetter, letterState }) => {
+const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
   const [answerRow, SetAnswerRow] = useState<number>(0);
 
   // 文字キーの押下制御
@@ -41,12 +40,12 @@ const Keyboard: React.FC<Props> = ({ answer, dispatchLetter, letterState }) => {
   useEffect(() => {
     // 回答の行に対して文字数が超えていたら押下不可とします
     // →　エンター押下で解除
-    console.log(answer);
-    if (answer.length >= 5 + 5 * answerRow) {
+    console.log(letterState.answer);
+    if (letterState.answer.length >= 5 + 5 * answerRow) {
       console.log(letterButtonDisabled);
       setLetterButtonDisabled(true);
     }
-  }, [answer, answerRow]);
+  }, [letterState.answer, answerRow]);
 
   // 文字数チェックエラーのハンドラ
   const [openFewLettersError, setOpenFewLettersError] = React.useState(false);

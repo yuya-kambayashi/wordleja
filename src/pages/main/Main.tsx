@@ -41,11 +41,7 @@ const Main: React.FC<Props> = () => {
           answers={letters.answer}
           answerLetterStates={letters.answerLetterStates}
         />
-        <Keyboard
-          answer={letters.answer}
-          dispatchLetter={dispatchLetter}
-          letterState={letters}
-        />
+        <Keyboard dispatchLetter={dispatchLetter} letterState={letters} />
       </CollectAnswerContext.Provider>
     </>
   );
