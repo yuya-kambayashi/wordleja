@@ -133,7 +133,7 @@ const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
         open={openInvalidAnswerError}
         autoHideDuration={1000}
         message="Not in word list"
-        onClose={handleOpenCollectAnswer}
+        onClose={handleCloseInvalidAnswerError}
       />
       <LettersErrorSnackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -155,6 +155,7 @@ const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
             setLetterButtonDisabled={setLetterButtonDisabled}
             setOpenFewLettersError={setOpenFewLettersError}
             setOpenInvalidAnswerError={setOpenInvalidAnswerError}
+            setOpenCollectAnswer={setOpenCollectAnswer}
             dispatchLetter={dispatchLetter}
             letterState={letterState}
           />

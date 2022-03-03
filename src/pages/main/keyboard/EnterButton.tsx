@@ -26,6 +26,7 @@ type Props = {
   setLetterButtonDisabled: (disabled: boolean) => void;
   setOpenFewLettersError: (open: boolean) => void;
   setOpenInvalidAnswerError: (open: boolean) => void;
+  setOpenCollectAnswer: (open: boolean) => void;
   dispatchLetter: (action: KeyAction) => void;
   letterState: letterStateType;
 };
@@ -36,6 +37,7 @@ const EnterButtun: React.FC<Props> = ({
   setLetterButtonDisabled,
   setOpenFewLettersError,
   setOpenInvalidAnswerError,
+  setOpenCollectAnswer,
   dispatchLetter,
   letterState,
 }) => {
@@ -75,6 +77,14 @@ const EnterButtun: React.FC<Props> = ({
     // １行を確定させます
     SetAnswerRow(answerRow + 1);
     setLetterButtonDisabled(false);
+
+    // 全行入力が終わって、間違っている場合は回答を表示します
+    if (
+      answerRow == 4 &&
+      checkedAnswerLetterState.some((answer) => answer !== "exactMatch")
+    ) {
+      setOpenCollectAnswer(true);
+    }
   };
 
   const checkKeyLetter = (
