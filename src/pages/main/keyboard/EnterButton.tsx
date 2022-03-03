@@ -25,9 +25,6 @@ type Props = {
   answerRow: number;
   SetAnswerRow: (index: number) => void;
   setLetterButtonDisabled: (disabled: boolean) => void;
-  setOpenFewLettersError: (open: boolean) => void;
-  setOpenInvalidAnswerError: (open: boolean) => void;
-  setOpenCollectAnswer: (open: boolean) => void;
   dispatchLetter: (action: KeyAction) => void;
   letterState: letterStateType;
   dispatchAlerts: (action: AlertAction) => void;
@@ -37,9 +34,6 @@ const EnterButtun: React.FC<Props> = ({
   answerRow,
   SetAnswerRow,
   setLetterButtonDisabled,
-  setOpenFewLettersError,
-  setOpenInvalidAnswerError,
-  setOpenCollectAnswer,
   dispatchLetter,
   letterState,
   dispatchAlerts,
@@ -55,14 +49,12 @@ const EnterButtun: React.FC<Props> = ({
   const handleClickEnter = () => {
     // 回答の入力文字数チェック
     if (targetAnswer.length < 5) {
-      setOpenFewLettersError(true);
-      dispatchAlerts({ type: AlertActionType.FEWLETTERS });
+      dispatchAlerts({ type: AlertActionType.FEWLETTERS, value: true });
       return;
     }
     // 回答の辞書チェック
     if (!answerCandidates.some((candidate) => candidate === targetAnswer)) {
-      setOpenInvalidAnswerError(true);
-      dispatchAlerts({ type: AlertActionType.INVALIDANSWER });
+      dispatchAlerts({ type: AlertActionType.INVALIDANSWER, value: true });
       return;
     }
     // キーボードに対する正誤判定
@@ -85,11 +77,10 @@ const EnterButtun: React.FC<Props> = ({
 
     // 全行入力が終わって、間違っている場合は回答を表示します
     if (
-      answerRow == 4 &&
+      answerRow === 4 &&
       checkedAnswerLetterState.some((answer) => answer !== "exactMatch")
     ) {
-      setOpenCollectAnswer(true);
-      dispatchAlerts({ type: AlertActionType.INCORRECTLYEND });
+      dispatchAlerts({ type: AlertActionType.INCORRECTLYEND, value: true });
     }
   };
 

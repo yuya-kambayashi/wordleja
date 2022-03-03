@@ -8,7 +8,7 @@ import { CollectAnswerContext } from "../Main";
 import { KeyActionType, KeyAction } from "./KeyboardReducer";
 import { letterStateType } from "../../main/Main";
 import { convertToIndex } from "./KeyboardUtil";
-import { reducerAlerts } from "./AlertsReducer";
+import { AlertActionType, reducerAlerts } from "./AlertsReducer";
 
 export type AlertType = {
   fewLettersError: boolean;
@@ -60,47 +60,8 @@ const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
     }
   }, [letterState.answer, answerRow]);
 
+  // エラーハンドリング
   const [alerts, dispatchAlerts] = useReducer(reducerAlerts, initailAlerts);
-
-  // 文字数チェックエラーのハンドラ
-  const [openFewLettersError, setOpenFewLettersError] = React.useState(false);
-
-  const handleCloseFewLettersError = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenFewLettersError(false);
-  };
-
-  // 回答の辞書チェックエラーのハンドラ
-  const [openInvalidAnswerError, setOpenInvalidAnswerError] =
-    React.useState(false);
-
-  const handleCloseInvalidAnswerError = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenInvalidAnswerError(false);
-  };
-
-  // 正答表示のハンドラ
-  const [openCollectAnswer, setOpenCollectAnswer] = React.useState(false);
-
-  const handleOpenCollectAnswer = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenCollectAnswer(false);
-  };
 
   // 削除キーの押下制御
   const [deleteButtonDisabled, setDeleteButtonDisabled] =
@@ -138,26 +99,38 @@ const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
     <>
       <LettersErrorSnackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        //open={openFewLettersError}
         open={alerts.fewLettersError}
         autoHideDuration={1000}
         message="Not enough letters"
-        onClose={handleCloseFewLettersError}
+        onClose={() =>
+          dispatchAlerts({
+            type: AlertActionType.FEWLETTERS,
+            value: false,
+          })
+        }
       />
       <LettersErrorSnackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        //open={openInvalidAnswerError}
         open={alerts.invalidAnswerError}
         autoHideDuration={1000}
         message="Not in word list"
-        onClose={handleCloseInvalidAnswerError}
+        onClose={() =>
+          dispatchAlerts({
+            type: AlertActionType.INVALIDANSWER,
+            value: false,
+          })
+        }
       />
       <LettersErrorSnackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        //open={openCollectAnswer}
         open={alerts.incorrectlyEndError}
         message={collectAnswer}
-        onClose={handleOpenCollectAnswer}
+        onClose={() =>
+          dispatchAlerts({
+            type: AlertActionType.INCORRECTLYEND,
+            value: false,
+          })
+        }
       />
       <KeyboardLinesStack direction="column" spacing={1}>
         <KeyboardLines1Stack direction="row" spacing={1}>
@@ -171,9 +144,6 @@ const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
             answerRow={answerRow}
             SetAnswerRow={SetAnswerRow}
             setLetterButtonDisabled={setLetterButtonDisabled}
-            setOpenFewLettersError={setOpenFewLettersError}
-            setOpenInvalidAnswerError={setOpenInvalidAnswerError}
-            setOpenCollectAnswer={setOpenCollectAnswer}
             dispatchLetter={dispatchLetter}
             letterState={letterState}
             dispatchAlerts={dispatchAlerts}
