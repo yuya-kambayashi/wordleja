@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useReducer } from "react";
 import LetterButton from "./LetterButton";
 import EnterButton from "./EnterButton";
 import DeleteButton from "./DeleteButton";
@@ -8,6 +8,19 @@ import { CollectAnswerContext } from "../Main";
 import { KeyActionType, KeyAction } from "./KeyboardReducer";
 import { letterStateType } from "../../main/Main";
 import { convertToIndex } from "./KeyboardUtil";
+import { reducerAlerts } from "./AlertsReducer";
+
+export type AlertType = {
+  fewLettersError: boolean;
+  invalidAnswerError: boolean;
+  incorrectlyEndError: boolean;
+};
+
+const initailAlerts: AlertType = {
+  fewLettersError: false,
+  invalidAnswerError: false,
+  incorrectlyEndError: false,
+};
 
 const KeyboardLinesStack = styled(Stack)({
   position: "absolute",
@@ -46,6 +59,8 @@ const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
       setLetterButtonDisabled(true);
     }
   }, [letterState.answer, answerRow]);
+
+  const [alerts, dispatchAlerts] = useReducer(reducerAlerts, initailAlerts);
 
   // 文字数チェックエラーのハンドラ
   const [openFewLettersError, setOpenFewLettersError] = React.useState(false);
@@ -123,21 +138,24 @@ const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
     <>
       <LettersErrorSnackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={openFewLettersError}
+        //open={openFewLettersError}
+        open={alerts.fewLettersError}
         autoHideDuration={1000}
         message="Not enough letters"
         onClose={handleCloseFewLettersError}
       />
       <LettersErrorSnackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={openInvalidAnswerError}
+        //open={openInvalidAnswerError}
+        open={alerts.invalidAnswerError}
         autoHideDuration={1000}
         message="Not in word list"
         onClose={handleCloseInvalidAnswerError}
       />
       <LettersErrorSnackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={openCollectAnswer}
+        //open={openCollectAnswer}
+        open={alerts.incorrectlyEndError}
         message={collectAnswer}
         onClose={handleOpenCollectAnswer}
       />
@@ -158,6 +176,7 @@ const Keyboard: React.FC<Props> = ({ dispatchLetter, letterState }) => {
             setOpenCollectAnswer={setOpenCollectAnswer}
             dispatchLetter={dispatchLetter}
             letterState={letterState}
+            dispatchAlerts={dispatchAlerts}
           />
           {keys(letters3)}
           <DeleteButton

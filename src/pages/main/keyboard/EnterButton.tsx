@@ -8,6 +8,7 @@ import { convertToIndex } from "./KeyboardUtil";
 import { answerCandidates } from "../AnswerCandidates";
 import { KeyAction, KeyActionType } from "./KeyboardReducer";
 import { letterStateType } from "../Main";
+import { AlertAction, AlertActionType } from "./AlertsReducer";
 
 const CustomButton = styled(Button)({
   backgroundColor: "#D3D6DA",
@@ -29,6 +30,7 @@ type Props = {
   setOpenCollectAnswer: (open: boolean) => void;
   dispatchLetter: (action: KeyAction) => void;
   letterState: letterStateType;
+  dispatchAlerts: (action: AlertAction) => void;
 };
 
 const EnterButtun: React.FC<Props> = ({
@@ -40,6 +42,7 @@ const EnterButtun: React.FC<Props> = ({
   setOpenCollectAnswer,
   dispatchLetter,
   letterState,
+  dispatchAlerts,
 }) => {
   const collectAnswer = useContext(CollectAnswerContext) as string;
 
@@ -53,11 +56,13 @@ const EnterButtun: React.FC<Props> = ({
     // 回答の入力文字数チェック
     if (targetAnswer.length < 5) {
       setOpenFewLettersError(true);
+      dispatchAlerts({ type: AlertActionType.FEWLETTERS });
       return;
     }
     // 回答の辞書チェック
     if (!answerCandidates.some((candidate) => candidate === targetAnswer)) {
       setOpenInvalidAnswerError(true);
+      dispatchAlerts({ type: AlertActionType.INVALIDANSWER });
       return;
     }
     // キーボードに対する正誤判定
@@ -84,6 +89,7 @@ const EnterButtun: React.FC<Props> = ({
       checkedAnswerLetterState.some((answer) => answer !== "exactMatch")
     ) {
       setOpenCollectAnswer(true);
+      dispatchAlerts({ type: AlertActionType.INCORRECTLYEND });
     }
   };
 
