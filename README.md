@@ -1,3 +1,2 @@
 # wordleja
 
-Created with CodeSandbox
