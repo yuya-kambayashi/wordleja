@@ -1,3 +1,5 @@
 # wordleja
 
 # TODO
+- a
+- 
